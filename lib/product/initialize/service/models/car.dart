@@ -1,26 +1,4 @@
 class Car {
-  final String vinNumber;
-  final String brand;
-  final String model;
-  final int year;
-  final int fuelType;
-  final int gearType;
-  final String licensePlate;
-  final int seatCount;
-  final double pricePerDay;
-  final bool availabilityStatus;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final int minAge;
-  final int kilometer;
-  final int dealershipId;
-
-  final Dealership? dealership;
-  final List<Deleted> deleteds;
-  final FuelType? fuelTypeNavigation;
-  final GearType? gearTypeNavigation;
-  final List<Reservation> reservations;
-
   Car({
     required this.vinNumber,
     required this.brand,
@@ -63,17 +41,21 @@ class Car {
       kilometer: json['kilometer'] as int,
       dealershipId: json['dealershipId'] as int,
       dealership: json['dealership'] != null
-          ? Dealership.fromJson(json['dealership'])
+          ? Dealership.fromJson(json['dealership'] as Map<String, dynamic>)
           : null,
       deleteds: (json['deleteds'] as List<dynamic>?)
               ?.map((e) => Deleted.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       fuelTypeNavigation: json['fuelTypeNavigation'] != null
-          ? FuelType.fromJson(json['fuelTypeNavigation'])
+          ? FuelType.fromJson(
+              json['fuelTypeNavigation'] as Map<String, dynamic>,
+            )
           : null,
       gearTypeNavigation: json['gearTypeNavigation'] != null
-          ? GearType.fromJson(json['gearTypeNavigation'])
+          ? GearType.fromJson(
+              json['gearTypeNavigation'] as Map<String, dynamic>,
+            )
           : null,
       reservations: (json['reservations'] as List<dynamic>?)
               ?.map((e) => Reservation.fromJson(e as Map<String, dynamic>))
@@ -81,6 +63,27 @@ class Car {
           [],
     );
   }
+  final String vinNumber;
+  final String brand;
+  final String model;
+  final int year;
+  final int fuelType;
+  final int gearType;
+  final String licensePlate;
+  final int seatCount;
+  final double pricePerDay;
+  final bool availabilityStatus;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final int minAge;
+  final int kilometer;
+  final int dealershipId;
+
+  final Dealership? dealership;
+  final List<Deleted> deleteds;
+  final FuelType? fuelTypeNavigation;
+  final GearType? gearTypeNavigation;
+  final List<Reservation> reservations;
 
   /// Modelden JSON'a dönüşüm
   Map<String, dynamic> toJson() {
@@ -111,9 +114,6 @@ class Car {
 
 /// Diğer modeller (örnek)
 class Dealership {
-  final int id;
-  final String name;
-
   Dealership({required this.id, required this.name});
 
   factory Dealership.fromJson(Map<String, dynamic> json) {
@@ -122,6 +122,8 @@ class Dealership {
       name: json['name'] as String,
     );
   }
+  final int id;
+  final String name;
 
   Map<String, dynamic> toJson() {
     return {
@@ -132,8 +134,6 @@ class Dealership {
 }
 
 class Deleted {
-  final int id;
-
   Deleted({required this.id});
 
   factory Deleted.fromJson(Map<String, dynamic> json) {
@@ -141,6 +141,7 @@ class Deleted {
       id: json['id'] as int,
     );
   }
+  final int id;
 
   Map<String, dynamic> toJson() {
     return {
@@ -150,9 +151,6 @@ class Deleted {
 }
 
 class FuelType {
-  final int id;
-  final String name;
-
   FuelType({required this.id, required this.name});
 
   factory FuelType.fromJson(Map<String, dynamic> json) {
@@ -161,6 +159,8 @@ class FuelType {
       name: json['name'] as String,
     );
   }
+  final int id;
+  final String name;
 
   Map<String, dynamic> toJson() {
     return {
@@ -171,9 +171,6 @@ class FuelType {
 }
 
 class GearType {
-  final int id;
-  final String name;
-
   GearType({required this.id, required this.name});
 
   factory GearType.fromJson(Map<String, dynamic> json) {
@@ -182,6 +179,8 @@ class GearType {
       name: json['name'] as String,
     );
   }
+  final int id;
+  final String name;
 
   Map<String, dynamic> toJson() {
     return {
@@ -192,8 +191,6 @@ class GearType {
 }
 
 class Reservation {
-  final int id;
-
   Reservation({required this.id});
 
   factory Reservation.fromJson(Map<String, dynamic> json) {
@@ -201,6 +198,7 @@ class Reservation {
       id: json['id'] as int,
     );
   }
+  final int id;
 
   Map<String, dynamic> toJson() {
     return {
