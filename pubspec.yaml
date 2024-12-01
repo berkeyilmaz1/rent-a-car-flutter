@@ -1,6 +1,8 @@
 name: rent_a_car
 description: "A new Flutter project."
+
 publish_to: "none"
+
 
 version: 1.0.0+1
 
@@ -11,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+
   intl: ^0.20.1
   intl_translation: ^0.20.1
   flutter_typeahead: ^5.2.0
@@ -20,13 +23,17 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^4.0.0
+
+  very_good_analysis: ^6.0.0
+
 
 flutter:
   uses-material-design: true
 
   assets:
+
     - assets/images/
+
 
   # fonts:
   #   - family: Schyler
