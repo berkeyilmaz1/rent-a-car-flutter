@@ -28,8 +28,8 @@ class _AuthViewState extends State<AuthView> with AuthViewMixin {
                   unselectedLabelColor: Colors.grey,
                   indicatorColor: Colors.blue,
                   tabs: [
-                    Tab(text: 'Sign In'),
-                    Tab(text: 'Sign Up'),
+                    Tab(text: 'Giriş Yap'),
+                    Tab(text: 'Kayıt Ol'),
                   ],
                 ),
                 Expanded(
