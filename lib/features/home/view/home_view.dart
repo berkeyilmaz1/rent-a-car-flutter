@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/features/home/view/mixin/home_view_mixin.dart';
 import 'package:rent_a_car/features/home/widgets/car_card.dart';
+import 'package:rent_a_car/features/home/widgets/filter_button.dart';
+import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
-class HomeView extends StatefulWidget {
+final class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
@@ -10,154 +12,202 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> with HomeViewMixin {
+  String selectedSort = 'Varsayılan'; // Default sort option
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: CarCard(
-          car: car,
-          imageUrl: 'assets/images/fiat-egea.png',
-        ),
+      body: Row(
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(WidgetSizes.spacingM),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Rent A Car',
+                    style: TextStyle(
+                      color: Colors.lightBlue,
+                      fontSize: WidgetSizes.spacingXxl7,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Divider(),
+                  const Text('Ara'),
+                  const SearchBar(),
+                  const SizedBox(height: WidgetSizes.spacingM),
+
+                  // Price range (Min and Max)
+                  const Text('Fiyat Aralığı'),
+                  PriceRange(
+                    minPriceController: minPriceController,
+                    maxPriceController: maxPriceController,
+                  ),
+                  const SizedBox(height: WidgetSizes.spacingM),
+
+                  // Fuel Type Dropdown
+                  const Text('Yakıt Tipi'),
+                  DropdownButtonFormField<String>(
+                    value: selectedFuelType,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedFuelType = value ?? 'Hepsi';
+                      });
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                    items: [
+                      'Hepsi',
+                      'Benzin',
+                      'Dizel',
+                      'Elektrik',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: WidgetSizes.spacingM),
+
+                  // Sorting Dropdown
+                  const Text('Sıralama'),
+                  DropdownButtonFormField<String>(
+                    value: selectedSort,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSort = value ?? 'Varsayılan';
+                      });
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                    items: [
+                      'Varsayılan',
+                      'Fiyat (Artan)',
+                      'Fiyat (Azalan)',
+                      'İsim (A-Z)',
+                      'İsim (Z-A)',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: WidgetSizes.spacingM),
+
+                  const Spacer(),
+                  // Filter button
+                  const _FilterButton(),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: ListView.builder(
+              itemCount: carList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CarCard(
+                  car: carList[index],
+                  imageUrl: 'assets/images/fiat-egea.png',
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
+class _FilterButton extends StatelessWidget {
+  const _FilterButton({
+    super.key,
+  });
 
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: FilterButton(
+            buttonName: 'Filtrele',
+            onPressed: () {},
+          ),
+        ),
+      ],
+    );
+  }
+}
 
-// final class CarCard extends StatelessWidget {
-//   const CarCard({
-//     super.key,
-//   });
+class PriceRange extends StatelessWidget {
+  const PriceRange({
+    required this.minPriceController,
+    required this.maxPriceController,
+    super.key,
+  });
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       elevation: 4,
-//       shape: const RoundedRectangleBorder(
-//           borderRadius: BorderRadiusGeneral.allLow()),
-//       child: Padding(
-//         padding: const PagePadding.all(),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           mainAxisSize: MainAxisSize.min,
-//           children: [
-//             Row(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 ClipRRect(
-//                   borderRadius: const BorderRadiusGeneral.cardLow(),
-//                   child: Image.asset(
-//                     'assets/fiat-egea.png',
-//                     width: 120,
-//                     height: 80,
-//                     fit: BoxFit.cover,
-//                   ),
-//                 ),
-//                 const SizedBox(width: WidgetSizes.spacingM),
-//                 // Araç Bilgileri
-//                 const Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       'Fiat Egea veya benzeri',
-//                       style: TextStyle(
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                     SizedBox(height: WidgetSizes.spacingXSs),
-//                     Row(
-//                       children: [
-//                         Icon(Icons.local_gas_station, size: 16),
-//                         SizedBox(width: 4),
-//                         Text('Benzin ya da Dizel'),
-//                         SizedBox(width: 8),
-//                         Icon(Icons.settings, size: 16),
-//                         SizedBox(width: 4),
-//                         Text('Otomatik'),
-//                         SizedBox(width: 8),
-//                         Icon(Icons.person, size: 16),
-//                         SizedBox(width: 4),
-//                         Text('21+ yaş'),
-//                       ],
-//                     ),
-//                     SizedBox(height: WidgetSizes.spacingXSs),
-//                     Row(
-//                       children: [
-//                         Icon(Icons.speed, size: 16),
-//                         SizedBox(width: 4),
-//                         Text('1500 km'),
-//                         SizedBox(width: 8),
-//                         Icon(Icons.money, size: 16),
-//                         SizedBox(width: 4),
-//                         Text('Depozito: 3000 TL'),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//             const Divider(height: WidgetSizes.spacingXl),
-//             // Alt Satır (Fiyat, Şirket ve Buton)
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 const Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Row(
-//                       children: [
-//                         Text(
-//                           '3 günlük fiyat:',
-//                           style: TextStyle(fontSize: 14),
-//                         ),
-//                         SizedBox(width: 8),
-//                         Text(
-//                           '4.335 TL',
-//                           style: TextStyle(
-//                             fontSize: 16,
-//                             fontWeight: FontWeight.bold,
-//                             color: Colors.black,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     SizedBox(height: WidgetSizes.spacingXSs),
-//                     Text(
-//                       'Günlük fiyat: 1.445 TL',
-//                       style: TextStyle(fontSize: 12, color: Colors.grey),
-//                     ),
-//                     SizedBox(height: WidgetSizes.spacingXSs),
-//                     Row(
-//                       children: [
-//                         Icon(Icons.check_circle,
-//                             color: Colors.green, size: 16),
-//                         SizedBox(width: 4),
-//                         Text(
-//                           'Ücretsiz İptal',
-//                           style:
-//                               TextStyle(fontSize: 12, color: Colors.green),
-//                         ),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//                 ElevatedButton(
-//                   onPressed: () {},
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: Colors.green,
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(8),
-//                     ),
-//                   ),
-//                   child: const Text('Hemen Kirala'),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+  final TextEditingController minPriceController;
+  final TextEditingController maxPriceController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 100,
+          child: TextFormField(
+            controller: minPriceController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Min',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (value) {
+              // Backend price filtering logic (not implemented here)
+            },
+          ),
+        ),
+        const SizedBox(width: 10),
+        // Max Price
+        SizedBox(
+          width: 100,
+          child: TextFormField(
+            controller: maxPriceController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Max',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (value) {
+              // Backend price filtering logic (not implemented here)
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: const InputDecoration(
+        prefixIcon: Icon(Icons.search),
+        border: OutlineInputBorder(),
+      ),
+      onChanged: (value) {
+        // Backend search logic (not implemented here)
+      },
+    );
+  }
+}

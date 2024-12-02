@@ -120,7 +120,7 @@ final class _CarInfo extends StatelessWidget {
   }
 }
 
-class _CarDetailRow extends StatelessWidget {
+final class _CarDetailRow extends StatelessWidget {
   const _CarDetailRow({
     super.key,
     required this.icon,
@@ -147,7 +147,7 @@ class _CarDetailRow extends StatelessWidget {
   }
 }
 
-class _CarImage extends StatelessWidget {
+final class _CarImage extends StatelessWidget {
   const _CarImage({
     super.key,
     required this.imageUrl,
@@ -169,7 +169,7 @@ class _CarImage extends StatelessWidget {
   }
 }
 
-class _RentButton extends StatelessWidget {
+final class _RentButton extends StatelessWidget {
   const _RentButton({
     super.key,
     required this.onPressed,
