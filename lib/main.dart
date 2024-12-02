@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:rent_a_car/features/auth/view/auth_view.dart';
+import 'package:rent_a_car/product/initialize/router/main_app_router.dart';
 import 'package:rent_a_car/product/initialize/theme/theme.dart';
 
 void main() async {
@@ -15,13 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const customTheme = CustomTheme(TextTheme());
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
       theme: customTheme.theme(CustomTheme.lightScheme()),
       darkTheme: customTheme.theme(CustomTheme.darkScheme()),
       themeMode: ThemeMode.light,
-      home: const AuthView(),
+      routerConfig: MainAppRouter.router,
     );
   }
 }

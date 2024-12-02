@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
+import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
@@ -58,7 +59,9 @@ class _SignUpViewState extends State<SignUpView> {
           ),
           const SizedBox(height: WidgetSizes.spacingXxl2),
           AuthButton(
-            onPressed: () {},
+            onPressed: () {
+              const HomeViewRoute().go(context);
+            },
             buttonName: 'Kayıt Ol',
           ),
         ],

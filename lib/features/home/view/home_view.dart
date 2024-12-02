@@ -16,7 +16,7 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
       body: Center(
         child: CarCard(
           car: car,
-          imageUrl: 'assets/fiat-egea.png',
+          imageUrl: 'assets/images/fiat-egea.png',
         ),
       ),
     );
