@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rent_a_car/features/selection/view/selection_view.dart';
-
+/// This mixin is used to manage the state of the [SelectionView].
 mixin SelectionViewMixin on State<SelectionView> {
   late DateTimeRange selectedDates;
   late String formattedStartDate;
