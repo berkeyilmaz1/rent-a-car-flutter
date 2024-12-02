@@ -11,6 +11,7 @@ final class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,8 +24,20 @@ class _SignInViewState extends State<SignInView> {
           ),
           const SizedBox(height: WidgetSizes.spacingM),
           TextFormField(
-            decoration: const InputDecoration(labelText: 'Password'),
-            obscureText: true,
+            decoration: InputDecoration(
+              labelText: 'Password',
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscureText ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+              ),
+            ),
+            obscureText: _obscureText,
           ),
           const SizedBox(height: WidgetSizes.spacingXxl2),
           AuthButton(
