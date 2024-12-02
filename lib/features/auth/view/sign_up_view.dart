@@ -20,12 +20,12 @@ class _SignUpViewState extends State<SignUpView> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextFormField(
-            decoration: const InputDecoration(labelText: 'Email'),
+            decoration: const InputDecoration(labelText: 'E-Posta'),
           ),
           const SizedBox(height: WidgetSizes.spacingM),
           TextFormField(
             decoration: InputDecoration(
-              labelText: 'Password',
+              labelText: 'Şifre',
               suffixIcon: IconButton(
                 icon: Icon(
                   obscureText ? Icons.visibility : Icons.visibility_off,
@@ -42,7 +42,7 @@ class _SignUpViewState extends State<SignUpView> {
           const SizedBox(height: WidgetSizes.spacingM),
           TextFormField(
             decoration: InputDecoration(
-              labelText: 'Confirm Password',
+              labelText: 'Şifre Tekrar',
               suffixIcon: IconButton(
                 icon: Icon(
                   obscureText ? Icons.visibility : Icons.visibility_off,
@@ -59,7 +59,7 @@ class _SignUpViewState extends State<SignUpView> {
           const SizedBox(height: WidgetSizes.spacingXxl2),
           AuthButton(
             onPressed: () {},
-            buttonName: 'Sign Up',
+            buttonName: 'Kayıt Ol',
           ),
         ],
       ),

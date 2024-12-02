@@ -20,12 +20,12 @@ class _SignInViewState extends State<SignInView> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextFormField(
-            decoration: const InputDecoration(labelText: 'Email'),
+            decoration: const InputDecoration(labelText: 'E-Posta'),
           ),
           const SizedBox(height: WidgetSizes.spacingM),
           TextFormField(
             decoration: InputDecoration(
-              labelText: 'Password',
+              labelText: 'Şifre',
               suffixIcon: IconButton(
                 icon: Icon(
                   _obscureText ? Icons.visibility : Icons.visibility_off,
@@ -42,7 +42,7 @@ class _SignInViewState extends State<SignInView> {
           const SizedBox(height: WidgetSizes.spacingXxl2),
           AuthButton(
             onPressed: () {},
-            buttonName: 'Sign In',
+            buttonName: 'Giriş Yap',
           ),
         ],
       ),
