@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_a_car/features/reservation/view/mixin/reservation_view_mixin.dart';
 import 'package:rent_a_car/features/reservation/widgets/car_info.dart';
-import 'package:rent_a_car/product/initialize/service/models/car.dart';
+import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
@@ -75,19 +75,11 @@ final class DriverInfoView extends StatelessWidget {
       seatCount: 5,
       pricePerDay: 150,
       availabilityStatus: true,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
+      createdAt: 'DateTime.now()',
+      updatedAt: 'DateTime.now()',
       minAge: 21,
       kilometer: 50000,
       dealershipId: 1,
-      dealership: Dealership(
-        id: 1,
-        name: 'Best Auto Dealership',
-      ),
-      reservations: [
-        Reservation(id: 201),
-        Reservation(id: 202),
-      ],
     );
 
     return Row(

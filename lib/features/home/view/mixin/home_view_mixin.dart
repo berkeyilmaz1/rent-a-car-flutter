@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/features/home/view/home_view.dart';
-import 'package:rent_a_car/product/initialize/service/models/car.dart';
+import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 
 mixin HomeViewMixin on State<HomeView> {
   final TextEditingController minPriceController = TextEditingController();
@@ -20,19 +20,11 @@ mixin HomeViewMixin on State<HomeView> {
       seatCount: 5,
       pricePerDay: 150,
       availabilityStatus: true,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
+      createdAt: 'DateTime.now()',
+      updatedAt: 'DateTime.now()',
       minAge: 21,
       kilometer: 50000,
       dealershipId: 1,
-      dealership: Dealership(
-        id: 1,
-        name: 'Best Auto Dealership',
-      ),
-      reservations: [
-        Reservation(id: 201),
-        Reservation(id: 202),
-      ],
     ),
   ];
 }

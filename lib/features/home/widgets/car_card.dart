@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:rent_a_car/product/initialize/service/models/car.dart';
+import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
 final class CarCard extends StatelessWidget {
   const CarCard({
-    super.key,
     required this.imageUrl,
     required this.car,
+    super.key,
   });
 
   final String imageUrl;
@@ -33,7 +33,7 @@ final class CarCard extends StatelessWidget {
                 _CarImage(imageUrl: imageUrl),
                 _CarInfo(car: car),
                 const Spacer(),
-                _PriceInfo(pricePerDay: car.pricePerDay),
+                _PriceInfo(pricePerDay: car.pricePerDay ?? 0),
               ],
             ),
             Align(
@@ -49,11 +49,11 @@ final class CarCard extends StatelessWidget {
 
 final class _PriceInfo extends StatelessWidget {
   const _PriceInfo({
-    super.key,
     required this.pricePerDay,
+    super.key,
   });
 
-  final double pricePerDay;
+  final int pricePerDay;
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +62,19 @@ final class _PriceInfo extends StatelessWidget {
       children: [
         //total price
         const Text(
-          "4,585 ₺",
+          '4,585 ₺',
           style: TextStyle(
-              fontSize: WidgetSizes.spacingXxl2, fontWeight: FontWeight.bold),
+            fontSize: WidgetSizes.spacingXxl2,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Text(
-          "$pricePerDay ₺/gün",
+          '$pricePerDay ₺/gün',
           style: TextStyle(
-              fontSize: WidgetSizes.spacingM,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.outline),
+            fontSize: WidgetSizes.spacingM,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.outline,
+          ),
         ),
       ],
     );
@@ -80,8 +83,8 @@ final class _PriceInfo extends StatelessWidget {
 
 final class _CarInfo extends StatelessWidget {
   const _CarInfo({
-    super.key,
     required this.car,
+    super.key,
   });
 
   final Car car;
@@ -92,7 +95,7 @@ final class _CarInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "${car.brand} ${car.model}",
+          '${car.brand} ${car.model}',
           style: const TextStyle(
             fontSize: WidgetSizes.spacingXxl3,
             fontWeight: FontWeight.bold,
@@ -101,19 +104,19 @@ final class _CarInfo extends StatelessWidget {
         const SizedBox(height: WidgetSizes.spacingXSs),
         const _CarDetailRow(
           icon: Icons.local_gas_station,
-          label: "car.fuelType",
+          label: 'car.fuelType',
         ),
         const _CarDetailRow(
           icon: Icons.settings,
-          label: "car.gearType",
+          label: 'car.gearType',
         ),
         _CarDetailRow(
           icon: Icons.person,
-          label: "${car.minAge}+ yaş",
+          label: '${car.minAge}+ yaş',
         ),
         _CarDetailRow(
           icon: Icons.speed,
-          label: "${car.kilometer} km",
+          label: '${car.kilometer} km',
         ),
       ],
     );
@@ -122,9 +125,9 @@ final class _CarInfo extends StatelessWidget {
 
 final class _CarDetailRow extends StatelessWidget {
   const _CarDetailRow({
-    super.key,
     required this.icon,
     required this.label,
+    super.key,
   });
 
   final IconData icon;
@@ -149,8 +152,8 @@ final class _CarDetailRow extends StatelessWidget {
 
 final class _CarImage extends StatelessWidget {
   const _CarImage({
-    super.key,
     required this.imageUrl,
+    super.key,
   });
 
   final String imageUrl;
@@ -171,8 +174,8 @@ final class _CarImage extends StatelessWidget {
 
 final class _RentButton extends StatelessWidget {
   const _RentButton({
-    super.key,
     required this.onPressed,
+    super.key,
   });
 
   final VoidCallback onPressed;
@@ -188,11 +191,12 @@ final class _RentButton extends StatelessWidget {
         ),
       ),
       child: Text(
-        "Kirala",
+        'Kirala',
         style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-            fontWeight: FontWeight.w500,
-            letterSpacing: WidgetSizes.spacingXSSs),
+          color: Theme.of(context).colorScheme.onPrimary,
+          fontWeight: FontWeight.w500,
+          letterSpacing: WidgetSizes.spacingXSSs,
+        ),
       ),
     );
   }
