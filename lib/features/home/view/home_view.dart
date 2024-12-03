@@ -109,10 +109,15 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
           Expanded(
             flex: 4,
             child: ListView.builder(
-              itemCount: carList.length,
+              itemCount: cars?.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
+                if (cars == null) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
                 return CarCard(
-                  car: carList[index],
+                  car: cars![index],
                   imageUrl: 'assets/images/fiat-egea.png',
                 );
               },
