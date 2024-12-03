@@ -9,6 +9,7 @@ part of 'route_tree.dart';
 List<RouteBase> get $appRoutes => [
       $authViewRoute,
       $homeViewRoute,
+      $reservationViewRoute,
     ];
 
 RouteBase get $authViewRoute => GoRouteData.$route(
@@ -43,6 +44,29 @@ extension $HomeViewRouteExtension on HomeViewRoute {
 
   String get location => GoRouteData.$location(
         '/home',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $reservationViewRoute => GoRouteData.$route(
+      path: '/reservation',
+      factory: $ReservationViewRouteExtension._fromState,
+    );
+
+extension $ReservationViewRouteExtension on ReservationViewRoute {
+  static ReservationViewRoute _fromState(GoRouterState state) =>
+      const ReservationViewRoute();
+
+  String get location => GoRouteData.$location(
+        '/reservation',
       );
 
   void go(BuildContext context) => context.go(location);
