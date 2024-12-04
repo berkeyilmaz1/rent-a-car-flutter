@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rent_a_car/features/home/widgets/car_card.dart';
 import 'package:rent_a_car/features/reservation/view/mixin/reservation_view_mixin.dart';
 import 'package:rent_a_car/features/reservation/widgets/car_info.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
@@ -8,8 +9,8 @@ import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
 final class ReservationView extends StatefulWidget {
-  const ReservationView({required this.car, super.key});
-  final Car car;
+  const ReservationView({super.key});
+  // final Car car;
 
   @override
   State<ReservationView> createState() => _ReservationViewState();
@@ -36,7 +37,17 @@ class _ReservationViewState extends State<ReservationView>
                 Step(
                   title: const Text('Sürücü Bilgileri'),
                   content: DriverInfoView(
-                    car: widget.car,
+                    ///todo: change car to widget.car
+                    car: Car(
+                      model: 'Corolla',
+                      fuelType: 1,
+                      gearType: 1,
+                      kilometer: 500,
+                      minAge: 20,
+                      seatCount: 5,
+                      vinNumber: '12345',
+                      brand: 'Toyota',
+                    ),
                   ),
                   isActive: currentStep == 1,
                 ),
@@ -69,6 +80,7 @@ final class DriverInfoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           flex: 2,
@@ -79,8 +91,64 @@ final class DriverInfoView extends StatelessWidget {
             ],
           ),
         ),
-        const Expanded(
-          child: Column(),
+        Expanded(
+          child: Column(
+            children: [
+              Card(
+                color: Theme.of(context).colorScheme.onPrimary,
+                elevation: WidgetSizes.spacingXSs,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeneral.allLow(),
+                ),
+                child: Padding(
+                  padding: const PagePadding.all(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Row(
+                        children: [
+                          Icon(Icons.calendar_today),
+                          Text(' Kiralama Tarihi'),
+                        ],
+                      ),
+                      const SizedBox(height: WidgetSizes.spacingM),
+                      Row(
+                        children: [
+                          //todo make this field readonly and disabled
+                          Expanded(
+                            child: TextFormField(
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                labelText: 'Başlangıç Tarihi',
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: WidgetSizes.spacingXs),
+                          Expanded(
+                            child: TextFormField(
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                labelText: 'Bitiş Tarihi',
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: WidgetSizes.spacingM),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          RentButton(onPressed: () {}),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

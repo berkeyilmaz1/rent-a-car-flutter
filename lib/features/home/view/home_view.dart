@@ -119,8 +119,8 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                 }
                 return CarCard(
                   onPressed: () {
-                    ReservationViewRoute(cars![index]).go(context);
-                    print(cars![index]);
+                    // ReservationViewRoute(cars![index]).go(context);
+                    const ReservationViewRoute().go(context);
                   },
                   car: cars![index],
                   imageUrl: 'assets/images/fiat-egea.png',

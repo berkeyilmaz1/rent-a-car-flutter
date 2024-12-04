@@ -40,7 +40,7 @@ final class CarCard extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: _RentButton(onPressed: onPressed),
+              child: RentButton(onPressed: onPressed),
             ),
           ],
         ),
@@ -176,8 +176,8 @@ final class _CarImage extends StatelessWidget {
   }
 }
 
-final class _RentButton extends StatelessWidget {
-  const _RentButton({
+final class RentButton extends StatelessWidget {
+  const RentButton({
     required this.onPressed,
     super.key,
   });

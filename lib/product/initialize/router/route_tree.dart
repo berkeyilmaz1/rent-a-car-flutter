@@ -30,12 +30,13 @@ final class HomeViewRoute extends GoRouteData {
 
 @TypedGoRoute<ReservationViewRoute>(path: RoutePaths.reservation)
 final class ReservationViewRoute extends GoRouteData {
-  const ReservationViewRoute(this.$extra);
-  final Car $extra;
+  // const ReservationViewRoute(this.$extra);
+   const ReservationViewRoute();
+  // final Car $extra;
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return ReservationView(
-      car: $extra,
+   
     );
   }
 }
