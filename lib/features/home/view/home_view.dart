@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rent_a_car/features/home/view/mixin/home_view_mixin.dart';
 import 'package:rent_a_car/features/home/widgets/car_card.dart';
 import 'package:rent_a_car/features/home/widgets/filter_button.dart';
+import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
 final class HomeView extends StatefulWidget {
@@ -117,6 +118,9 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                   );
                 }
                 return CarCard(
+                  onPressed: () {
+                    ReservationViewRoute(cars![index]).go(context);
+                  },
                   car: cars![index],
                   imageUrl: 'assets/images/fiat-egea.png',
                 );

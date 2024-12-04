@@ -8,7 +8,8 @@ import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
 final class ReservationView extends StatefulWidget {
-  const ReservationView({super.key});
+  const ReservationView({required this.car, super.key});
+  final Car car;
 
   @override
   State<ReservationView> createState() => _ReservationViewState();
