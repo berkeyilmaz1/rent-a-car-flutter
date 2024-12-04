@@ -15,6 +15,6 @@ final class ProductNetworkManager extends NetworkManager<BaseErrorModel> {
             },
           ),
         );
-  static const String _baseUrl = ' ';
+  static const String _baseUrl = 'https://localhost:7299/';
   static const String _contentType = 'application/json';
 }

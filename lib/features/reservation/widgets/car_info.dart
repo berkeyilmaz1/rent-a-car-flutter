@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
+import 'package:rent_a_car/product/utils/formatters/fuel_type_formatter.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
@@ -69,13 +70,13 @@ final class _CarInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(height: WidgetSizes.spacingXSs),
-        const _CarDetailRow(
+        _CarDetailRow(
           icon: Icons.local_gas_station,
-          label: 'car.fuelType',
+          label: CarFormatter.fuelTypeFormat(car.fuelType ?? 0),
         ),
-        const _CarDetailRow(
+        _CarDetailRow(
           icon: Icons.settings,
-          label: 'car.gearType',
+          label: CarFormatter.gearTypeFormat(car.gearType ?? 0),
         ),
         _CarDetailRow(
           icon: Icons.person,

@@ -35,7 +35,9 @@ class _ReservationViewState extends State<ReservationView>
                 ),
                 Step(
                   title: const Text('Sürücü Bilgileri'),
-                  content: const DriverInfoView(),
+                  content: DriverInfoView(
+                    car: widget.car,
+                  ),
                   isActive: currentStep == 1,
                 ),
                 Step(
@@ -61,28 +63,11 @@ class _ReservationViewState extends State<ReservationView>
 }
 
 final class DriverInfoView extends StatelessWidget {
-  const DriverInfoView({super.key});
+  const DriverInfoView({required this.car, super.key});
+  final Car car;
 
   @override
   Widget build(BuildContext context) {
-    final car = Car(
-      vinNumber: '1HGCM82633A123456',
-      brand: 'Fiat',
-      model: 'Egea',
-      year: 2021,
-      fuelType: 1,
-      gearType: 2,
-      licensePlate: '34ABC123',
-      seatCount: 5,
-      pricePerDay: 150,
-      availabilityStatus: true,
-      createdAt: 'DateTime.now()',
-      updatedAt: 'DateTime.now()',
-      minAge: 21,
-      kilometer: 50000,
-      dealershipId: 1,
-    );
-
     return Row(
       children: [
         Expanded(
