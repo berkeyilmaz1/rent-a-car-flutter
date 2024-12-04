@@ -10,7 +10,7 @@ mixin HomeViewMixin on State<HomeView> {
 
   String selectedFuelType = 'Hepsi';
   late final RentACarService _rentACarService;
-  late final List<Car>? cars;
+  List<Car>? cars;
   @override
   void initState() {
     super.initState();

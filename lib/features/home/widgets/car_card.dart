@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
+import 'package:rent_a_car/product/utils/formatters/fuel_type_formatter.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
@@ -8,11 +9,12 @@ final class CarCard extends StatelessWidget {
   const CarCard({
     required this.imageUrl,
     required this.car,
-    super.key,
+    super.key, required this.onPressed,
   });
 
   final String imageUrl;
   final Car car;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +35,12 @@ final class CarCard extends StatelessWidget {
                 _CarImage(imageUrl: imageUrl),
                 _CarInfo(car: car),
                 const Spacer(),
-                _PriceInfo(pricePerDay: car.pricePerDay ?? 0),
+                _PriceInfo(pricePerDay: car.pricePerDay ?? 0,car: car,),
               ],
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: _RentButton(onPressed: () {}),
+              child: _RentButton(onPressed: onPressed),
             ),
           ],
         ),
@@ -50,10 +52,12 @@ final class CarCard extends StatelessWidget {
 final class _PriceInfo extends StatelessWidget {
   const _PriceInfo({
     required this.pricePerDay,
+    required this.car,
     super.key,
   });
 
   final int pricePerDay;
+  final Car car;
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +65,8 @@ final class _PriceInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         //total price
-        const Text(
-          '4,585 ₺',
+         Text(
+          car.pricePerDay.toString(),
           style: TextStyle(
             fontSize: WidgetSizes.spacingXxl2,
             fontWeight: FontWeight.bold,
@@ -102,13 +106,13 @@ final class _CarInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(height: WidgetSizes.spacingXSs),
-        const _CarDetailRow(
+        _CarDetailRow(
           icon: Icons.local_gas_station,
-          label: 'car.fuelType',
+          label: CarFormatter.fuelTypeFormat(car.fuelType ?? 0),
         ),
-        const _CarDetailRow(
+        _CarDetailRow(
           icon: Icons.settings,
-          label: 'car.gearType',
+          label: CarFormatter.gearTypeFormat(car.gearType ?? 0),
         ),
         _CarDetailRow(
           icon: Icons.person,
