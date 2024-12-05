@@ -24,9 +24,11 @@ final class SelectionCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
+            Expanded(
               flex: 3,
-              child: DealerShipDropdown(),
+              child: DealershipDropdown(
+                onChanged: (DealerShip value) {},
+              ),
             ),
             const SizedBox(width: WidgetSizes.spacingXSs),
             Expanded(
@@ -64,55 +66,6 @@ final class SelectionCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class DealerShipDropdown extends StatefulWidget {
-  const DealerShipDropdown({super.key});
-
-  @override
-  State<DealerShipDropdown> createState() => _DealerShipDropdownState();
-}
-
-class _DealerShipDropdownState extends State<DealerShipDropdown> {
-  late List<String?> dealerShips = [];
-  late final RentACarService _rentACarService;
-  String? selectedDealerShip;
-  @override
-  void initState() {
-    super.initState();
-    _rentACarService = RentACarService(networkManager: ProductNetworkManager());
-    fetchDealerships();
-  }
-
-  Future<void> fetchDealerships() async {
-    // Fetch dealerships
-    final response = await _rentACarService.getAllDealership();
-    if (response == null) return;
-    setState(() {
-      dealerShips = response.map((e) => e.name).whereType<String>().toList();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      items: dealerShips.map(
-        (dealer) {
-          return DropdownMenuItem<String>(
-            value: dealer,
-            child: Text(dealer ?? ''),
-          );
-        },
-      ).toList(),
-      value: selectedDealerShip,
-      hint: const Text('Select Dealership'),
-      onChanged: (value) {
-        setState(() {
-          selectedDealerShip = value;
-        });
-      },
     );
   }
 }
