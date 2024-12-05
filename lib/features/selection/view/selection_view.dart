@@ -39,6 +39,12 @@ class _SelectionViewState extends State<SelectionView> with SelectionViewMixin {
             padding: const PagePadding.horizontalHighSymmetric(),
             child: Center(
               child: SelectionCard(
+                dealerShips: mockDealerShips,
+                onSelected: (selectedDealerShip) {
+                  if (selectedDealerShip != null) {
+                    print('Selected DealerShip: ${selectedDealerShip.name}');
+                  }
+                },
                 dayCount: dayCount,
                 onPressed: selectDate,
                 formattedStartDate: formattedStartDate,

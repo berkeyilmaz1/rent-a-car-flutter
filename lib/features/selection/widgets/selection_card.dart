@@ -6,12 +6,17 @@ final class SelectionCard extends StatelessWidget {
     required this.formattedStartDate,
     required this.formattedEndDate,
     required this.dayCount,
+    required this.dealerShips,
+    required this.onSelected,
     super.key,
   });
   final VoidCallback onPressed;
   final String formattedStartDate;
   final String formattedEndDate;
   final int dayCount;
+  final List<DealerShip> dealerShips;
+  final Function(DealerShip?) onSelected;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -26,8 +31,15 @@ final class SelectionCard extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: DealershipDropdown(
-                onChanged: (DealerShip value) {},
+              child: DealerShipDropdown(
+                fetchDealerShips:
+                    RentACarService(networkManager: ProductNetworkManager())
+                        .getAllDealership,
+                onSelected: (selectedDealerShip) {
+                  if (selectedDealerShip != null) {
+                    print('Selected DealerShip: ${selectedDealerShip.name}');
+                  }
+                },
               ),
             ),
             const SizedBox(width: WidgetSizes.spacingXSs),
