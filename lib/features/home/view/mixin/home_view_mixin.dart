@@ -20,6 +20,7 @@ mixin HomeViewMixin on State<HomeView> {
     );
 
     fetchCars();
+    print(' daycount: ${widget.dayCount}');
   }
 
   Future<void> fetchCars() async {
