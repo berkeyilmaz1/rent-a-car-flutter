@@ -6,8 +6,8 @@ import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
 final class HomeView extends StatefulWidget {
-  const HomeView({super.key});
-
+  const HomeView({required this.dayCount, super.key});
+  final int dayCount;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -118,9 +118,10 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                   );
                 }
                 return CarCard(
+                  dayCount: widget.dayCount,
                   onPressed: () {
-                    ReservationViewRoute(cars![index]).go(context);
-                    print(cars![index]);
+                    // ReservationViewRoute(cars![index]).go(context);
+                    const ReservationViewRoute().go(context);
                   },
                   car: cars![index],
                   imageUrl: 'assets/images/fiat-egea.png',

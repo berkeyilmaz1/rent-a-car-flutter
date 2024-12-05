@@ -10,6 +10,7 @@ List<RouteBase> get $appRoutes => [
       $authViewRoute,
       $homeViewRoute,
       $reservationViewRoute,
+      $selectionViewRoute,
     ];
 
 RouteBase get $authViewRoute => GoRouteData.$route(
@@ -40,35 +41,12 @@ RouteBase get $homeViewRoute => GoRouteData.$route(
     );
 
 extension $HomeViewRouteExtension on HomeViewRoute {
-  static HomeViewRoute _fromState(GoRouterState state) => const HomeViewRoute();
+  static HomeViewRoute _fromState(GoRouterState state) => HomeViewRoute(
+        state.extra as int,
+      );
 
   String get location => GoRouteData.$location(
         '/home',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $reservationViewRoute => GoRouteData.$route(
-      path: '/reservation',
-      factory: $ReservationViewRouteExtension._fromState,
-    );
-
-extension $ReservationViewRouteExtension on ReservationViewRoute {
-  static ReservationViewRoute _fromState(GoRouterState state) =>
-      ReservationViewRoute(
-        state.extra as Car,
-      );
-
-  String get location => GoRouteData.$location(
-        '/reservation',
       );
 
   void go(BuildContext context) => context.go(location, extra: $extra);
@@ -81,4 +59,50 @@ extension $ReservationViewRouteExtension on ReservationViewRoute {
 
   void replace(BuildContext context) =>
       context.replace(location, extra: $extra);
+}
+
+RouteBase get $reservationViewRoute => GoRouteData.$route(
+      path: '/reservation',
+      factory: $ReservationViewRouteExtension._fromState,
+    );
+
+extension $ReservationViewRouteExtension on ReservationViewRoute {
+  static ReservationViewRoute _fromState(GoRouterState state) =>
+      const ReservationViewRoute();
+
+  String get location => GoRouteData.$location(
+        '/reservation',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $selectionViewRoute => GoRouteData.$route(
+      path: '/selection',
+      factory: $SelectionViewRouteExtension._fromState,
+    );
+
+extension $SelectionViewRouteExtension on SelectionViewRoute {
+  static SelectionViewRoute _fromState(GoRouterState state) =>
+      const SelectionViewRoute();
+
+  String get location => GoRouteData.$location(
+        '/selection',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }

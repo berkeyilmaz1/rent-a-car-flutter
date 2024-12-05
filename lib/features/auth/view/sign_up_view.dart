@@ -60,7 +60,7 @@ class _SignUpViewState extends State<SignUpView> {
           const SizedBox(height: WidgetSizes.spacingXxl2),
           AuthButton(
             onPressed: () {
-              const HomeViewRoute().go(context);
+              const SelectionViewRoute().go(context);
             },
             buttonName: 'Kayıt Ol',
           ),

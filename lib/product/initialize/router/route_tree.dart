@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:rent_a_car/features/auth/view/auth_view.dart';
 import 'package:rent_a_car/features/home/view/home_view.dart';
 import 'package:rent_a_car/features/reservation/view/reservation_view.dart';
+import 'package:rent_a_car/features/selection/view/selection_view.dart';
 import 'package:rent_a_car/product/initialize/router/constants/route_paths.dart';
-import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 
 part 'route_tree.g.dart';
 
@@ -20,22 +20,34 @@ final class AuthViewRoute extends GoRouteData {
 
 @TypedGoRoute<HomeViewRoute>(path: RoutePaths.home)
 final class HomeViewRoute extends GoRouteData {
-  const HomeViewRoute();
+  const HomeViewRoute(this.$extra);
+  final int $extra;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const HomeView();
+    return HomeView(
+      dayCount: $extra,
+    );
   }
 }
 
 @TypedGoRoute<ReservationViewRoute>(path: RoutePaths.reservation)
 final class ReservationViewRoute extends GoRouteData {
-  const ReservationViewRoute(this.$extra);
-  final Car $extra;
+  // const ReservationViewRoute(this.$extra);
+  const ReservationViewRoute();
+  // final Car $extra;
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return ReservationView(
-      car: $extra,
-    );
+    return const ReservationView();
+  }
+}
+
+@TypedGoRoute<SelectionViewRoute>(path: RoutePaths.selection)
+final class SelectionViewRoute extends GoRouteData {
+  const SelectionViewRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SelectionView();
   }
 }
