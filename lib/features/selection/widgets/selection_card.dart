@@ -6,16 +6,12 @@ final class SelectionCard extends StatelessWidget {
     required this.formattedStartDate,
     required this.formattedEndDate,
     required this.dayCount,
-    required this.dealerShips,
-    required this.onSelected,
     super.key,
   });
   final VoidCallback onPressed;
   final String formattedStartDate;
   final String formattedEndDate;
   final int dayCount;
-  final List<DealerShip> dealerShips;
-  final Function(DealerShip?) onSelected;
 
   @override
   Widget build(BuildContext context) {

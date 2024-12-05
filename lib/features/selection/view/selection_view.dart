@@ -3,7 +3,6 @@ import 'package:rent_a_car/core/product_network_manager.dart';
 import 'package:rent_a_car/features/selection/view/mixin/selection_view_mixin.dart';
 import 'package:rent_a_car/features/selection/widgets/dealership_dropdown/dealership_dropdown.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
-import 'package:rent_a_car/product/initialize/service/models/dealership/dealership.dart';
 import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
@@ -39,12 +38,6 @@ class _SelectionViewState extends State<SelectionView> with SelectionViewMixin {
             padding: const PagePadding.horizontalHighSymmetric(),
             child: Center(
               child: SelectionCard(
-                dealerShips: mockDealerShips,
-                onSelected: (selectedDealerShip) {
-                  if (selectedDealerShip != null) {
-                    print('Selected DealerShip: ${selectedDealerShip.name}');
-                  }
-                },
                 dayCount: dayCount,
                 onPressed: selectDate,
                 formattedStartDate: formattedStartDate,
