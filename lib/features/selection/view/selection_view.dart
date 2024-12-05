@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car/core/product_network_manager.dart';
 import 'package:rent_a_car/features/selection/view/mixin/selection_view_mixin.dart';
+import 'package:rent_a_car/product/initialize/service/models/dealership/dealership.dart';
+import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
