@@ -58,7 +58,8 @@ class _ReservationViewState extends State<ReservationView>
                 ),
               ],
               onStepTapped: (value) {
-                if (value == 0) context.go('/home');
+                //todo home olarak değiştir ve daycount ekle, provider kullanabilirsin burda ya da param pasla
+                if (value == 0) context.go('/selection');
                 setState(() {
                   currentStep = value;
                 });
@@ -107,8 +108,11 @@ final class DriverInfoView extends StatelessWidget {
                     children: [
                       const Row(
                         children: [
-                          Icon(Icons.calendar_today),
-                          Text(' Kiralama Tarihi'),
+                          Text(' Toplam Tutar'),
+                          Spacer(),
+
+                          ///todo add priceparday*daycount
+                          Text('₺ 500'),
                         ],
                       ),
                       const SizedBox(height: WidgetSizes.spacingM),
