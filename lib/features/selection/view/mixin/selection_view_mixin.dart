@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rent_a_car/features/selection/view/selection_view.dart';
+
 /// This mixin is used to manage the state of the [SelectionView].
 mixin SelectionViewMixin on State<SelectionView> {
   late DateTimeRange selectedDates;
   late String formattedStartDate;
   late String formattedEndDate;
-
+  int? _dayCount;
+  int get dayCount => _dayCount ?? 1;
   @override
   void initState() {
     super.initState();
@@ -19,11 +21,11 @@ mixin SelectionViewMixin on State<SelectionView> {
   }
 
   String formatDate(DateTime dateTime) {
-    return DateFormat("dd MMM", "tr_TR").format(dateTime);
+    return DateFormat('dd MMM', 'tr_TR').format(dateTime);
   }
 
   Future<void> selectDate() async {
-    final DateTimeRange? dateTimeRange = await showDateRangePicker(
+    final dateTimeRange = await showDateRangePicker(
       context: context,
       firstDate: DateTime.now(),
       lastDate: DateTime(3000),
@@ -33,6 +35,7 @@ mixin SelectionViewMixin on State<SelectionView> {
       setState(() {
         formattedStartDate = formatDate(dateTimeRange.start);
         formattedEndDate = formatDate(dateTimeRange.end);
+        _dayCount = dateTimeRange.duration.inDays;
       });
     }
   }

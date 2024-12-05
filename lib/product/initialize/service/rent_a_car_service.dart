@@ -12,6 +12,7 @@ abstract class RentACarServiceInterface {
   final INetworkManager<BaseErrorModel> _networkManager;
 
   Future<List<Car>?> getAllCars();
+  
 }
 
 final class RentACarService extends RentACarServiceInterface {

@@ -5,11 +5,13 @@ final class SelectionCard extends StatelessWidget {
     required this.onPressed,
     required this.formattedStartDate,
     required this.formattedEndDate,
+    required this.dayCount,
     super.key,
   });
   final VoidCallback onPressed;
   final String formattedStartDate;
   final String formattedEndDate;
+  final int dayCount;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -56,7 +58,7 @@ final class SelectionCard extends StatelessWidget {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  // HomeViewRoute(dayCount ?? 1).go(context);
+                  HomeViewRoute(dayCount).go(context);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
