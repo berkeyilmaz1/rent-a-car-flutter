@@ -1,6 +1,7 @@
 import 'package:rent_a_car/core/model/base_error_model.dart';
 import 'package:rent_a_car/product/initialize/service/enum/service_paths.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
+import 'package:rent_a_car/product/initialize/service/models/dealership/dealership.dart';
 import 'package:vexana/vexana.dart';
 
 abstract class RentACarServiceInterface {
@@ -12,6 +13,7 @@ abstract class RentACarServiceInterface {
   final INetworkManager<BaseErrorModel> _networkManager;
 
   Future<List<Car>?> getAllCars();
+  Future<List<DealerShip>?> getAllDealership();
 }
 
 final class RentACarService extends RentACarServiceInterface {
@@ -25,6 +27,16 @@ final class RentACarService extends RentACarServiceInterface {
       method: RequestType.GET,
     );
 
+    return response.data;
+  }
+
+  @override
+  Future<List<DealerShip>?> getAllDealership() async {
+    final response = await _networkManager.send<DealerShip, List<DealerShip>>(
+      ServicePaths.listAllDealership,
+      parseModel: DealerShip(),
+      method: RequestType.GET,
+    );
     return response.data;
   }
 }
