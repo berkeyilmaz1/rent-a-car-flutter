@@ -9,12 +9,15 @@ final class CarCard extends StatelessWidget {
   const CarCard({
     required this.imageUrl,
     required this.car,
-    super.key, required this.onPressed,
+    required this.onPressed,
+    required this.dayCount,
+    super.key,
   });
 
   final String imageUrl;
   final Car car;
   final VoidCallback onPressed;
+  final int dayCount;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,11 @@ final class CarCard extends StatelessWidget {
                 _CarImage(imageUrl: imageUrl),
                 _CarInfo(car: car),
                 const Spacer(),
-                _PriceInfo(pricePerDay: car.pricePerDay ?? 0,car: car,),
+                _PriceInfo(
+                  dayCount: dayCount,
+                  pricePerDay: car.pricePerDay ?? 0,
+                  car: car,
+                ),
               ],
             ),
             Align(
@@ -53,21 +60,26 @@ final class _PriceInfo extends StatelessWidget {
   const _PriceInfo({
     required this.pricePerDay,
     required this.car,
+    required this.dayCount,
     super.key,
   });
 
   final int pricePerDay;
   final Car car;
+  final int dayCount;
 
   @override
   Widget build(BuildContext context) {
+    if (car.pricePerDay == null) {
+      return const CircularProgressIndicator();
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         //total price
-         Text(
-          car.pricePerDay.toString(),
-          style: TextStyle(
+        Text(
+          (car.pricePerDay! * dayCount).toString(),
+          style: const TextStyle(
             fontSize: WidgetSizes.spacingXxl2,
             fontWeight: FontWeight.bold,
           ),
