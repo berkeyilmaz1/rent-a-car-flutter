@@ -1,10 +1,11 @@
 part of '../view/selection_view.dart';
+
 final class SelectionCard extends StatelessWidget {
   const SelectionCard({
-    super.key,
     required this.onPressed,
     required this.formattedStartDate,
     required this.formattedEndDate,
+    super.key,
   });
   final VoidCallback onPressed;
   final String formattedStartDate;
@@ -14,9 +15,10 @@ final class SelectionCard extends StatelessWidget {
     return Card(
       elevation: WidgetSizes.spacingXSs,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(WidgetSizes.spacingXSs)),
+        borderRadius: BorderRadius.circular(WidgetSizes.spacingXSs),
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -44,7 +46,7 @@ final class SelectionCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(formattedStartDate),
-                    const Text(" - "),
+                    const Text(' - '),
                     Text(formattedEndDate),
                   ],
                 ),
@@ -53,13 +55,15 @@ final class SelectionCard extends StatelessWidget {
             const SizedBox(width: WidgetSizes.spacingXSs),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // HomeViewRoute(dayCount ?? 1).go(context);
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(WidgetSizes.spacingXSs),
                   ),
                 ),
-                child: const Text("Teklifleri Göster"),
+                child: const Text('Teklifleri Göster'),
               ),
             ),
           ],

@@ -35,7 +35,11 @@ final class CarCard extends StatelessWidget {
                 _CarImage(imageUrl: imageUrl),
                 _CarInfo(car: car),
                 const Spacer(),
-                _PriceInfo(pricePerDay: car.pricePerDay ?? 0,car: car,),
+                _PriceInfo(
+           
+                  pricePerDay: car.pricePerDay ?? 0,
+                  car: car,
+                ),
               ],
             ),
             Align(
@@ -65,15 +69,15 @@ final class _PriceInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         //total price
-         Text(
-          car.pricePerDay.toString(),
-          style: TextStyle(
+        Text(
+          (car.pricePerDay! * dayCount).toString(),
+          style: const TextStyle(
             fontSize: WidgetSizes.spacingXxl2,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          '$pricePerDay ₺/gün',
+          '$pricePerDay ₺/gün' ?? '',
           style: TextStyle(
             fontSize: WidgetSizes.spacingM,
             fontWeight: FontWeight.bold,
@@ -116,11 +120,11 @@ final class _CarInfo extends StatelessWidget {
         ),
         _CarDetailRow(
           icon: Icons.person,
-          label: '${car.minAge}+ yaş',
+          label: '${car.minAge ?? 0}+ yaş',
         ),
         _CarDetailRow(
           icon: Icons.speed,
-          label: '${car.kilometer} km',
+          label: '${car.kilometer ?? 0} km',
         ),
       ],
     );

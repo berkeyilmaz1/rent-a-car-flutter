@@ -118,6 +118,10 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                   );
                 }
                 return CarCard(
+
+
+                 
+ 
                   onPressed: () {
                     ReservationViewRoute(cars![index]).go(context);
                     print(cars![index]);
