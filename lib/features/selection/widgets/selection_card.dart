@@ -12,6 +12,7 @@ final class SelectionCard extends StatelessWidget {
   final String formattedStartDate;
   final String formattedEndDate;
   final int dayCount;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -26,13 +27,15 @@ final class SelectionCard extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: TextField(
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(WidgetSizes.spacingXSs),
-                  ),
-                ),
+              child: DealerShipDropdown(
+                fetchDealerShips:
+                    RentACarService(networkManager: ProductNetworkManager())
+                        .getAllDealership,
+                onSelected: (selectedDealerShip) {
+                  if (selectedDealerShip != null) {
+                    print('Selected DealerShip: ${selectedDealerShip.name}');
+                  }
+                },
               ),
             ),
             const SizedBox(width: WidgetSizes.spacingXSs),
