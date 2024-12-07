@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car/features/admin/view/pages/cars/widgets/update_textfield.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 
 class AdminCarCard extends StatefulWidget {
@@ -107,7 +108,9 @@ class _AdminCarCardState extends State<AdminCarCard> {
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        backgroundColor: !_isExpanded
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.secondary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -132,14 +135,22 @@ class _AdminCarCardState extends State<AdminCarCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     UpdateTextField(
-                        label: 'Marka', controller: _brandController),
+                      label: 'Marka',
+                      controller: _brandController,
+                    ),
                     UpdateTextField(
-                        label: 'Model', controller: _modelController),
+                      label: 'Model',
+                      controller: _modelController,
+                    ),
                     UpdateTextField(
-                        label: 'Plaka', controller: _licensePlateController),
+                      label: 'Plaka',
+                      controller: _licensePlateController,
+                    ),
                     UpdateTextField(label: 'Yıl', controller: _yearController),
                     UpdateTextField(
-                        label: 'Kilometre', controller: _kilometerController),
+                      label: 'Kilometre',
+                      controller: _kilometerController,
+                    ),
                     const SizedBox(height: 16),
                     Row(
                       children: [
@@ -157,6 +168,7 @@ class _AdminCarCardState extends State<AdminCarCard> {
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
+                        const Spacer(),
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
@@ -177,31 +189,6 @@ class _AdminCarCardState extends State<AdminCarCard> {
                 ),
               ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-final class UpdateTextField extends StatelessWidget {
-  const UpdateTextField({
-    required this.label,
-    required this.controller,
-    super.key,
-  });
-  final String label;
-  final TextEditingController controller;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
         ),
       ),
     );
