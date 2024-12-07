@@ -11,6 +11,7 @@ List<RouteBase> get $appRoutes => [
       $homeViewRoute,
       $reservationViewRoute,
       $selectionViewRoute,
+      $paymentViewRoute,
     ];
 
 RouteBase get $authViewRoute => GoRouteData.$route(
@@ -95,6 +96,29 @@ extension $SelectionViewRouteExtension on SelectionViewRoute {
 
   String get location => GoRouteData.$location(
         '/selection',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $paymentViewRoute => GoRouteData.$route(
+      path: '/payment',
+      factory: $PaymentViewRouteExtension._fromState,
+    );
+
+extension $PaymentViewRouteExtension on PaymentViewRoute {
+  static PaymentViewRoute _fromState(GoRouterState state) =>
+      const PaymentViewRoute();
+
+  String get location => GoRouteData.$location(
+        '/payment',
       );
 
   void go(BuildContext context) => context.go(location);
