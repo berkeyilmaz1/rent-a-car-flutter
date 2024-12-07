@@ -16,7 +16,7 @@ abstract class RentACarServiceInterface {
   Future<List<Car>?> getAllCars();
   Future<List<DealerShip>?> getAllDealership();
   Future<EmptyModel?> updateCar(UpdateCarRequest car, String vinNumber);
-  
+  Future<EmptyModel?> deleteCar(String vinNumber);
 }
 
 final class RentACarService extends RentACarServiceInterface {
@@ -54,5 +54,13 @@ final class RentACarService extends RentACarServiceInterface {
     return response.data;
   }
 
-  
+  @override
+  Future<EmptyModel?> deleteCar(String vinNumber) async {
+    final response = await _networkManager.send<EmptyModel, EmptyModel>(
+      ServicePaths.carWithVIN(vinNumber),
+      parseModel: const EmptyModel(),
+      method: RequestType.DELETE,
+    );
+    return response.data;
+  }
 }
