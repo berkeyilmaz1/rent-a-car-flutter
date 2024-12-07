@@ -11,6 +11,7 @@ List<RouteBase> get $appRoutes => [
       $homeViewRoute,
       $reservationViewRoute,
       $selectionViewRoute,
+      $adminDashboardViewRoute,
     ];
 
 RouteBase get $authViewRoute => GoRouteData.$route(
@@ -95,6 +96,29 @@ extension $SelectionViewRouteExtension on SelectionViewRoute {
 
   String get location => GoRouteData.$location(
         '/selection',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $adminDashboardViewRoute => GoRouteData.$route(
+      path: '/admin',
+      factory: $AdminDashboardViewRouteExtension._fromState,
+    );
+
+extension $AdminDashboardViewRouteExtension on AdminDashboardViewRoute {
+  static AdminDashboardViewRoute _fromState(GoRouterState state) =>
+      const AdminDashboardViewRoute();
+
+  String get location => GoRouteData.$location(
+        '/admin',
       );
 
   void go(BuildContext context) => context.go(location);

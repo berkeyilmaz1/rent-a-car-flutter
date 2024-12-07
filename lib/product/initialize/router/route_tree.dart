@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rent_a_car/features/admin/view/admin_dashboard_view.dart';
 import 'package:rent_a_car/features/auth/view/auth_view.dart';
 import 'package:rent_a_car/features/home/view/home_view.dart';
 import 'package:rent_a_car/features/reservation/view/reservation_view.dart';
@@ -49,5 +50,15 @@ final class SelectionViewRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const SelectionView();
+  }
+}
+
+@TypedGoRoute<AdminDashboardViewRoute>(path: RoutePaths.admin)
+final class AdminDashboardViewRoute extends GoRouteData {
+  const AdminDashboardViewRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AdminDashboardView();
   }
 }
