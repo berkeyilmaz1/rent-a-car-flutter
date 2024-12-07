@@ -3,6 +3,7 @@ import 'package:rent_a_car/product/initialize/service/enum/service_paths.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/update_car_request.dart';
 import 'package:rent_a_car/product/initialize/service/models/dealership/dealership.dart';
+import 'package:rent_a_car/product/initialize/service/models/reservation/reservation.dart';
 import 'package:vexana/vexana.dart';
 
 abstract class RentACarServiceInterface {
@@ -14,9 +15,14 @@ abstract class RentACarServiceInterface {
   final INetworkManager<BaseErrorModel> _networkManager;
 
   Future<List<Car>?> getAllCars();
-  Future<List<DealerShip>?> getAllDealership();
   Future<EmptyModel?> updateCar(UpdateCarRequest car, String vinNumber);
   Future<EmptyModel?> deleteCar(String vinNumber);
+
+  Future<List<DealerShip>?> getAllDealership();
+  Future<EmptyModel?> deleteDealerShip(String id);
+
+  Future<List<Reservation>?> getAllReservations();
+  Future<EmptyModel?> deleteReservation(String id);
 }
 
 final class RentACarService extends RentACarServiceInterface {
@@ -58,6 +64,36 @@ final class RentACarService extends RentACarServiceInterface {
   Future<EmptyModel?> deleteCar(String vinNumber) async {
     final response = await _networkManager.send<EmptyModel, EmptyModel>(
       ServicePaths.carWithVIN(vinNumber),
+      parseModel: const EmptyModel(),
+      method: RequestType.DELETE,
+    );
+    return response.data;
+  }
+
+  @override
+  Future<List<Reservation>?> getAllReservations() async {
+    final response = await _networkManager.send<Reservation, List<Reservation>>(
+      ServicePaths.listAllReservations,
+      parseModel: Reservation(),
+      method: RequestType.GET,
+    );
+    return response.data;
+  }
+
+  @override
+  Future<EmptyModel?> deleteReservation(String id) async {
+    final response = await _networkManager.send<EmptyModel, EmptyModel>(
+      ServicePaths.reservationsWithId(id),
+      parseModel: const EmptyModel(),
+      method: RequestType.DELETE,
+    );
+    return response.data;
+  }
+
+  @override
+  Future<EmptyModel?> deleteDealerShip(String id) async {
+    final response = await _networkManager.send<EmptyModel, EmptyModel>(
+      ServicePaths.dealershipWithId(id),
       parseModel: const EmptyModel(),
       method: RequestType.DELETE,
     );
