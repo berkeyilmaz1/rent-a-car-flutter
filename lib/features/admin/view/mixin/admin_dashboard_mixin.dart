@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/features/admin/view/admin_dashboard_view.dart';
-import 'package:rent_a_car/features/admin/view/pages/cars_page_view.dart';
-import 'package:rent_a_car/features/admin/view/pages/payments_page_view.dart';
-import 'package:rent_a_car/features/admin/view/pages/reservations_page_view.dart';
-import 'package:rent_a_car/features/admin/view/pages/users_page.view.dart';
+import 'package:rent_a_car/features/admin/view/pages/cars/cars_page_view.dart';
+import 'package:rent_a_car/features/admin/view/pages/payments/payments_page_view.dart';
+import 'package:rent_a_car/features/admin/view/pages/reservations/reservations_page_view.dart';
+import 'package:rent_a_car/features/admin/view/pages/users/users_page.view.dart';
 
 mixin AdminDashboardMixin on State<AdminDashboardView> {
   int _selectedIndex = 0;
