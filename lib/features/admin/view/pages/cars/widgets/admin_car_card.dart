@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 
-class AdminCarCard extends StatelessWidget {
+final class AdminCarCard extends StatefulWidget {
   const AdminCarCard({
     required this.imageUrl,
     required this.car,
@@ -10,6 +10,29 @@ class AdminCarCard extends StatelessWidget {
 
   final String imageUrl;
   final Car car;
+
+  @override
+  _AdminCarCardState createState() => _AdminCarCardState();
+}
+
+class _AdminCarCardState extends State<AdminCarCard> {
+  late String? _fuelType;
+  late String? _gearType;
+
+  @override
+  void initState() {
+    super.initState();
+    _fuelType = widget.car.fuelType == 1
+        ? 'Benzin'
+        : widget.car.fuelType == 2
+            ? 'Dizel'
+            : 'Elektrik';
+    _gearType = widget.car.gearType == 1
+        ? 'Manuel'
+        : widget.car.gearType == 2
+            ? 'Otomatik'
+            : null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +49,7 @@ class AdminCarCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
-                imageUrl,
+                widget.imageUrl,
                 width: 120,
                 height: 80,
                 fit: BoxFit.cover,
@@ -38,7 +61,7 @@ class AdminCarCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${car.brand} ${car.model}',
+                    '${widget.car.brand} ${widget.car.model}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -46,7 +69,7 @@ class AdminCarCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Plaka: ${car.licensePlate} | VIN: ${car.vinNumber}',
+                    'Plaka: ${widget.car.licensePlate} | VIN: ${widget.car.vinNumber}',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontSize: 14,
                           color: Theme.of(context)
@@ -66,11 +89,62 @@ class AdminCarCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildTextField('Marka', car.brand),
-                _buildTextField('Model', car.model),
-                _buildTextField('Plaka', car.licensePlate),
-                _buildTextField('Yıl', car.year?.toString()),
-                _buildTextField('Kilometre', car.kilometer?.toString()),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildTextField('Marka', widget.car.brand),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _buildTextField('Model', widget.car.model),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildTextField('Plaka', widget.car.licensePlate),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child:
+                          _buildTextField('Yıl', widget.car.year?.toString()),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _buildTextField(
+                        'Kilometre',
+                        widget.car.kilometer?.toString(),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _buildTextField(
+                        'Günlük Fiyat',
+                        widget.car.kilometer?.toString(),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildDropdownField(
+                        'Yakıt Tipi',
+                        _fuelType,
+                        ['Benzin', 'Dizel'],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _buildDropdownField(
+                        'Vites Tipi',
+                        _gearType,
+                        ['Manuel', 'Otomatik'],
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 16),
                 Row(
                   children: [
@@ -122,6 +196,40 @@ class AdminCarCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildDropdownField(
+    String label,
+    String? value,
+    List<String> options,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: DropdownButtonFormField<String>(
+        value: value,
+        onChanged: (newValue) {
+          setState(() {
+            if (label == 'Yakıt Tipi') {
+              _fuelType = newValue;
+            } else if (label == 'Vites Tipi') {
+              _gearType = newValue;
+            }
+          });
+        },
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        items: options.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
       ),
     );
   }
