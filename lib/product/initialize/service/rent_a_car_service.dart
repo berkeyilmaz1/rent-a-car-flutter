@@ -1,6 +1,7 @@
 import 'package:rent_a_car/core/model/base_error_model.dart';
 import 'package:rent_a_car/product/initialize/service/enum/service_paths.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
+import 'package:rent_a_car/product/initialize/service/models/car/update_car_request.dart';
 import 'package:rent_a_car/product/initialize/service/models/dealership/dealership.dart';
 import 'package:vexana/vexana.dart';
 
@@ -14,6 +15,8 @@ abstract class RentACarServiceInterface {
 
   Future<List<Car>?> getAllCars();
   Future<List<DealerShip>?> getAllDealership();
+  Future<EmptyModel?> updateCar(UpdateCarRequest car, String vinNumber);
+  
 }
 
 final class RentACarService extends RentACarServiceInterface {
@@ -39,4 +42,17 @@ final class RentACarService extends RentACarServiceInterface {
     );
     return response.data;
   }
+
+  @override
+  Future<EmptyModel?> updateCar(UpdateCarRequest car, String vinNumber) async {
+    final response = await _networkManager.send<EmptyModel, EmptyModel>(
+      ServicePaths.carWithVIN(vinNumber),
+      parseModel: const EmptyModel(),
+      method: RequestType.PUT,
+      data: car,
+    );
+    return response.data;
+  }
+
+  
 }
