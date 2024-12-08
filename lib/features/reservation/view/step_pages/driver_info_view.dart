@@ -5,13 +5,17 @@ final class DriverInfoView extends StatelessWidget {
       {required this.car,
       required this.startDate,
       required this.endDate,
-      super.key});
+      super.key,
+      required this.dayCount});
   final Car car;
   final String startDate;
   final String endDate;
+  final int dayCount;
 
   @override
   Widget build(BuildContext context) {
+
+     
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,13 +42,13 @@ final class DriverInfoView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           Text(' Toplam Tutar'),
                           Spacer(),
 
-                          ///todo add priceparday*daycount
-                          Text('₺ 500'),
+                        
+                          Text((car.pricePerDay! * dayCount).toString()),
                         ],
                       ),
                       const SizedBox(height: WidgetSizes.spacingM),

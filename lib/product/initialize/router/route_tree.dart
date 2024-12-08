@@ -38,13 +38,11 @@ final class HomeViewRoute extends GoRouteData {
 
 @TypedGoRoute<ReservationViewRoute>(path: RoutePaths.reservation)
 final class ReservationViewRoute extends GoRouteData {
-  // const ReservationViewRoute(this.$extra);
+  
   const ReservationViewRoute({
     required this.$extra,
   });
-  // final Car $extra;
-  // final String startDate;
-  // final String endDate;
+  
 
   final Map<dynamic, dynamic> $extra;
   @override

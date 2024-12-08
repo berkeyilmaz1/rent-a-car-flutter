@@ -119,16 +119,15 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                 return CarCard(
                   dayCount: dayCount,
                   onPressed: () {
-                    // ReservationViewRoute(cars![index]).go(context);
+         
                     ReservationViewRoute(
                       $extra: {
                         'car': cars![index],
                         'startDate': startDate,
                         'endDate': endDate,
+                        'dayCount':dayCount
                       },
-                      // cars![index],
-                      // endDate: endDate,
-                      // startDate: startDate,
+                      
                     ).go(context);
                   },
                   car: cars![index],
