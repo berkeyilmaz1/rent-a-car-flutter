@@ -110,7 +110,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                               ReservationCreateResponse(
                                 carId: widget.car.vinNumber,
                                 endDate: widget.endDateWithTime,
-                                startDate: widget.endDateWithTime,
+                                startDate: widget.startDateWithTime,
                                 status: 1,
                                 totalPrice:
                                     widget.car.pricePerDay! * widget.dayCount,
