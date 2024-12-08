@@ -62,10 +62,10 @@ final class SelectionCard extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   HomeViewRoute(
-                          $extra: dayCount,
-                          endDate: formattedEndDate,
-                          startDate: formattedEndDate)
-                      .go(context);
+                    $extra: dayCount,
+                    endDate: formattedEndDate,
+                    startDate: formattedStartDate,
+                  ).go(context);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
