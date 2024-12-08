@@ -30,10 +30,9 @@ class _DriverInfoViewState extends State<DriverInfoView> {
   }
 
   Future<void> createReservation(ReservationCreateResponse reservation) async {
-    print('reservation body: $reservation');
-    // await _rentACarService.createReservation(
-    //   reservation,
-    // );
+    await _rentACarService.createReservation(
+      reservation,
+    );
   }
 
   @override
@@ -107,6 +106,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                         children: [
                           RentButton(
                             onPressed: () => createReservation(
+                              //todo: extract this and add user model for userId
                               ReservationCreateResponse(
                                 carId: widget.car.vinNumber,
                                 endDate: widget.endDateWithTime,
@@ -114,7 +114,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                                 status: 1,
                                 totalPrice:
                                     widget.car.pricePerDay! * widget.dayCount,
-                                userId: '',
+                                userId: '31649853146',
                               ),
                             ),
                           ),

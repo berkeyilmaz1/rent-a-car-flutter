@@ -7,8 +7,8 @@ mixin SelectionViewMixin on State<SelectionView> {
   late DateTimeRange selectedDates;
   late String formattedStartDate;
   late String formattedEndDate;
-  late DateTime startDateWithTime;
-  late DateTime endDateWithTime;
+  late DateTime startDateWithTime = DateTime.now();
+  late DateTime endDateWithTime= DateTime.now();
   int? _dayCount;
   int get dayCount => _dayCount ?? 1;
   @override
@@ -20,6 +20,7 @@ mixin SelectionViewMixin on State<SelectionView> {
     );
     formattedStartDate = formatDate(selectedDates.start);
     formattedEndDate = formatDate(selectedDates.end);
+
   }
 
   String formatDate(DateTime dateTime) {
