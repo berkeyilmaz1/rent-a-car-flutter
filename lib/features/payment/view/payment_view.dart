@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
+import 'package:rent_a_car/features/payment/view/mixin/payment_view_mixin.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
@@ -13,12 +14,7 @@ final class PaymentView extends StatefulWidget {
   State<PaymentView> createState() => _PaymentViewState();
 }
 
-class _PaymentViewState extends State<PaymentView> {
-  final _cardNumberController = TextEditingController();
-  final _monthController = TextEditingController();
-  final _yearController = TextEditingController();
-  final _cvvController = TextEditingController();
-
+class _PaymentViewState extends State<PaymentView> with PaymentViewMixin {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,7 +29,7 @@ class _PaymentViewState extends State<PaymentView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
-              controller: _cardNumberController,
+              controller: cardNumberController,
               decoration: const InputDecoration(
                 labelText: 'Kart Numarası',
                 prefixIcon: Icon(Icons.credit_card),
@@ -49,7 +45,7 @@ class _PaymentViewState extends State<PaymentView> {
               children: [
                 Expanded(
                   child: TextFormField(
-                    controller: _monthController,
+                    controller: monthController,
                     decoration: const InputDecoration(
                       labelText: 'Ay',
                       hintText: 'AA',
@@ -67,7 +63,7 @@ class _PaymentViewState extends State<PaymentView> {
                 ),
                 Expanded(
                   child: TextFormField(
-                    controller: _yearController,
+                    controller: yearController,
                     decoration: const InputDecoration(
                       labelText: 'Yıl',
                       hintText: 'YY',
@@ -83,7 +79,7 @@ class _PaymentViewState extends State<PaymentView> {
             ),
             const SizedBox(height: WidgetSizes.spacingM),
             TextFormField(
-              controller: _cvvController,
+              controller: cvvController,
               decoration: const InputDecoration(
                 labelText: 'CVV',
               ),
@@ -96,93 +92,12 @@ class _PaymentViewState extends State<PaymentView> {
             ),
             const SizedBox(height: WidgetSizes.spacingM),
             AuthButton(
-              onPressed: _processPayment,
+              onPressed: processPayment,
               buttonName: 'Ödemeyi Tamamla',
             ),
           ],
         ),
       ),
     );
-  }
-
-  void _processPayment() {
-    if (_validatePaymentDetails()) {
-      _showSuccessDialog();
-    } else {
-      _showErrorDialog();
-    }
-  }
-
-  void _showSuccessDialog() {
-    showDialog<AlertDialog>(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.check_circle, color: Colors.green, size: 80),
-            const SizedBox(height: 16),
-            const Text(
-              'Ödeme Başarılı',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: WidgetSizes.spacingM),
-            AuthButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                const SelectionViewRoute().go(context);
-              },
-              buttonName: 'Kapat',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showErrorDialog() {
-    showDialog<AlertDialog>(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.error, color: Colors.red, size: 80),
-            const SizedBox(height: 16),
-            const Text(
-              'Ödeme Başarısız',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: WidgetSizes.spacingM),
-            AuthButton(
-              onPressed: () => Navigator.of(context).pop(),
-              buttonName: 'Tekrar Dene',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  bool _validatePaymentDetails() {
-    return _cardNumberController.text.length == 16 &&
-        _monthController.text.length == 2 &&
-        _yearController.text.length == 2 &&
-        _cvvController.text.length == 3;
-  }
-
-  @override
-  void dispose() {
-    _cardNumberController.dispose();
-    _monthController.dispose();
-    _yearController.dispose();
-    _cvvController.dispose();
-    super.dispose();
   }
 }
