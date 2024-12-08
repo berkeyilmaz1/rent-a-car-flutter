@@ -12,6 +12,7 @@ List<RouteBase> get $appRoutes => [
       $reservationViewRoute,
       $selectionViewRoute,
       $adminDashboardViewRoute,
+      $paymentViewRoute,
     ];
 
 RouteBase get $authViewRoute => GoRouteData.$route(
@@ -69,20 +70,24 @@ RouteBase get $reservationViewRoute => GoRouteData.$route(
 
 extension $ReservationViewRouteExtension on ReservationViewRoute {
   static ReservationViewRoute _fromState(GoRouterState state) =>
-      const ReservationViewRoute();
+      ReservationViewRoute(
+        state.extra as Car,
+      );
 
   String get location => GoRouteData.$location(
         '/reservation',
       );
 
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: $extra);
 
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
 
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: $extra);
 
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
 
 RouteBase get $selectionViewRoute => GoRouteData.$route(
@@ -119,6 +124,29 @@ extension $AdminDashboardViewRouteExtension on AdminDashboardViewRoute {
 
   String get location => GoRouteData.$location(
         '/admin',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $paymentViewRoute => GoRouteData.$route(
+      path: '/payment',
+      factory: $PaymentViewRouteExtension._fromState,
+    );
+
+extension $PaymentViewRouteExtension on PaymentViewRoute {
+  static PaymentViewRoute _fromState(GoRouterState state) =>
+      const PaymentViewRoute();
+
+  String get location => GoRouteData.$location(
+        '/payment',
       );
 
   void go(BuildContext context) => context.go(location);

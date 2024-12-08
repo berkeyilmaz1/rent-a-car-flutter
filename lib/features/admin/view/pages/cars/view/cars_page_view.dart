@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_a_car/features/admin/view/pages/cars/cars_page_mixin.dart';
+import 'package:rent_a_car/features/admin/view/pages/cars/view/cars_page_mixin.dart';
 import 'package:rent_a_car/features/admin/view/pages/cars/widgets/admin_car_card.dart';
 
 class CarsPageView extends StatefulWidget {

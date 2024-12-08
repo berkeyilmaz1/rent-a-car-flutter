@@ -7,6 +7,7 @@ import 'package:rent_a_car/features/payment/view/payment_view.dart';
 import 'package:rent_a_car/features/reservation/view/reservation_view.dart';
 import 'package:rent_a_car/features/selection/view/selection_view.dart';
 import 'package:rent_a_car/product/initialize/router/constants/route_paths.dart';
+import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 
 part 'route_tree.g.dart';
 
@@ -35,12 +36,14 @@ final class HomeViewRoute extends GoRouteData {
 
 @TypedGoRoute<ReservationViewRoute>(path: RoutePaths.reservation)
 final class ReservationViewRoute extends GoRouteData {
-  // const ReservationViewRoute(this.$extra);
-  const ReservationViewRoute();
-  // final Car $extra;
+  const ReservationViewRoute(this.$extra);
+
+  final Car $extra;
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const ReservationView();
+    return ReservationView(
+      car: $extra,
+    );
   }
 }
 
