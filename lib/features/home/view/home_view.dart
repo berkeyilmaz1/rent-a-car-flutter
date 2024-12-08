@@ -5,9 +5,18 @@ import 'package:rent_a_car/features/home/widgets/filter_button.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
+part '../widgets/home_view_components.dart';
+
 final class HomeView extends StatefulWidget {
-  const HomeView({required this.dayCount, super.key});
+  const HomeView({
+    required this.dayCount,
+    required this.startDate,
+    required this.endDate,
+    super.key,
+  });
   final int dayCount;
+  final String startDate;
+  final String endDate;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -26,14 +35,7 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Rent A Car',
-                    style: TextStyle(
-                      color: Colors.lightBlue,
-                      fontSize: WidgetSizes.spacingXxl7,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  const HomeViewTitle(),
                   const Divider(),
                   const Text('Ara'),
                   const SearchBar(),
@@ -100,9 +102,10 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                   ),
                   const SizedBox(height: WidgetSizes.spacingM),
 
-                  const Spacer(),
-                  // Filter button
-                  const _FilterButton(),
+                  FilterButton(
+                    buttonName: 'Filtrele',
+                    onPressed: () {},
+                  ),
                 ],
               ),
             ),
@@ -121,7 +124,11 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                   dayCount: widget.dayCount,
                   onPressed: () {
                     // ReservationViewRoute(cars![index]).go(context);
-                    const ReservationViewRoute().go(context);
+                    ReservationViewRoute(
+                      cars![index],
+                      endDate: widget.endDate,
+                      startDate: widget.startDate,
+                    ).go(context);
                   },
                   car: cars![index],
                   imageUrl: 'assets/images/fiat-egea.png',
@@ -131,94 +138,6 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _FilterButton extends StatelessWidget {
-  const _FilterButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: FilterButton(
-            buttonName: 'Filtrele',
-            onPressed: () {},
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class PriceRange extends StatelessWidget {
-  const PriceRange({
-    required this.minPriceController,
-    required this.maxPriceController,
-    super.key,
-  });
-
-  final TextEditingController minPriceController;
-  final TextEditingController maxPriceController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 100,
-          child: TextFormField(
-            controller: minPriceController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Min',
-              border: OutlineInputBorder(),
-            ),
-            onChanged: (value) {
-              // Backend price filtering logic (not implemented here)
-            },
-          ),
-        ),
-        const SizedBox(width: 10),
-        // Max Price
-        SizedBox(
-          width: 100,
-          child: TextFormField(
-            controller: maxPriceController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Max',
-              border: OutlineInputBorder(),
-            ),
-            onChanged: (value) {
-              // Backend price filtering logic (not implemented here)
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  const SearchBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: const InputDecoration(
-        prefixIcon: Icon(Icons.search),
-        border: OutlineInputBorder(),
-      ),
-      onChanged: (value) {
-        // Backend search logic (not implemented here)
-      },
     );
   }
 }

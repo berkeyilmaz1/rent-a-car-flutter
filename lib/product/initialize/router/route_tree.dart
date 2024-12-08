@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rent_a_car/features/admin/view/admin_dashboard_view.dart';
 import 'package:rent_a_car/features/auth/view/auth_view.dart';
 import 'package:rent_a_car/features/home/view/home_view.dart';
 import 'package:rent_a_car/features/payment/view/payment_view.dart';
 import 'package:rent_a_car/features/reservation/view/reservation_view.dart';
 import 'package:rent_a_car/features/selection/view/selection_view.dart';
 import 'package:rent_a_car/product/initialize/router/constants/route_paths.dart';
+import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 
 part 'route_tree.g.dart';
 
@@ -21,13 +23,21 @@ final class AuthViewRoute extends GoRouteData {
 
 @TypedGoRoute<HomeViewRoute>(path: RoutePaths.home)
 final class HomeViewRoute extends GoRouteData {
-  const HomeViewRoute(this.$extra);
+  const HomeViewRoute({
+    required this.$extra,
+    required this.startDate,
+    required this.endDate,
+  });
   final int $extra;
+  final String startDate;
+  final String endDate;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return HomeView(
       dayCount: $extra,
+      startDate: startDate,
+      endDate: endDate,
     );
   }
 }
@@ -35,11 +45,18 @@ final class HomeViewRoute extends GoRouteData {
 @TypedGoRoute<ReservationViewRoute>(path: RoutePaths.reservation)
 final class ReservationViewRoute extends GoRouteData {
   // const ReservationViewRoute(this.$extra);
-  const ReservationViewRoute();
-  // final Car $extra;
+  const ReservationViewRoute(this.$extra,
+      {required this.startDate, required this.endDate});
+  final Car $extra;
+  final String startDate;
+  final String endDate;
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const ReservationView();
+    return ReservationView(
+      car: $extra,
+      startDate: startDate,
+      endDate: endDate,
+    );
   }
 }
 
@@ -50,6 +67,16 @@ final class SelectionViewRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const SelectionView();
+  }
+}
+
+@TypedGoRoute<AdminDashboardViewRoute>(path: RoutePaths.admin)
+final class AdminDashboardViewRoute extends GoRouteData {
+  const AdminDashboardViewRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AdminDashboardView();
   }
 }
 

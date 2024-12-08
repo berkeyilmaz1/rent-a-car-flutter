@@ -11,6 +11,7 @@ List<RouteBase> get $appRoutes => [
       $homeViewRoute,
       $reservationViewRoute,
       $selectionViewRoute,
+      $adminDashboardViewRoute,
       $paymentViewRoute,
     ];
 
@@ -43,11 +44,17 @@ RouteBase get $homeViewRoute => GoRouteData.$route(
 
 extension $HomeViewRouteExtension on HomeViewRoute {
   static HomeViewRoute _fromState(GoRouterState state) => HomeViewRoute(
-        state.extra as int,
+        startDate: state.uri.queryParameters['start-date']!,
+        endDate: state.uri.queryParameters['end-date']!,
+        $extra: state.extra as int,
       );
 
   String get location => GoRouteData.$location(
         '/home',
+        queryParams: {
+          'start-date': startDate,
+          'end-date': endDate,
+        },
       );
 
   void go(BuildContext context) => context.go(location, extra: $extra);
@@ -69,20 +76,30 @@ RouteBase get $reservationViewRoute => GoRouteData.$route(
 
 extension $ReservationViewRouteExtension on ReservationViewRoute {
   static ReservationViewRoute _fromState(GoRouterState state) =>
-      const ReservationViewRoute();
+      ReservationViewRoute(
+        startDate: state.uri.queryParameters['start-date']!,
+        endDate: state.uri.queryParameters['end-date']!,
+        state.extra as Car,
+      );
 
   String get location => GoRouteData.$location(
         '/reservation',
+        queryParams: {
+          'start-date': startDate,
+          'end-date': endDate,
+        },
       );
 
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: $extra);
 
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
 
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: $extra);
 
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
 
 RouteBase get $selectionViewRoute => GoRouteData.$route(
@@ -96,6 +113,29 @@ extension $SelectionViewRouteExtension on SelectionViewRoute {
 
   String get location => GoRouteData.$location(
         '/selection',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $adminDashboardViewRoute => GoRouteData.$route(
+      path: '/admin',
+      factory: $AdminDashboardViewRouteExtension._fromState,
+    );
+
+extension $AdminDashboardViewRouteExtension on AdminDashboardViewRoute {
+  static AdminDashboardViewRoute _fromState(GoRouterState state) =>
+      const AdminDashboardViewRoute();
+
+  String get location => GoRouteData.$location(
+        '/admin',
       );
 
   void go(BuildContext context) => context.go(location);

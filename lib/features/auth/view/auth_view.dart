@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/features/auth/view/mixin/auth_view_mixin.dart';
+import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
+import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
 part '../widgets/auth_background.dart';
 
@@ -16,6 +18,8 @@ class _AuthViewState extends State<AuthView> with AuthViewMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => const AdminDashboardViewRoute().go(context),),
       body: Center(
         child: AuthBackground(
           child: DefaultTabController(
