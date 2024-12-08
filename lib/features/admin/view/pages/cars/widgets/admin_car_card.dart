@@ -125,7 +125,7 @@ class _AdminCarCardState extends State<AdminCarCard> {
                       child: _buildDropdownField(
                         'Yakıt Tipi',
                         _fuelType,
-                        ['Benzin', 'Dizel'],
+                        ['Benzin', 'Dizel','Elektrik'],
                       ),
                     ),
                     const SizedBox(width: 16),
