@@ -44,17 +44,11 @@ RouteBase get $homeViewRoute => GoRouteData.$route(
 
 extension $HomeViewRouteExtension on HomeViewRoute {
   static HomeViewRoute _fromState(GoRouterState state) => HomeViewRoute(
-        startDate: state.uri.queryParameters['start-date']!,
-        endDate: state.uri.queryParameters['end-date']!,
-        $extra: state.extra as int,
+        $extra: state.extra as Map<String, dynamic>,
       );
 
   String get location => GoRouteData.$location(
         '/home',
-        queryParams: {
-          'start-date': startDate,
-          'end-date': endDate,
-        },
       );
 
   void go(BuildContext context) => context.go(location, extra: $extra);
@@ -77,17 +71,11 @@ RouteBase get $reservationViewRoute => GoRouteData.$route(
 extension $ReservationViewRouteExtension on ReservationViewRoute {
   static ReservationViewRoute _fromState(GoRouterState state) =>
       ReservationViewRoute(
-        startDate: state.uri.queryParameters['start-date']!,
-        endDate: state.uri.queryParameters['end-date']!,
-        state.extra as Car,
+        $extra: state.extra as Map<dynamic, dynamic>,
       );
 
   String get location => GoRouteData.$location(
         '/reservation',
-        queryParams: {
-          'start-date': startDate,
-          'end-date': endDate,
-        },
       );
 
   void go(BuildContext context) => context.go(location, extra: $extra);

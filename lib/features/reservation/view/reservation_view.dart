@@ -14,14 +14,11 @@ part 'step_pages/driver_info_view.dart';
 
 final class ReservationView extends StatefulWidget {
   const ReservationView({
-    required this.startDate,
-    required this.endDate,
-    required this.car,
+    required this.parameters,
     super.key,
   });
-  final Car car;
-  final String startDate;
-  final String endDate;
+
+  final Map<dynamic, dynamic> parameters;
 
   @override
   State<ReservationView> createState() => _ReservationViewState();
@@ -48,9 +45,9 @@ class _ReservationViewState extends State<ReservationView>
                 Step(
                   title: const Text('Sürücü Bilgileri'),
                   content: DriverInfoView(
-                    endDate: widget.endDate,
-                    startDate: widget.startDate,
-                    car: widget.car,
+                    endDate: endDate,
+                    startDate: startDate,
+                    car: car,
                   ),
                   isActive: currentStep == 1,
                 ),

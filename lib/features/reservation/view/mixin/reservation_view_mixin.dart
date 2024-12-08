@@ -13,11 +13,16 @@ mixin ReservationViewMixin on State<ReservationView> {
   }
 
   late final Car car;
+  late final String startDate;
+  late final String endDate;
   int get currentStep => _currentStep;
 
   @override
   void initState() {
     super.initState();
+    car = widget.parameters['car'] as Car;
+    startDate = widget.parameters['startDate'] as String;
+    endDate = widget.parameters['endDate'] as String;
     car = Car(
       vinNumber: '1HGCM82633A123456',
       brand: 'Toyota',
