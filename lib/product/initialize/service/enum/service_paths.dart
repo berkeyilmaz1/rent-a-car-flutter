@@ -7,9 +7,8 @@ final class ServicePaths {
   ///vin is VIN Number of the car
   static String carWithVIN(String vin) => 'cars/$vin';
 
-  static const String listAllReservations = 'reservations';
+  static const String reservations = 'reservations';
   static String reservationsWithId(String id) => 'reservations/$id';
-
 
   static String dealershipWithId(String id) => 'dealerships/$id';
 }

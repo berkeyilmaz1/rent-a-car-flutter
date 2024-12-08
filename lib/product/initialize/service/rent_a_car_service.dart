@@ -4,6 +4,7 @@ import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/update_car_request.dart';
 import 'package:rent_a_car/product/initialize/service/models/dealership/dealership.dart';
 import 'package:rent_a_car/product/initialize/service/models/reservation/reservation.dart';
+import 'package:rent_a_car/product/initialize/service/models/reservation/reservation_create_response.dart';
 import 'package:vexana/vexana.dart';
 
 abstract class RentACarServiceInterface {
@@ -23,6 +24,7 @@ abstract class RentACarServiceInterface {
 
   Future<List<Reservation>?> getAllReservations();
   Future<EmptyModel?> deleteReservation(String id);
+  Future<EmptyModel?> createReservation(ReservationCreateResponse reservation);
 }
 
 final class RentACarService extends RentACarServiceInterface {
@@ -73,7 +75,7 @@ final class RentACarService extends RentACarServiceInterface {
   @override
   Future<List<Reservation>?> getAllReservations() async {
     final response = await _networkManager.send<Reservation, List<Reservation>>(
-      ServicePaths.listAllReservations,
+      ServicePaths.reservations,
       parseModel: Reservation(),
       method: RequestType.GET,
     );
@@ -96,6 +98,19 @@ final class RentACarService extends RentACarServiceInterface {
       ServicePaths.dealershipWithId(id),
       parseModel: const EmptyModel(),
       method: RequestType.DELETE,
+    );
+    return response.data;
+  }
+
+  @override
+  Future<EmptyModel?> createReservation(
+    ReservationCreateResponse reservation,
+  ) async {
+    final response = await _networkManager.send<EmptyModel, EmptyModel>(
+      ServicePaths.reservations,
+      parseModel: const EmptyModel(),
+      method: RequestType.POST,
+      data: reservation,
     );
     return response.data;
   }
