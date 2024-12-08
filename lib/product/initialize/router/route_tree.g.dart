@@ -79,6 +79,7 @@ extension $ReservationViewRouteExtension on ReservationViewRoute {
       ReservationViewRoute(
         startDate: state.uri.queryParameters['start-date']!,
         endDate: state.uri.queryParameters['end-date']!,
+        state.extra as Car,
       );
 
   String get location => GoRouteData.$location(
@@ -89,14 +90,16 @@ extension $ReservationViewRouteExtension on ReservationViewRoute {
         },
       );
 
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: $extra);
 
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
 
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: $extra);
 
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
 
 RouteBase get $selectionViewRoute => GoRouteData.$route(

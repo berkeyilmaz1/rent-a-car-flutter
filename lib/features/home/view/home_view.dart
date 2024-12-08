@@ -8,11 +8,12 @@ import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 part '../widgets/home_view_components.dart';
 
 final class HomeView extends StatefulWidget {
-  const HomeView(
-      {required this.dayCount,
-      required this.startDate,
-      required this.endDate,
-      super.key});
+  const HomeView({
+    required this.dayCount,
+    required this.startDate,
+    required this.endDate,
+    super.key,
+  });
   final int dayCount;
   final String startDate;
   final String endDate;
@@ -124,9 +125,10 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                   onPressed: () {
                     // ReservationViewRoute(cars![index]).go(context);
                     ReservationViewRoute(
-                            endDate: widget.endDate,
-                            startDate: widget.startDate)
-                        .go(context);
+                      cars![index],
+                      endDate: widget.endDate,
+                      startDate: widget.startDate,
+                    ).go(context);
                   },
                   car: cars![index],
                   imageUrl: 'assets/images/fiat-egea.png',

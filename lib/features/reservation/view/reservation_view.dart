@@ -16,9 +16,10 @@ final class ReservationView extends StatefulWidget {
   const ReservationView({
     required this.startDate,
     required this.endDate,
+    required this.car,
     super.key,
   });
-  // final Car car;
+  final Car car;
   final String startDate;
   final String endDate;
 
@@ -49,8 +50,7 @@ class _ReservationViewState extends State<ReservationView>
                   content: DriverInfoView(
                     endDate: widget.endDate,
                     startDate: widget.startDate,
-                    // car: widget.car,
-                    car: car,
+                    car: widget.car,
                   ),
                   isActive: currentStep == 1,
                 ),
