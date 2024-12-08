@@ -107,11 +107,12 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                           RentButton(
                             onPressed: () => createReservation(
                               //todo: extract this and add user model for userId
+                              //todo: in the payment page, check payment firstly if payment was successfull, update this reservation status to 1
                               ReservationCreateResponse(
                                 carId: widget.car.vinNumber,
                                 endDate: widget.endDateWithTime,
                                 startDate: widget.startDateWithTime,
-                                status: 1,
+                                status: 0,
                                 totalPrice:
                                     widget.car.pricePerDay! * widget.dayCount,
                                 userId: '31649853146',
