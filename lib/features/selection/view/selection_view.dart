@@ -38,6 +38,8 @@ class _SelectionViewState extends State<SelectionView> with SelectionViewMixin {
             padding: const PagePadding.horizontalHighSymmetric(),
             child: Center(
               child: SelectionCard(
+                startDateWithTime: startDateWithTime,
+                endDateWithTime: endDateWithTime,
                 dayCount: dayCount,
                 onPressed: selectDate,
                 formattedStartDate: formattedStartDate,

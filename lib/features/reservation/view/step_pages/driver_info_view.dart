@@ -1,14 +1,39 @@
 part of '../reservation_view.dart';
 
-final class DriverInfoView extends StatelessWidget {
-  const DriverInfoView(
-      {required this.car,
-      required this.startDate,
-      required this.endDate,
-      super.key});
+final class DriverInfoView extends StatefulWidget {
+  const DriverInfoView({
+    required this.car,
+    required this.startDate,
+    required this.endDate,
+    required this.dayCount,
+    required this.startDateWithTime,
+    required this.endDateWithTime,
+    super.key,
+  });
   final Car car;
   final String startDate;
   final String endDate;
+  final int dayCount;
+  final DateTime startDateWithTime;
+  final DateTime endDateWithTime;
+
+  @override
+  State<DriverInfoView> createState() => _DriverInfoViewState();
+}
+
+class _DriverInfoViewState extends State<DriverInfoView> {
+  late final RentACarService _rentACarService;
+  @override
+  void initState() {
+    super.initState();
+    _rentACarService = RentACarService(networkManager: ProductNetworkManager());
+  }
+
+  Future<void> createReservation(ReservationCreateResponse reservation) async {
+    await _rentACarService.createReservation(
+      reservation,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +44,7 @@ final class DriverInfoView extends StatelessWidget {
           flex: 2,
           child: Column(
             children: [
-              CarInfo(imageUrl: 'assets/images/fiat-egea.png', car: car),
+              CarInfo(imageUrl: 'assets/images/fiat-egea.png', car: widget.car),
               const DriverInfoForm(),
             ],
           ),
@@ -38,13 +63,14 @@ final class DriverInfoView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          Text(' Toplam Tutar'),
-                          Spacer(),
-
-                          ///todo add priceparday*daycount
-                          Text('₺ 500'),
+                          const Text(' Toplam Tutar'),
+                          const Spacer(),
+                          Text(
+                            (widget.car.pricePerDay! * widget.dayCount)
+                                .toString(),
+                          ),
                         ],
                       ),
                       const SizedBox(height: WidgetSizes.spacingM),
@@ -53,7 +79,7 @@ final class DriverInfoView extends StatelessWidget {
                           //todo make this field readonly and disabled
                           Expanded(
                             child: TextFormField(
-                              initialValue: startDate,
+                              initialValue: widget.startDate,
                               readOnly: true,
                               decoration: const InputDecoration(
                                 labelText: 'Başlangıç Tarihi',
@@ -64,7 +90,7 @@ final class DriverInfoView extends StatelessWidget {
                           const SizedBox(width: WidgetSizes.spacingXs),
                           Expanded(
                             child: TextFormField(
-                              initialValue: endDate,
+                              initialValue: widget.endDate,
                               readOnly: true,
                               decoration: const InputDecoration(
                                 labelText: 'Bitiş Tarihi',
@@ -78,7 +104,21 @@ final class DriverInfoView extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          RentButton(onPressed: () {}),
+                          RentButton(
+                            onPressed: () => createReservation(
+                              //todo: extract this and add user model for userId
+                              //todo: in the payment page, check payment firstly if payment was successfull, update this reservation status to 1
+                              ReservationCreateResponse(
+                                carId: widget.car.vinNumber,
+                                endDate: widget.endDateWithTime,
+                                startDate: widget.startDateWithTime,
+                                status: 0,
+                                totalPrice:
+                                    widget.car.pricePerDay! * widget.dayCount,
+                                userId: '31649853146',
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ],

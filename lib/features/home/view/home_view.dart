@@ -9,14 +9,10 @@ part '../widgets/home_view_components.dart';
 
 final class HomeView extends StatefulWidget {
   const HomeView({
-    required this.dayCount,
-    required this.startDate,
-    required this.endDate,
+    required this.parameters,
     super.key,
   });
-  final int dayCount;
-  final String startDate;
-  final String endDate;
+  final Map<String, dynamic> parameters;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -121,13 +117,17 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                   );
                 }
                 return CarCard(
-                  dayCount: widget.dayCount,
+                  dayCount: dayCount,
                   onPressed: () {
-                    // ReservationViewRoute(cars![index]).go(context);
                     ReservationViewRoute(
-                      cars![index],
-                      endDate: widget.endDate,
-                      startDate: widget.startDate,
+                      $extra: {
+                        'car': cars![index],
+                        'startDate': startDate,
+                        'endDate': endDate,
+                        'dayCount': dayCount,
+                        'startDateWithTime': startDateWithTime,
+                        'endDateWithTime': endDateWithTime,
+                      },
                     ).go(context);
                   },
                   car: cars![index],
