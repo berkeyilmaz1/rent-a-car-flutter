@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car/product/utils/border_radius_general.dart';
+import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
 final class AuthButton extends StatelessWidget {
   const AuthButton({
@@ -16,10 +18,10 @@ final class AuthButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         foregroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeneral.cardLow(),
         ),
-        elevation: 2, // Hafif gölge
+        elevation: WidgetSizes.spacingXSS, // Hafif gölge
       ),
       child: Text(buttonName),
     );

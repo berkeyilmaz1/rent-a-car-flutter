@@ -10,8 +10,8 @@ final class AuthBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
-      height: 400,
+      width: WidgetSizes.spacingXxlL14 + WidgetSizes.spacingXxl12,
+      height: WidgetSizes.spacingXxlL14 + WidgetSizes.spacingXxl12,
       padding: const PagePadding.all(),
       decoration: BoxDecoration(
         color: Colors.white,
