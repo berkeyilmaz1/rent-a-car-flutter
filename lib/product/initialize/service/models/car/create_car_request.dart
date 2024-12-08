@@ -2,11 +2,12 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
-part 'car.g.dart';
+part 'create_car_request.g.dart';
 
 @JsonSerializable()
-final class Car extends INetworkModel<Car> with EquatableMixin {
-  Car({
+final class CreateCarRequest extends INetworkModel<CreateCarRequest>
+    with EquatableMixin {
+  CreateCarRequest({
     this.vinNumber,
     this.brand,
     this.model,
@@ -17,14 +18,13 @@ final class Car extends INetworkModel<Car> with EquatableMixin {
     this.seatCount,
     this.pricePerDay,
     this.availabilityStatus,
-    this.createdAt,
-    this.updatedAt,
     this.minAge,
     this.kilometer,
     this.dealershipId,
   });
 
-  factory Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
+  factory CreateCarRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateCarRequestFromJson(json);
   final String? vinNumber;
   final String? brand;
   final String? model;
@@ -35,17 +35,16 @@ final class Car extends INetworkModel<Car> with EquatableMixin {
   final int? seatCount;
   final int? pricePerDay;
   final bool? availabilityStatus;
-  final String? createdAt;
-  final String? updatedAt;
   final int? minAge;
   final int? kilometer;
   final int? dealershipId;
 
   @override
-  Car fromJson(Map<String, dynamic> json) => Car.fromJson(json);
+  CreateCarRequest fromJson(Map<String, dynamic> json) =>
+      CreateCarRequest.fromJson(json);
 
   @override
-  Map<String, dynamic>? toJson() => _$CarToJson(this);
+  Map<String, dynamic>? toJson() => _$CreateCarRequestToJson(this);
 
   @override
   List<Object?> get props => [
@@ -59,14 +58,12 @@ final class Car extends INetworkModel<Car> with EquatableMixin {
         seatCount,
         pricePerDay,
         availabilityStatus,
-        createdAt,
-        updatedAt,
         minAge,
         kilometer,
         dealershipId,
       ];
 
-  Car copyWith({
+  CreateCarRequest copyWith({
     String? vinNumber,
     String? brand,
     String? model,
@@ -77,13 +74,11 @@ final class Car extends INetworkModel<Car> with EquatableMixin {
     int? seatCount,
     int? pricePerDay,
     bool? availabilityStatus,
-    String? createdAt,
-    String? updatedAt,
     int? minAge,
     int? kilometer,
     int? dealershipId,
   }) {
-    return Car(
+    return CreateCarRequest(
       vinNumber: vinNumber ?? this.vinNumber,
       brand: brand ?? this.brand,
       model: model ?? this.model,
@@ -94,8 +89,6 @@ final class Car extends INetworkModel<Car> with EquatableMixin {
       seatCount: seatCount ?? this.seatCount,
       pricePerDay: pricePerDay ?? this.pricePerDay,
       availabilityStatus: availabilityStatus ?? this.availabilityStatus,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
       minAge: minAge ?? this.minAge,
       kilometer: kilometer ?? this.kilometer,
       dealershipId: dealershipId ?? this.dealershipId,

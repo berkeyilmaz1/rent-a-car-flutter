@@ -11,4 +11,10 @@ final class ServicePaths {
   static String reservationsWithId(String id) => 'reservations/$id';
 
   static String dealershipWithId(String id) => 'dealerships/$id';
+
+  static String users = 'users';
+  static String userWithId(String id) => 'users/$id';
+
+  static String adminsWithId(String id) => 'admins/$id';
+  static String admins = 'admins';
 }
