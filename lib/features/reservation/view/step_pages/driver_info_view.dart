@@ -1,21 +1,39 @@
 part of '../reservation_view.dart';
 
-final class DriverInfoView extends StatelessWidget {
-  const DriverInfoView(
-      {required this.car,
-      required this.startDate,
-      required this.endDate,
-      super.key,
-      required this.dayCount});
+final class DriverInfoView extends StatefulWidget {
+  const DriverInfoView({
+    required this.car,
+    required this.startDate,
+    required this.endDate,
+    required this.dayCount,
+    super.key,
+  });
   final Car car;
   final String startDate;
   final String endDate;
   final int dayCount;
 
   @override
-  Widget build(BuildContext context) {
+  State<DriverInfoView> createState() => _DriverInfoViewState();
+}
 
-     
+class _DriverInfoViewState extends State<DriverInfoView> {
+  late final RentACarService _rentACarService;
+  @override
+  void initState() {
+    super.initState();
+    _rentACarService = RentACarService(networkManager: ProductNetworkManager());
+  }
+
+  Future<void> createReservation(ReservationCreateResponse reservation) async {
+    print('reservation body: $reservation');
+    // await _rentACarService.createReservation(
+    //   reservation,
+    // );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,7 +41,7 @@ final class DriverInfoView extends StatelessWidget {
           flex: 2,
           child: Column(
             children: [
-              CarInfo(imageUrl: 'assets/images/fiat-egea.png', car: car),
+              CarInfo(imageUrl: 'assets/images/fiat-egea.png', car: widget.car),
               const DriverInfoForm(),
             ],
           ),
@@ -44,11 +62,12 @@ final class DriverInfoView extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text(' Toplam Tutar'),
-                          Spacer(),
-
-                        
-                          Text((car.pricePerDay! * dayCount).toString()),
+                          const Text(' Toplam Tutar'),
+                          const Spacer(),
+                          Text(
+                            (widget.car.pricePerDay! * widget.dayCount)
+                                .toString(),
+                          ),
                         ],
                       ),
                       const SizedBox(height: WidgetSizes.spacingM),
@@ -57,7 +76,7 @@ final class DriverInfoView extends StatelessWidget {
                           //todo make this field readonly and disabled
                           Expanded(
                             child: TextFormField(
-                              initialValue: startDate,
+                              initialValue: widget.startDate,
                               readOnly: true,
                               decoration: const InputDecoration(
                                 labelText: 'Başlangıç Tarihi',
@@ -68,7 +87,7 @@ final class DriverInfoView extends StatelessWidget {
                           const SizedBox(width: WidgetSizes.spacingXs),
                           Expanded(
                             child: TextFormField(
-                              initialValue: endDate,
+                              initialValue: widget.endDate,
                               readOnly: true,
                               decoration: const InputDecoration(
                                 labelText: 'Bitiş Tarihi',
@@ -82,7 +101,19 @@ final class DriverInfoView extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          RentButton(onPressed: () {}),
+                          RentButton(
+                            onPressed: () => createReservation(
+                              ReservationCreateResponse(
+                                carId: widget.car.vinNumber,
+                                endDate: widget.endDate,
+                                startDate: widget.startDate,
+                                status: 1,
+                                totalPrice:
+                                    widget.car.pricePerDay! * widget.dayCount,
+                                userId: '',
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ],
