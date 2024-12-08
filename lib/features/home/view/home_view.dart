@@ -116,8 +116,7 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                 return CarCard(
                   dayCount: widget.dayCount,
                   onPressed: () {
-                    // ReservationViewRoute(cars![index]).go(context);
-                    const ReservationViewRoute().go(context);
+                    ReservationViewRoute(cars![index]).go(context);
                   },
                   car: cars![index],
                   imageUrl: 'assets/images/fiat-egea.png',
@@ -130,4 +129,3 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
     );
   }
 }
-
