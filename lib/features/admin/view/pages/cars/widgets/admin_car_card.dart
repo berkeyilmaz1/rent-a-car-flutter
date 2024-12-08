@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
+import 'package:rent_a_car/product/utils/formatters/fuel_type_formatter.dart';
 
 final class AdminCarCard extends StatefulWidget {
   const AdminCarCard({
@@ -22,16 +23,8 @@ class _AdminCarCardState extends State<AdminCarCard> {
   @override
   void initState() {
     super.initState();
-    _fuelType = widget.car.fuelType == 1
-        ? 'Benzin'
-        : widget.car.fuelType == 2
-            ? 'Dizel'
-            : 'Elektrik';
-    _gearType = widget.car.gearType == 1
-        ? 'Manuel'
-        : widget.car.gearType == 2
-            ? 'Otomatik'
-            : null;
+    _fuelType = CarFormatter.fuelTypeFormat(widget.car.fuelType ?? 0);
+    _gearType = CarFormatter.gearTypeFormat(widget.car.gearType ?? 0);
   }
 
   @override
