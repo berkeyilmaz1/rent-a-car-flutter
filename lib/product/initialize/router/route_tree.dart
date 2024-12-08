@@ -23,26 +23,39 @@ final class AuthViewRoute extends GoRouteData {
 
 @TypedGoRoute<HomeViewRoute>(path: RoutePaths.home)
 final class HomeViewRoute extends GoRouteData {
-  const HomeViewRoute(this.$extra);
+  const HomeViewRoute({
+    required this.$extra,
+    required this.startDate,
+    required this.endDate,
+  });
   final int $extra;
+  final String startDate;
+  final String endDate;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return HomeView(
       dayCount: $extra,
+      startDate: startDate,
+      endDate: endDate,
     );
   }
 }
 
 @TypedGoRoute<ReservationViewRoute>(path: RoutePaths.reservation)
 final class ReservationViewRoute extends GoRouteData {
-  const ReservationViewRoute(this.$extra);
-
+  // const ReservationViewRoute(this.$extra);
+  const ReservationViewRoute(this.$extra,
+      {required this.startDate, required this.endDate});
   final Car $extra;
+  final String startDate;
+  final String endDate;
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return ReservationView(
       car: $extra,
+      startDate: startDate,
+      endDate: endDate,
     );
   }
 }
