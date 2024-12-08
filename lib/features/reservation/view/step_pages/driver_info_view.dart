@@ -6,12 +6,16 @@ final class DriverInfoView extends StatefulWidget {
     required this.startDate,
     required this.endDate,
     required this.dayCount,
+    required this.startDateWithTime,
+    required this.endDateWithTime,
     super.key,
   });
   final Car car;
   final String startDate;
   final String endDate;
   final int dayCount;
+  final DateTime startDateWithTime;
+  final DateTime endDateWithTime;
 
   @override
   State<DriverInfoView> createState() => _DriverInfoViewState();
@@ -105,8 +109,8 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                             onPressed: () => createReservation(
                               ReservationCreateResponse(
                                 carId: widget.car.vinNumber,
-                                endDate: widget.endDate,
-                                startDate: widget.startDate,
+                                endDate: widget.endDateWithTime,
+                                startDate: widget.endDateWithTime,
                                 status: 1,
                                 totalPrice:
                                     widget.car.pricePerDay! * widget.dayCount,

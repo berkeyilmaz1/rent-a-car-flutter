@@ -48,7 +48,8 @@ class _ReservationViewState extends State<ReservationView>
                 Step(
                   title: const Text('Sürücü Bilgileri'),
                   content: DriverInfoView(
-                    
+                    endDateWithTime: endDateWithTime,
+                    startDateWithTime: startDateWithTime,
                     dayCount: dayCount,
                     endDate: endDate,
                     startDate: startDate,

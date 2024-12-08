@@ -6,12 +6,16 @@ final class SelectionCard extends StatelessWidget {
     required this.formattedStartDate,
     required this.formattedEndDate,
     required this.dayCount,
+    required this.startDateWithTime,
+    required this.endDateWithTime,
     super.key,
   });
   final VoidCallback onPressed;
   final String formattedStartDate;
   final String formattedEndDate;
   final int dayCount;
+  final DateTime startDateWithTime;
+  final DateTime endDateWithTime;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +70,8 @@ final class SelectionCard extends StatelessWidget {
                       'startDate': formattedStartDate,
                       'endDate': formattedEndDate,
                       'dayCount': dayCount,
+                      'startDateWithTime': startDateWithTime,
+                      'endDateWithTime': endDateWithTime,
                     },
                   ).go(context);
                 },

@@ -20,8 +20,8 @@ final class ReservationCreateResponse
       _$ReservationCreateResponseFromJson(json);
   final String? userId;
   final String? carId;
-  final String? startDate;
-  final String? endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final int? totalPrice;
   final int? status;
 
@@ -39,8 +39,8 @@ final class ReservationCreateResponse
   ReservationCreateResponse copyWith({
     String? userId,
     String? carId,
-    String? startDate,
-    String? endDate,
+    DateTime? startDate,
+    DateTime? endDate,
     int? totalPrice,
     int? status,
   }) {

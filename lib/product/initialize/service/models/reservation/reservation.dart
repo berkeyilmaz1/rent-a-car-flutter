@@ -25,8 +25,8 @@ final class Reservation extends INetworkModel<Reservation> with EquatableMixin {
   final int? id;
   final String? userId;
   final String? carId;
-  final String? startDate;
-  final String? endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final int? totalPrice;
   final int? status;
   final String? createdDate;
@@ -57,8 +57,8 @@ final class Reservation extends INetworkModel<Reservation> with EquatableMixin {
     int? id,
     String? userId,
     String? carId,
-    String? startDate,
-    String? endDate,
+    DateTime? startDate,
+    DateTime? endDate,
     int? totalPrice,
     int? status,
     String? createdDate,

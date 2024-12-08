@@ -15,6 +15,8 @@ mixin ReservationViewMixin on State<ReservationView> {
   late final String startDate;
   late final String endDate;
   late final int dayCount;
+  late final DateTime startDateWithTime;
+  late final DateTime endDateWithTime;
   int get currentStep => _currentStep;
 
   @override
@@ -25,5 +27,7 @@ mixin ReservationViewMixin on State<ReservationView> {
     startDate = widget.parameters['startDate'] as String;
     endDate = widget.parameters['endDate'] as String;
     dayCount = widget.parameters['dayCount'] as int;
+    startDateWithTime = widget.parameters['startDateWithTime'] as DateTime;
+    endDateWithTime = widget.parameters['endDateWithTime'] as DateTime;
   }
 }
