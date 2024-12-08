@@ -36,18 +36,30 @@ mixin SelectionViewMixin on State<SelectionView> {
       setState(() {
         formattedStartDate = formatDate(dateTimeRange.start);
         formattedEndDate = formatDate(dateTimeRange.end);
+
         _dayCount = dateTimeRange.duration.inDays;
       });
     }
   }
 
-
-
-
-
-   final List<DealerShip> mockDealerShips = [
-    DealerShip(id: 1, name: "Alpha Motors", address: "123 Main St", phone: "123456789"),
-    DealerShip(id: 2, name: "Beta Autos", address: "456 Elm St", phone: "987654321"),
-    DealerShip(id: 3, name: "Gamma Cars", address: "789 Oak St", phone: "456123789"),
+  final List<DealerShip> mockDealerShips = [
+    DealerShip(
+      id: 1,
+      name: 'Alpha Motors',
+      address: '123 Main St',
+      phone: '123456789',
+    ),
+    DealerShip(
+      id: 2,
+      name: 'Beta Autos',
+      address: '456 Elm St',
+      phone: '987654321',
+    ),
+    DealerShip(
+      id: 3,
+      name: 'Gamma Cars',
+      address: '789 Oak St',
+      phone: '456123789',
+    ),
   ];
 }

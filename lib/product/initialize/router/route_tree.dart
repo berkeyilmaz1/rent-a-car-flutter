@@ -7,7 +7,6 @@ import 'package:rent_a_car/features/payment/view/payment_view.dart';
 import 'package:rent_a_car/features/reservation/view/reservation_view.dart';
 import 'package:rent_a_car/features/selection/view/selection_view.dart';
 import 'package:rent_a_car/product/initialize/router/constants/route_paths.dart';
-import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 
 part 'route_tree.g.dart';
 
@@ -23,26 +22,38 @@ final class AuthViewRoute extends GoRouteData {
 
 @TypedGoRoute<HomeViewRoute>(path: RoutePaths.home)
 final class HomeViewRoute extends GoRouteData {
-  const HomeViewRoute(this.$extra);
+  const HomeViewRoute({
+    required this.$extra,
+    required this.startDate,
+    required this.endDate,
+  });
   final int $extra;
+  final String startDate;
+  final String endDate;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return HomeView(
       dayCount: $extra,
+      startDate: startDate,
+      endDate: endDate,
     );
   }
 }
 
 @TypedGoRoute<ReservationViewRoute>(path: RoutePaths.reservation)
 final class ReservationViewRoute extends GoRouteData {
-  const ReservationViewRoute(this.$extra);
-
-  final Car $extra;
+  // const ReservationViewRoute(this.$extra);
+  const ReservationViewRoute({required this.startDate, required this.endDate});
+  // final Car $extra;
+  final String startDate;
+  final String endDate;
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return ReservationView(
-      car: $extra,
+      // car: $extra,
+      startDate: startDate,
+      endDate: endDate,
     );
   }
 }

@@ -1,8 +1,14 @@
 part of '../reservation_view.dart';
 
 final class DriverInfoView extends StatelessWidget {
-  const DriverInfoView({required this.car, super.key});
+  const DriverInfoView(
+      {required this.car,
+      required this.startDate,
+      required this.endDate,
+      super.key});
   final Car car;
+  final String startDate;
+  final String endDate;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +53,7 @@ final class DriverInfoView extends StatelessWidget {
                           //todo make this field readonly and disabled
                           Expanded(
                             child: TextFormField(
+                              initialValue: startDate,
                               readOnly: true,
                               decoration: const InputDecoration(
                                 labelText: 'Başlangıç Tarihi',
@@ -57,6 +64,7 @@ final class DriverInfoView extends StatelessWidget {
                           const SizedBox(width: WidgetSizes.spacingXs),
                           Expanded(
                             child: TextFormField(
+                              initialValue: endDate,
                               readOnly: true,
                               decoration: const InputDecoration(
                                 labelText: 'Bitiş Tarihi',
