@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
 final class FilterButton extends StatelessWidget {
   const FilterButton({
@@ -19,7 +20,7 @@ final class FilterButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
-        elevation: 2, // Hafif gölge
+        elevation: WidgetSizes.spacingXSS, // Hafif gölge
       ),
       child: Text(buttonName),
     );
