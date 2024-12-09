@@ -29,7 +29,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
     _rentACarService = RentACarService(networkManager: ProductNetworkManager());
   }
 
-  Future<void> createReservation(ReservationCreateResponse reservation) async {
+  Future<void> createReservation(ReservationCreateRequest reservation) async {
     await _rentACarService.createReservation(
       reservation,
     );
@@ -108,7 +108,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                             onPressed: () => createReservation(
                               //todo: extract this and add user model for userId
                               //todo: in the payment page, check payment firstly if payment was successfull, update this reservation status to 1
-                              ReservationCreateResponse(
+                              ReservationCreateRequest(
                                 carId: widget.car.vinNumber,
                                 endDate: widget.endDateWithTime,
                                 startDate: widget.startDateWithTime,
