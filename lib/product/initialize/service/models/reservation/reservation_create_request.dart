@@ -2,12 +2,12 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
-part 'reservation_create_response.g.dart';
+part 'reservation_create_request.g.dart';
 
 @JsonSerializable()
-final class ReservationCreateResponse
-    extends INetworkModel<ReservationCreateResponse> with EquatableMixin {
-  ReservationCreateResponse({
+final class ReservationCreateRequest
+    extends INetworkModel<ReservationCreateRequest> with EquatableMixin {
+  ReservationCreateRequest({
     this.userId,
     this.carId,
     this.startDate,
@@ -16,8 +16,8 @@ final class ReservationCreateResponse
     this.status,
   });
 
-  factory ReservationCreateResponse.fromJson(Map<String, dynamic> json) =>
-      _$ReservationCreateResponseFromJson(json);
+  factory ReservationCreateRequest.fromJson(Map<String, dynamic> json) =>
+      _$ReservationCreateRequestFromJson(json);
   final String? userId;
   final String? carId;
   final DateTime? startDate;
@@ -26,17 +26,17 @@ final class ReservationCreateResponse
   final int? status;
 
   @override
-  ReservationCreateResponse fromJson(Map<String, dynamic> json) =>
-      ReservationCreateResponse.fromJson(json);
+  ReservationCreateRequest fromJson(Map<String, dynamic> json) =>
+      ReservationCreateRequest.fromJson(json);
 
   @override
-  Map<String, dynamic>? toJson() => _$ReservationCreateResponseToJson(this);
+  Map<String, dynamic>? toJson() => _$ReservationCreateRequestToJson(this);
 
   @override
   List<Object?> get props =>
       [userId, carId, startDate, endDate, totalPrice, status];
 
-  ReservationCreateResponse copyWith({
+  ReservationCreateRequest copyWith({
     String? userId,
     String? carId,
     DateTime? startDate,
@@ -44,7 +44,7 @@ final class ReservationCreateResponse
     int? totalPrice,
     int? status,
   }) {
-    return ReservationCreateResponse(
+    return ReservationCreateRequest(
       userId: userId ?? this.userId,
       carId: carId ?? this.carId,
       startDate: startDate ?? this.startDate,

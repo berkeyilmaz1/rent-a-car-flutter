@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reservation_create_response.dart';
+part of 'reservation_create_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReservationCreateResponse _$ReservationCreateResponseFromJson(
+ReservationCreateRequest _$ReservationCreateRequestFromJson(
         Map<String, dynamic> json) =>
-    ReservationCreateResponse(
+    ReservationCreateRequest(
       userId: json['userId'] as String?,
       carId: json['carId'] as String?,
       startDate: json['startDate'] == null
@@ -21,8 +21,8 @@ ReservationCreateResponse _$ReservationCreateResponseFromJson(
       status: (json['status'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$ReservationCreateResponseToJson(
-        ReservationCreateResponse instance) =>
+Map<String, dynamic> _$ReservationCreateRequestToJson(
+        ReservationCreateRequest instance) =>
     <String, dynamic>{
       'userId': instance.userId,
       'carId': instance.carId,

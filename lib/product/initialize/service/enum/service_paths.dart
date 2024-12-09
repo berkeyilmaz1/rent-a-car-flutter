@@ -17,4 +17,7 @@ final class ServicePaths {
 
   static String adminsWithId(String id) => 'admins/$id';
   static String admins = 'admins';
+
+  static String payments = 'payments';
+  static String paymentsWithId(String id) => 'payments/$id';
 }

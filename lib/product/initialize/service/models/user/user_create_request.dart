@@ -2,12 +2,12 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
-part 'user_create_response.g.dart';
+part 'user_create_request.g.dart';
 
 @JsonSerializable()
-final class UserCreateResponse extends INetworkModel<UserCreateResponse>
+final class UserCreateRequest extends INetworkModel<UserCreateRequest>
     with EquatableMixin {
-  UserCreateResponse({
+  UserCreateRequest({
     this.name,
     this.lastname,
     this.birthDate,
@@ -18,8 +18,8 @@ final class UserCreateResponse extends INetworkModel<UserCreateResponse>
     this.address,
   });
 
-  factory UserCreateResponse.fromJson(Map<String, dynamic> json) =>
-      _$UserCreateResponseFromJson(json);
+  factory UserCreateRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserCreateRequestFromJson(json);
   final String? name;
   final String? lastname;
   final DateTime? birthDate;
@@ -30,11 +30,11 @@ final class UserCreateResponse extends INetworkModel<UserCreateResponse>
   final String? address;
 
   @override
-  UserCreateResponse fromJson(Map<String, dynamic> json) =>
-      UserCreateResponse.fromJson(json);
+  UserCreateRequest fromJson(Map<String, dynamic> json) =>
+      UserCreateRequest.fromJson(json);
 
   @override
-  Map<String, dynamic>? toJson() => _$UserCreateResponseToJson(this);
+  Map<String, dynamic>? toJson() => _$UserCreateRequestToJson(this);
 
   @override
   List<Object?> get props => [
@@ -48,7 +48,7 @@ final class UserCreateResponse extends INetworkModel<UserCreateResponse>
         address,
       ];
 
-  UserCreateResponse copyWith({
+  UserCreateRequest copyWith({
     String? name,
     String? lastname,
     DateTime? birthDate,
@@ -58,7 +58,7 @@ final class UserCreateResponse extends INetworkModel<UserCreateResponse>
     String? licenseNumber,
     String? address,
   }) {
-    return UserCreateResponse(
+    return UserCreateRequest(
       name: name ?? this.name,
       lastname: lastname ?? this.lastname,
       birthDate: birthDate ?? this.birthDate,

@@ -2,46 +2,42 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
-part 'admin_create_response.g.dart';
+part 'admin_update_request.g.dart';
 
 @JsonSerializable()
-final class AdminCreateResponse extends INetworkModel<AdminCreateResponse>
+final class AdminUpdateRequest extends INetworkModel<AdminUpdateRequest>
     with EquatableMixin {
-  AdminCreateResponse({
-    this.id,
+  AdminUpdateRequest({
     this.name,
     this.lastname,
     this.email,
     this.password,
   });
 
-  factory AdminCreateResponse.fromJson(Map<String, dynamic> json) =>
-      _$AdminCreateResponseFromJson(json);
-  final String? id;
+  factory AdminUpdateRequest.fromJson(Map<String, dynamic> json) =>
+      _$AdminUpdateRequestFromJson(json);
   final String? name;
   final String? lastname;
   final String? email;
   final String? password;
 
   @override
-  AdminCreateResponse fromJson(Map<String, dynamic> json) =>
-      AdminCreateResponse.fromJson(json);
+  AdminUpdateRequest fromJson(Map<String, dynamic> json) =>
+      AdminUpdateRequest.fromJson(json);
 
   @override
-  Map<String, dynamic>? toJson() => _$AdminCreateResponseToJson(this);
+  Map<String, dynamic>? toJson() => _$AdminUpdateRequestToJson(this);
 
   @override
-  List<Object?> get props => [id, name, lastname, email, password];
+  List<Object?> get props => [name, lastname, email, password];
 
-  AdminCreateResponse copyWith({
-    String? id,
+  AdminUpdateRequest copyWith({
     String? name,
     String? lastname,
     String? email,
     String? password,
   }) {
-    return AdminCreateResponse(
-      id: id ?? this.id,
+    return AdminUpdateRequest(
       name: name ?? this.name,
       lastname: lastname ?? this.lastname,
       email: email ?? this.email,

@@ -7,7 +7,7 @@ import 'package:rent_a_car/features/reservation/view/mixin/reservation_view_mixi
 import 'package:rent_a_car/features/reservation/widgets/car_info.dart';
 import 'package:rent_a_car/features/reservation/widgets/driver_info_form.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
-import 'package:rent_a_car/product/initialize/service/models/reservation/reservation_create_response.dart';
+import 'package:rent_a_car/product/initialize/service/models/reservation/reservation_create_request.dart';
 import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
