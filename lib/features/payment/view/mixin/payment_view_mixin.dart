@@ -18,12 +18,13 @@ mixin PaymentViewMixin on State<PaymentView> {
   late final Car car;
   late final int dayCount;
   late final RentACarService _rentACarService;
-  late final int id;
+  
 
   @override
   void initState() {
     super.initState();
-
+    car = widget.parameters['car'] as Car;
+    dayCount = widget.parameters['dayCount'] as int;
     cardNumberController = TextEditingController();
     monthController = TextEditingController();
     yearController = TextEditingController();
@@ -34,12 +35,6 @@ mixin PaymentViewMixin on State<PaymentView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    car = widget.parameters['car'] as Car;
-    dayCount = widget.parameters['dayCount'] as int;
-
-    final user = Provider.of<UserProvider>(context, listen: false).user;
-
-    fetchReservationIdByCarAndUser(car.vinNumber ?? '0', user!.id ?? '0');
   }
 
   bool validatePaymentDetails() {
@@ -62,12 +57,21 @@ mixin PaymentViewMixin on State<PaymentView> {
           reservation.carId == carId && reservation.userId == userId,
     );
     if (reservation.id == null) throw Exception('Rezervasyon bulunamadı');
+    print("reservation id ${reservation.id}");
     return reservation.id;
   }
 
-  void _sendPaymentRequest() {
+  Future<void> _sendPaymentRequest(int id) async {
+    print("requestpayment:");
+    print(PaymentCreateRequest(
+      amount: car.pricePerDay! * dayCount,
+      paymentDate: DateTime.now(),
+      paymentMethod: 1,
+      paymentStatus: 1,
+      reservationId: id,
+    ));
     // send payment request
-    _rentACarService.createPayment(
+    await _rentACarService.createPayment(
       PaymentCreateRequest(
         amount: car.pricePerDay! * dayCount,
         paymentDate: DateTime.now(),
@@ -78,9 +82,13 @@ mixin PaymentViewMixin on State<PaymentView> {
     );
   }
 
-  void processPayment() {
+  Future<void> processPayment() async {
     if (validatePaymentDetails()) {
-      _sendPaymentRequest();
+      final user = Provider.of<UserProvider>(context, listen: false).user;
+      final id = await fetchReservationIdByCarAndUser(
+          car.vinNumber ?? '0', user!.id ?? '0');
+      if (id == null) return;
+      await _sendPaymentRequest(id);
       _showSuccessDialog();
       Navigator.of(context).pop();
       const SelectionViewRoute().go(context);

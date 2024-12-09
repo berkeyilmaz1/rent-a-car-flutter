@@ -113,7 +113,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                                 carId: widget.car.vinNumber,
                                 endDate: widget.endDateWithTime,
                                 startDate: widget.startDateWithTime,
-                                status: 0,
+                                status: 1,
                                 totalPrice:
                                     widget.car.pricePerDay! * widget.dayCount,
                                 userId: user?.id,
