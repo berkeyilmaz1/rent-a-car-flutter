@@ -24,7 +24,7 @@ final class User extends INetworkModel<User> with EquatableMixin {
   final String? id;
   final String? name;
   final String? lastname;
-  final String? birthDate;
+  final DateTime? birthDate;
   final String? email;
   final String? password;
   final String? phoneNumber;
@@ -58,7 +58,7 @@ final class User extends INetworkModel<User> with EquatableMixin {
     String? id,
     String? name,
     String? lastname,
-    String? birthDate,
+    DateTime? birthDate,
     String? email,
     String? password,
     String? phoneNumber,

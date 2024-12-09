@@ -49,9 +49,9 @@ class _SignInViewState extends State<SignInView> with SignInMixin {
           ),
           const SizedBox(height: WidgetSizes.spacingXxl2),
           AuthButton(
-            onPressed: () {
-              fetchAndFindUser(emailController.text);
-              if (users == null) return;
+            onPressed: () async {
+               final user =await fetchAndFindUser(emailController.text);
+               if (user ==null )return;
               const SelectionViewRoute().go(context);
             },
             buttonName: 'Giriş Yap',

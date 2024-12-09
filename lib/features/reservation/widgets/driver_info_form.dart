@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/initialize/service/models/user/user.dart';
@@ -27,14 +28,14 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
   @override
   void initState() {
     super.initState();
-    _initializeControllers();
   }
 
   void _initializeControllers({User? user}) {
     _nameController = TextEditingController(text: user?.name ?? '');
     _lastnameController = TextEditingController(text: user?.lastname ?? '');
-    _birthDateController =
-        TextEditingController(text: user?.birthDate.toString() ?? '');
+    _birthDateController = TextEditingController(
+        text: DateFormat('dd MMM', 'tr_TR')
+            .format(user?.birthDate ?? DateTime.now()));
     _emailController = TextEditingController(text: user?.email ?? '');
     _phoneNumberController =
         TextEditingController(text: user?.phoneNumber ?? '');
