@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
-import 'package:rent_a_car/product/utils/formatters/fuel_type_formatter.dart';
+import 'package:rent_a_car/product/utils/formatters/formatters.dart';
 
 final class AdminCarCard extends StatefulWidget {
   const AdminCarCard({
