@@ -42,8 +42,16 @@ mixin SignInMixin on State<SignInView> {
   }
 
   User? findUser(String userEmail) {
-    final user = users?.firstWhere((element) => element.email == userEmail);
+    print("4");
+    print(" users listesi $users");
 
+    final user = users?.firstWhere(
+        (element) =>
+            element.email?.trim().toLowerCase() ==
+            userEmail.trim().toLowerCase(),
+        orElse: () => throw Exception('Kullanıcı Bulunamadı'));
+
+    print("5 ${user?.name ?? 'boş'}");
     return user;
   }
 

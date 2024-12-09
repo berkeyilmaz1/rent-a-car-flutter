@@ -26,10 +26,12 @@ class _SignInViewState extends State<SignInView> with SignInMixin {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextFormField(
+            controller: emailController,
             decoration: const InputDecoration(labelText: 'E-Posta'),
           ),
           const SizedBox(height: WidgetSizes.spacingM),
           TextFormField(
+            controller: passwordController,
             decoration: InputDecoration(
               labelText: 'Şifre',
               suffixIcon: IconButton(
