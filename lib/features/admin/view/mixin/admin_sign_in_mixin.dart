@@ -6,6 +6,7 @@ import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 
 mixin AdminSignInMixin on State<AdminSignInView> {
   bool obscureText = true;
+  bool isLoading = false;
 
   late final TextEditingController emailController;
   late final TextEditingController passwordController;

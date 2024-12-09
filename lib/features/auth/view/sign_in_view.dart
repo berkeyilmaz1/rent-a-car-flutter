@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 import 'package:rent_a_car/features/auth/view/mixin/sign_in_mixin.dart';
 import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
@@ -45,11 +46,13 @@ class _SignInViewState extends State<SignInView> with SignInMixin {
           const SizedBox(height: WidgetSizes.spacingXxl2),
           AuthButton(
             onPressed: () async {
+              isLoading = true;
               await fetchAndFindUser(emailController.text);
+              isLoading = false;
               const SelectionViewRoute().go(context);
             },
             buttonName: 'Giriş Yap',
-          ),
+          ).ext.toDisabled(disable: isLoading == true),
         ],
       ),
     );

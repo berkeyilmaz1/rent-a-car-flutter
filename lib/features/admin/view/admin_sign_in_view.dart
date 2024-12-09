@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 import 'package:rent_a_car/features/admin/view/mixin/admin_sign_in_mixin.dart';
 import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
@@ -56,11 +57,13 @@ class _AdminSignInViewState extends State<AdminSignInView>
               const SizedBox(height: WidgetSizes.spacingXxl2),
               AuthButton(
                 onPressed: () async {
+                  isLoading = true;
                   await fetchAndFindAdmin(emailController.text);
+                  isLoading = false;
                   const AdminDashboardViewRoute().go(context);
                 },
                 buttonName: 'Giriş Yap',
-              ),
+              ).ext.toDisabled(disable: isLoading == true),
             ],
           ),
         ),

@@ -9,6 +9,7 @@ import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 mixin SignInMixin on State<SignInView> {
   // ignore: prefer_final_fields
   bool obscureText = true;
+  bool isLoading= false;
 
   late final RentACarService _rentACarService;
   late final TextEditingController _emailController;
