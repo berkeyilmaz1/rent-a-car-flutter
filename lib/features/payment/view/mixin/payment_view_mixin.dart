@@ -76,7 +76,7 @@ mixin PaymentViewMixin on State<PaymentView> {
         amount: car.pricePerDay! * dayCount,
         paymentDate: DateTime.now(),
         paymentMethod: 1,
-        paymentStatus: 1,
+        paymentStatus: 2,
         reservationId: id,
       ),
     );
