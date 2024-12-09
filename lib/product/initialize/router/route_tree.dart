@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_a_car/features/admin/view/admin_dashboard_view.dart';
+import 'package:rent_a_car/features/admin/view/admin_sign_in_view.dart';
 import 'package:rent_a_car/features/auth/view/auth_view.dart';
 import 'package:rent_a_car/features/home/view/home_view.dart';
 import 'package:rent_a_car/features/payment/view/payment_view.dart';
@@ -61,13 +62,23 @@ final class SelectionViewRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<AdminDashboardViewRoute>(path: RoutePaths.admin)
+@TypedGoRoute<AdminDashboardViewRoute>(path: RoutePaths.adminDashboard)
 final class AdminDashboardViewRoute extends GoRouteData {
   const AdminDashboardViewRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const AdminDashboardView();
+  }
+}
+
+@TypedGoRoute<AdminSignInViewRoute>(path: RoutePaths.adminAuth)
+final class AdminSignInViewRoute extends GoRouteData {
+  const AdminSignInViewRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AdminSignInView();
   }
 }
 
