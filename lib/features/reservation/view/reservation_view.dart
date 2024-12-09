@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_a_car/core/product_network_manager.dart';
 import 'package:rent_a_car/features/home/widgets/car_card.dart';
 import 'package:rent_a_car/features/payment/view/payment_view.dart';
 import 'package:rent_a_car/features/reservation/view/mixin/reservation_view_mixin.dart';
 import 'package:rent_a_car/features/reservation/widgets/car_info.dart';
 import 'package:rent_a_car/features/reservation/widgets/driver_info_form.dart';
+import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 import 'package:rent_a_car/product/initialize/service/models/reservation/reservation_create_request.dart';
 import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
@@ -59,7 +61,9 @@ class _ReservationViewState extends State<ReservationView>
                 ),
                 Step(
                   title: const Text('Ödeme'),
-                  content: const PaymentView(),
+                  content: PaymentView(
+                    parameters: widget.parameters,
+                  ),
                   isActive: currentStep == 2,
                 ),
               ],

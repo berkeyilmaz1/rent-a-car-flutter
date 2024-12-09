@@ -38,11 +38,9 @@ final class HomeViewRoute extends GoRouteData {
 
 @TypedGoRoute<ReservationViewRoute>(path: RoutePaths.reservation)
 final class ReservationViewRoute extends GoRouteData {
-  
   const ReservationViewRoute({
     required this.$extra,
   });
-  
 
   final Map<dynamic, dynamic> $extra;
   @override
@@ -75,10 +73,12 @@ final class AdminDashboardViewRoute extends GoRouteData {
 
 @TypedGoRoute<PaymentViewRoute>(path: RoutePaths.payment)
 final class PaymentViewRoute extends GoRouteData {
-  const PaymentViewRoute();
-
+  const PaymentViewRoute(this.$extra);
+  final Map<dynamic, dynamic> $extra;
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const PaymentView();
+    return PaymentView(
+      parameters: $extra,
+    );
   }
 }

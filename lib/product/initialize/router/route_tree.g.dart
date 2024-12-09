@@ -142,19 +142,22 @@ RouteBase get $paymentViewRoute => GoRouteData.$route(
     );
 
 extension $PaymentViewRouteExtension on PaymentViewRoute {
-  static PaymentViewRoute _fromState(GoRouterState state) =>
-      const PaymentViewRoute();
+  static PaymentViewRoute _fromState(GoRouterState state) => PaymentViewRoute(
+        state.extra as Map<dynamic, dynamic>,
+      );
 
   String get location => GoRouteData.$location(
         '/payment',
       );
 
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: $extra);
 
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
 
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: $extra);
 
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }

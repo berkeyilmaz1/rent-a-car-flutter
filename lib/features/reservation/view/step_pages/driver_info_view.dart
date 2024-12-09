@@ -37,6 +37,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context, listen: false).user;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -115,7 +116,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                                 status: 0,
                                 totalPrice:
                                     widget.car.pricePerDay! * widget.dayCount,
-                                userId: '31649853146',
+                                userId: user?.id,
                               ),
                             ),
                           ),
