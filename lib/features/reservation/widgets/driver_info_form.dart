@@ -1,10 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
-final class DriverInfoForm extends StatelessWidget {
-  const DriverInfoForm({super.key});
+final class DriverInfoForm extends StatefulWidget {
+  const DriverInfoForm({
+    super.key,
+  });
+
+  @override
+  State<DriverInfoForm> createState() => _DriverInfoFormState();
+}
+
+class _DriverInfoFormState extends State<DriverInfoForm> {
+  late final TextEditingController _nameController;
+  late final TextEditingController _lastnameController;
+  late final TextEditingController _birthDateController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _phoneNumberController;
+  late final TextEditingController _licenseNumberController;
+  late final TextEditingController _addressController;
+
+  @override
+  void initState() {
+    super.initState();
+    final user = Provider.of<UserProvider>(context).user;
+    _nameController = TextEditingController(text: user?.name ?? '');
+    _lastnameController = TextEditingController(text: user?.lastname ?? '');
+    _birthDateController =
+        TextEditingController(text: user?.birthDate.toString() ?? '');
+    _emailController = TextEditingController(text: user?.email ?? '');
+    _phoneNumberController =
+        TextEditingController(text: user?.phoneNumber ?? '');
+    _licenseNumberController =
+        TextEditingController(text: user?.licenseNumber ?? '');
+    _addressController = TextEditingController(text: user?.address ?? '');
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _lastnameController.dispose();
+    _birthDateController.dispose();
+    _emailController.dispose();
+    _phoneNumberController.dispose();
+    _licenseNumberController.dispose();
+    _addressController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,56 +67,14 @@ final class DriverInfoForm extends StatelessWidget {
             const Row(
               children: [Icon(Icons.person), Text('Kişisel Bilgiler')],
             ),
-            // E-posta Adresi
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'E-posta adresi',
-                border: OutlineInputBorder(),
-              ),
-            ),
             const SizedBox(height: WidgetSizes.spacingM),
 
-            // Cep Telefonu
-            Row(
-              children: [
-                DropdownButton<String>(
-                  value: '+90',
-                  items: const [
-                    DropdownMenuItem(value: '+90', child: Text('+90')),
-                  ],
-                  onChanged: (value) {},
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Cep Telefonu',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: WidgetSizes.spacingM),
-
-            // Açık Rıza Checkbox
-            Row(
-              children: [
-                Checkbox(value: false, onChanged: (value) {}),
-                const Expanded(
-                  child: Text(
-                    'İndirimler ve kampanyalardan Rıza Metni kapsamında haberdar olmak istiyorum ve kişisel verilerimin pazarlama amacıyla işlenmesine açık rıza veriyorum.',
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: WidgetSizes.spacingM),
-
-            // Ad, Soyad, Doğum Tarihi, Uçuş Numarası
+            // Ad ve Soyad
             Row(
               children: [
                 Expanded(
                   child: TextFormField(
+                    controller: _nameController,
                     decoration: const InputDecoration(
                       labelText: 'Ad',
                       border: OutlineInputBorder(),
@@ -81,6 +84,7 @@ final class DriverInfoForm extends StatelessWidget {
                 const SizedBox(width: WidgetSizes.spacingXs),
                 Expanded(
                   child: TextFormField(
+                    controller: _lastnameController,
                     decoration: const InputDecoration(
                       labelText: 'Soyad',
                       border: OutlineInputBorder(),
@@ -91,97 +95,53 @@ final class DriverInfoForm extends StatelessWidget {
             ),
             const SizedBox(height: WidgetSizes.spacingM),
 
-            Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            labelText: 'Doğum Tarihi',
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          decoration: const InputDecoration(
-                            labelText: 'Gün',
-                            border: OutlineInputBorder(),
-                          ),
-                          items: ['1', '2', '3'].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          decoration: const InputDecoration(
-                            labelText: 'Ay',
-                            border: OutlineInputBorder(),
-                          ),
-                          items: ['January', 'February', 'March']
-                              .map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          decoration: const InputDecoration(
-                            labelText: 'Yıl',
-                            border: OutlineInputBorder(),
-                          ),
-                          items: ['1990', '1991', '1992'].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (value) {},
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            // Doğum Tarihi
+            TextFormField(
+              controller: _birthDateController,
+              decoration: const InputDecoration(
+                labelText: 'Doğum Tarihi (GG/AA/YYYY)',
+                border: OutlineInputBorder(),
+              ),
             ),
-
             const SizedBox(height: WidgetSizes.spacingM),
 
-            // T.C. Kimlik No
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'T.C. Kimlik No',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: WidgetSizes.spacingXs),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Checkbox(value: false, onChanged: (value) {}),
-                      const Text('T.C. vatandaşı değil'),
-                    ],
-                  ),
-                ),
-              ],
+            // E-posta
+            TextFormField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                labelText: 'E-posta adresi',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: WidgetSizes.spacingM),
+
+            // Telefon
+            TextFormField(
+              controller: _phoneNumberController,
+              decoration: const InputDecoration(
+                labelText: 'Cep Telefonu',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: WidgetSizes.spacingM),
+
+            // Sürücü Belgesi Numarası
+            TextFormField(
+              controller: _licenseNumberController,
+              decoration: const InputDecoration(
+                labelText: 'Sürücü Belgesi Numarası',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: WidgetSizes.spacingM),
+
+            // Adres
+            TextFormField(
+              controller: _addressController,
+              decoration: const InputDecoration(
+                labelText: 'Adres',
+                border: OutlineInputBorder(),
+              ),
             ),
           ],
         ),

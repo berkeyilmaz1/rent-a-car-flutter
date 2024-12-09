@@ -65,7 +65,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                     children: [
                       Row(
                         children: [
-                          const Text(' Toplam Tutar'),
+                          const Text('Toplam Tutar'),
                           const Spacer(),
                           Text(
                             (widget.car.pricePerDay! * widget.dayCount)
