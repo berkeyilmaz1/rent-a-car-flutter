@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
+import 'package:rent_a_car/product/initialize/service/models/user/user.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
@@ -26,7 +27,10 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
   @override
   void initState() {
     super.initState();
-    final user = Provider.of<UserProvider>(context).user;
+    _initializeControllers();
+  }
+
+  void _initializeControllers({User? user}) {
     _nameController = TextEditingController(text: user?.name ?? '');
     _lastnameController = TextEditingController(text: user?.lastname ?? '');
     _birthDateController =
@@ -37,6 +41,13 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
     _licenseNumberController =
         TextEditingController(text: user?.licenseNumber ?? '');
     _addressController = TextEditingController(text: user?.address ?? '');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+    _initializeControllers(user: user);
   }
 
   @override
