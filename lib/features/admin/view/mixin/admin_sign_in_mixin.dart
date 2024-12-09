@@ -23,8 +23,18 @@ mixin AdminSignInMixin on State<AdminSignInView> {
   Future<Admin> fetchAndFindAdmin(String adminEmail) async {
     await fetchAdmins();
     final admin = findAdmin(adminEmail);
-    if (admin == null) throw Exception('Admin not found');
-    if (!mounted) throw Exception('State is not mounted');
+    if (admin == null) {
+      setState(() {
+         isLoading =false;
+      });
+      throw Exception('Admin not found');
+    }
+    if (!mounted){
+      setState(() {
+         isLoading =false;
+      });
+      throw Exception('State is not mounted');
+    }
     return admin;
   }
 

@@ -57,13 +57,32 @@ class _AdminSignInViewState extends State<AdminSignInView>
               const SizedBox(height: WidgetSizes.spacingXxl2),
               AuthButton(
                 onPressed: () async {
-                  isLoading = true;
-                  await fetchAndFindAdmin(emailController.text);
-                  isLoading = false;
-                  const AdminDashboardViewRoute().go(context);
+                  setState(() {
+                    isLoading = true;
+                  });
+
+                  try {
+                    await fetchAndFindAdmin(emailController.text);
+                    setState(() {
+                      isLoading = false;
+                    });
+                    const AdminDashboardViewRoute().go(context);
+                  } catch (e) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                    // Eğer admin bulunamazsa, kullanıcıya bilgi vermek
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content:
+                            Text('Admin bulunamadı. Lütfen tekrar deneyin.'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
                 },
                 buttonName: 'Giriş Yap',
-              ).ext.toDisabled(disable: isLoading == true),
+              ).ext.toDisabled(disable: isLoading),
             ],
           ),
         ),
