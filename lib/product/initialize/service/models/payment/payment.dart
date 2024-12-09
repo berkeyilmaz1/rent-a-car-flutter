@@ -25,7 +25,7 @@ final class Payment extends INetworkModel<Payment> with EquatableMixin {
   final int? reservationId;
   final int? amount;
   final int? paymentMethod;
-  final String? paymentDate;
+  final DateTime? paymentDate;
   final int? paymentStatus;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -55,7 +55,7 @@ final class Payment extends INetworkModel<Payment> with EquatableMixin {
     int? reservationId,
     int? amount,
     int? paymentMethod,
-    String? paymentDate,
+    DateTime? paymentDate,
     int? paymentStatus,
     DateTime? createdAt,
     DateTime? updatedAt,
