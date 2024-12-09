@@ -34,8 +34,9 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
     _nameController = TextEditingController(text: user?.name ?? '');
     _lastnameController = TextEditingController(text: user?.lastname ?? '');
     _birthDateController = TextEditingController(
-        text: DateFormat('dd MMM', 'tr_TR')
-            .format(user?.birthDate ?? DateTime.now()));
+      text: DateFormat('dd MMM', 'tr_TR')
+          .format(user?.birthDate ?? DateTime.now()),
+    );
     _emailController = TextEditingController(text: user?.email ?? '');
     _phoneNumberController =
         TextEditingController(text: user?.phoneNumber ?? '');

@@ -29,7 +29,11 @@ class _PaymentsPageViewState extends State<PaymentsPageView>
       itemCount: payments!.length,
       itemBuilder: (BuildContext context, int index) {
         final payment = payments![index];
-        return PaymentCard(payment: payment);
+        return PaymentCard(
+          payment: payment,
+          onDelete: () {},
+          onUpdate: () {},
+        );
       },
     );
   }
