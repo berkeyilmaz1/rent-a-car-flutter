@@ -46,10 +46,28 @@ class _SignInViewState extends State<SignInView> with SignInMixin {
           const SizedBox(height: WidgetSizes.spacingXxl2),
           AuthButton(
             onPressed: () async {
-              isLoading = true;
-              await fetchAndFindUser(emailController.text);
-              isLoading = false;
-              const SelectionViewRoute().go(context);
+              setState(() {
+                isLoading = true;
+              });
+
+              try {
+                await fetchAndFindUser(emailController.text);
+                setState(() {
+                  isLoading = false;
+                });
+                const SelectionViewRoute().go(context);
+              } catch (e) {
+                setState(() {
+                  isLoading = false;
+                });
+                // Eğer admin bulunamazsa, kullanıcıya bilgi vermek
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Kullanıcı bulunamadı. Lütfen tekrar deneyin.'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              }
             },
             buttonName: 'Giriş Yap',
           ).ext.toDisabled(disable: isLoading == true),
