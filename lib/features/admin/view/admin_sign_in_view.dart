@@ -27,7 +27,7 @@ class _AdminSignInViewState extends State<AdminSignInView>
         ),
       ),
       body: Center(
-        child: Admin(
+        child: AdminAuthBackground(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -56,6 +56,7 @@ class _AdminSignInViewState extends State<AdminSignInView>
               const SizedBox(height: WidgetSizes.spacingXxl2),
               AuthButton(
                 onPressed: () async {
+                  await fetchAndFindAdmin(emailController.text);
                   const AdminDashboardViewRoute().go(context);
                 },
                 buttonName: 'Giriş Yap',

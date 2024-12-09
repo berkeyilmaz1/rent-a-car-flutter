@@ -1,6 +1,7 @@
 part of '../view/admin_sign_in_view.dart';
-final class Admin extends StatelessWidget {
-  const Admin({
+
+final class AdminAuthBackground extends StatelessWidget {
+  const AdminAuthBackground({
     required this.child,
     super.key,
   });
