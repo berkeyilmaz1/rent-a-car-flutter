@@ -11,9 +11,9 @@ DealerShip _$DealerShipFromJson(Map<String, dynamic> json) => DealerShip(
       name: json['name'] as String?,
       address: json['address'] as String?,
       phone: json['phone'] as String?,
-      cars: json['cars'] == null
-          ? null
-          : Car.fromJson(json['cars'] as Map<String, dynamic>),
+      cars: (json['cars'] as List<dynamic>?)
+          ?.map((e) => Car.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$DealerShipToJson(DealerShip instance) =>

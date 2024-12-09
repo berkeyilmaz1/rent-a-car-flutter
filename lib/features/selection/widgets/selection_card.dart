@@ -10,13 +10,13 @@ final class SelectionCard extends StatelessWidget {
     required this.endDateWithTime,
     super.key,
   });
+
   final VoidCallback onPressed;
   final String formattedStartDate;
   final String formattedEndDate;
   final int dayCount;
   final DateTime startDateWithTime;
   final DateTime endDateWithTime;
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -27,10 +27,10 @@ final class SelectionCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         
+          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-              flex: 3,
               child: DealerShipDropdown(
                 fetchDealerShips:
                     RentACarService(networkManager: ProductNetworkManager())
@@ -42,13 +42,14 @@ final class SelectionCard extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(width: WidgetSizes.spacingXSs),
+            const SizedBox(height: WidgetSizes.spacingXSs),
             Expanded(
               child: TextButton(
                 onPressed: onPressed,
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(WidgetSizes.spacingXSs),
+                    borderRadius:
+                        BorderRadius.circular(WidgetSizes.spacingXSs),
                   ),
                 ),
                 child: Row(
@@ -77,7 +78,8 @@ final class SelectionCard extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(WidgetSizes.spacingXSs),
+                    borderRadius:
+                        BorderRadius.circular(WidgetSizes.spacingXSs),
                   ),
                 ),
                 child: const Text('Teklifleri Göster'),
