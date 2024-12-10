@@ -7,4 +7,5 @@ final class RoutePaths {
   static const String payment = '/payment';
   static const String adminAuth = '/adminAuth';
   static const String adminDashboard = '/adminDashboard';
+  static const String createCar = '/create-car';
 }

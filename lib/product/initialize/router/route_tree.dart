@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_a_car/features/admin/view/admin_dashboard_view.dart';
 import 'package:rent_a_car/features/admin/view/admin_sign_in_view.dart';
+import 'package:rent_a_car/features/admin/view/pages/cars/view/create_car_view.dart';
 import 'package:rent_a_car/features/auth/view/auth_view.dart';
 import 'package:rent_a_car/features/home/view/home_view.dart';
 import 'package:rent_a_car/features/payment/view/payment_view.dart';
@@ -91,5 +92,15 @@ final class PaymentViewRoute extends GoRouteData {
     return PaymentView(
       parameters: $extra,
     );
+  }
+}
+
+@TypedGoRoute<CreateCarViewRoute>(path: RoutePaths.createCar)
+final class CreateCarViewRoute extends GoRouteData {
+  const CreateCarViewRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CreateCarView();
   }
 }

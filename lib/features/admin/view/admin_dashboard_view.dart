@@ -7,8 +7,6 @@ final class AdminDashboardView extends StatefulWidget {
 
   @override
   _AdminDashboardViewState createState() => _AdminDashboardViewState();
-
- 
 }
 
 class _AdminDashboardViewState extends State<AdminDashboardView>
