@@ -1,79 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rent_a_car/features/admin/view/pages/payments/widgets/payment_button.dart';
-import 'package:rent_a_car/features/admin/view/pages/payments/widgets/payment_card.dart';
 import 'package:rent_a_car/product/initialize/service/models/user/user.dart';
+import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
-final class UserCard extends StatelessWidget {
+class UserCard extends StatelessWidget {
   const UserCard({
     required this.user,
+    required this.onUpdate,
+    required this.onDelete,
     super.key,
   });
 
   final User user;
+  final VoidCallback onUpdate;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(
-        vertical: WidgetSizes.spacingXs,
-        horizontal: WidgetSizes.spacingM,
+      margin: const PagePadding.verticalLowSymmetric(),
+      elevation: WidgetSizes.spacingXSs,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeneral.allLow(),
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 6,
-      shadowColor: Colors.black.withOpacity(0.1),
       child: Padding(
-        padding: const PagePadding.allLow(),
+        padding: const PagePadding.all(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CardRow(
-              label: 'Kullanıcı ID:',
-              value: user.id.toString(),
-            ),
-            CardRow(
-              label: 'İsim - Soyisim:',
-              value: '${user.name} ${user.lastname}',
-            ),
-            CardRow(
-              label: 'E-posta:',
-              value: user.email ?? '',
-            ),
-            CardRow(
-              label: 'Telefon:',
-              value: user.phoneNumber ?? '',
-            ),
-            CardRow(
-              label: 'Doğum Tarihi:',
-              value: DateFormat('dd MMM', 'tr_TR')
-                  .format(user.birthDate ?? DateTime.now()),
-            ),
-            CardRow(
-              label: 'Sürücü Seri Numarası:',
-              value: user.licenseNumber ?? '',
-            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AdminButton(
-                  color: Colors.blue,
-                  label: 'Güncelle',
-                  onPressed: () {},
+                Text(
+                  'Kullanıcı #${user.id}',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent,
+                      ),
                 ),
-                const SizedBox(width: WidgetSizes.spacingM),
-                AdminButton(
-                  color: Colors.red,
-                  label: 'Sil',
-                  onPressed: () {},
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.blue),
+                      onPressed: onUpdate,
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: onDelete,
+                    ),
+                  ],
                 ),
               ],
             ),
+            const Divider(),
+            const SizedBox(height: WidgetSizes.spacingXs),
+            _buildDetailRow(
+              context,
+              'İsim - Soyisim:',
+              '${user.name} ${user.lastname}',
+            ),
+            _buildDetailRow(context, 'E-posta:', user.email ?? '-'),
+            _buildDetailRow(context, 'Telefon:', user.phoneNumber ?? '-'),
+            _buildDetailRow(
+              context,
+              'Doğum Tarihi:',
+              DateFormat('yMMMMd', 'tr_TR')
+                  .format(user.birthDate ?? DateTime.now()),
+            ),
+            _buildDetailRow(
+              context,
+              'Sürücü Seri Numarası:',
+              user.licenseNumber ?? '-',
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(BuildContext context, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: WidgetSizes.spacingXs),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+          const SizedBox(width: 4),
+          Expanded(
+            child: Text(
+              value,
+              style: Theme.of(context).textTheme.bodyMedium,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
       ),
     );
   }

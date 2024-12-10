@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rent_a_car/features/admin/view/pages/payments/widgets/payment_button.dart';
 import 'package:rent_a_car/product/initialize/service/models/payment/payment.dart';
+import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/utils/formatters/formatters.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
-final class PaymentCard extends StatelessWidget {
+class PaymentCard extends StatelessWidget {
   const PaymentCard({
     required this.payment,
     required this.onUpdate,
@@ -20,56 +20,133 @@ final class PaymentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(
-        vertical: WidgetSizes.spacingXs,
-        horizontal: WidgetSizes.spacingM,
+      margin: const PagePadding.verticalLowSymmetric(),
+      elevation: WidgetSizes.spacingXSs,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeneral.allLow(),
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 6,
-      shadowColor: Colors.black.withOpacity(0.1),
       child: Padding(
-        padding: const PagePadding.allLow(),
+        padding: const PagePadding.all(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CardRow(label: 'Payment ID:', value: payment.id.toString()),
-            CardRow(
-              label: 'Reservation ID:',
-              value: payment.reservationId.toString(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Ödeme Id: ${payment.id}',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent,
+                      ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: onDelete,
+                ),
+              ],
             ),
-            CardRow(label: 'Amount:', value: payment.amount.toString()),
-            CardRow(label: 'Date:', value: payment.createdAt.toString()),
-            CardRow(
-              label: 'Status:',
-              value:
-                  CarFormatter.paymentStatusFormat(payment.paymentStatus ?? 0),
+            const Divider(),
+            const SizedBox(height: WidgetSizes.spacingXs),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildDetailRow(
+                    context,
+                    'Rezervasyon ID:',
+                    payment.reservationId.toString(),
+                  ),
+                ),
+                Expanded(
+                  child: _buildDetailRow(
+                    context,
+                    'Tutar:',
+                    payment.amount.toString(),
+                  ),
+                ),
+              ],
             ),
-            CardRow(
-              label: 'Payment Method:',
-              value:
-                  CarFormatter.paymentMethodFormat(payment.paymentMethod ?? 0),
+            const SizedBox(height: WidgetSizes.spacingXs),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildDetailRow(
+                    context,
+                    'Tarih:',
+                    payment.createdAt.toString(),
+                  ),
+                ),
+                Expanded(
+                  child: _buildDetailRow(
+                    context,
+                    'Durum:',
+                    CarFormatter.paymentStatusFormat(
+                      payment.paymentStatus ?? 0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(),
+            _buildDetailRow(
+              context,
+              'Ödeme Yöntemi:',
+              CarFormatter.paymentMethodFormat(payment.paymentMethod ?? 0),
             ),
             const SizedBox(height: WidgetSizes.spacingM),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                AdminButton(
-                  color: Colors.blue,
-                  label: 'Güncelle',
-                  onPressed: () {},
+                TextButton(
+                  onPressed: onUpdate,
+                  child: Text(
+                    'Güncelle',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
                 ),
                 const SizedBox(width: WidgetSizes.spacingM),
-                AdminButton(
-                  color: Colors.red,
-                  label: 'Sil',
-                  onPressed: () {},
+                TextButton(
+                  onPressed: onDelete,
+                  child: Text(
+                    'Sil',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
                 ),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(BuildContext context, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: WidgetSizes.spacingXs),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+          const SizedBox(width: 4),
+          Expanded(
+            child: Text(
+              value,
+              style: Theme.of(context).textTheme.bodyMedium,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
       ),
     );
   }

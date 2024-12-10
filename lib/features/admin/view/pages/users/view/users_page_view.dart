@@ -28,7 +28,11 @@ class _UsersPageViewState extends State<UsersPageView> with UsersPageViewMixin {
       itemCount: users!.length,
       itemBuilder: (BuildContext context, int index) {
         final user = users![index];
-        return UserCard(user: user);
+        return UserCard(
+          user: user,
+          onDelete: () {},
+          onUpdate: () {},
+        );
       },
     );
   }
