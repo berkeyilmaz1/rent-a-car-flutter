@@ -51,10 +51,11 @@ class _SignInViewState extends State<SignInView> with SignInMixin {
               });
 
               try {
-                await fetchAndFindUser(emailController.text);
+                final user= await fetchAndFindUser(emailController.text,passwordController.text);
                 setState(() {
                   isLoading = false;
                 });
+                if (user == null) return;
                 const SelectionViewRoute().go(context);
               } catch (e) {
                 setState(() {
