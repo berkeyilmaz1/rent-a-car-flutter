@@ -19,62 +19,67 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const PagePadding.verticalLowSymmetric(),
-      elevation: WidgetSizes.spacingXSs,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeneral.allLow(),
-      ),
-      child: Padding(
-        padding: const PagePadding.all(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Kullanıcı #${user.id}',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
+    return Padding(
+      padding: const PagePadding.all(),
+      child: Card(
+        margin: const PagePadding.verticalLowSymmetric(),
+        elevation: WidgetSizes.spacingXSs,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeneral.allLow(),
+        ),
+        child: Padding(
+          padding: const PagePadding.all(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.book_online_rounded),
+                  const SizedBox(width: WidgetSizes.spacingXs),
+                  Text(
+                    'Kullanıcı #${user.id}',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueAccent,
+                        ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.blue),
+                        onPressed: onUpdate,
                       ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.blue),
-                      onPressed: onUpdate,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: onDelete,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const Divider(),
-            const SizedBox(height: WidgetSizes.spacingXs),
-            _buildDetailRow(
-              context,
-              'İsim - Soyisim:',
-              '${user.name} ${user.lastname}',
-            ),
-            _buildDetailRow(context, 'E-posta:', user.email ?? '-'),
-            _buildDetailRow(context, 'Telefon:', user.phoneNumber ?? '-'),
-            _buildDetailRow(
-              context,
-              'Doğum Tarihi:',
-              DateFormat('yMMMMd', 'tr_TR')
-                  .format(user.birthDate ?? DateTime.now()),
-            ),
-            _buildDetailRow(
-              context,
-              'Sürücü Seri Numarası:',
-              user.licenseNumber ?? '-',
-            ),
-          ],
+                      IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        onPressed: onDelete,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Divider(),
+              const SizedBox(height: WidgetSizes.spacingXs),
+              _buildDetailRow(
+                context,
+                'İsim - Soyisim:',
+                '${user.name} ${user.lastname}',
+              ),
+              _buildDetailRow(context, 'E-posta:', user.email ?? '-'),
+              _buildDetailRow(context, 'Telefon:', user.phoneNumber ?? '-'),
+              _buildDetailRow(
+                context,
+                'Doğum Tarihi:',
+                DateFormat('yMMMMd', 'tr_TR')
+                    .format(user.birthDate ?? DateTime.now()),
+              ),
+              _buildDetailRow(
+                context,
+                'Sürücü Seri Numarası:',
+                user.licenseNumber ?? '-',
+              ),
+            ],
+          ),
         ),
       ),
     );
