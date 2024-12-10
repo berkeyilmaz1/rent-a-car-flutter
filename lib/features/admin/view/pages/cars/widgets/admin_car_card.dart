@@ -25,7 +25,7 @@ final class AdminCarCard extends StatefulWidget {
 class _AdminCarCardState extends State<AdminCarCard> {
   late String? _fuelType;
   late String? _gearType;
-  late String? availabilityStatus;
+  late bool? availabilityStatus;
   late final RentACarService _rentACarService;
 
   late TextEditingController _brandController;
@@ -46,6 +46,7 @@ class _AdminCarCardState extends State<AdminCarCard> {
   }
 
   void initControllers() {
+    availabilityStatus = widget.car.availabilityStatus;
     _brandController = TextEditingController(text: widget.car.brand);
     _modelController = TextEditingController(text: widget.car.model);
     _licensePlateController =
@@ -128,7 +129,6 @@ class _AdminCarCardState extends State<AdminCarCard> {
                     Expanded(
                       child: _buildTextField(
                         'Marka',
-                        widget.car.brand,
                         _brandController,
                       ),
                     ),
@@ -136,7 +136,6 @@ class _AdminCarCardState extends State<AdminCarCard> {
                     Expanded(
                       child: _buildTextField(
                         'Model',
-                        widget.car.model,
                         _modelController,
                       ),
                     ),
@@ -147,7 +146,6 @@ class _AdminCarCardState extends State<AdminCarCard> {
                     Expanded(
                       child: _buildTextField(
                         'Plaka',
-                        widget.car.licensePlate,
                         _licensePlateController,
                       ),
                     ),
@@ -155,7 +153,6 @@ class _AdminCarCardState extends State<AdminCarCard> {
                     Expanded(
                       child: _buildTextField(
                         'Yıl',
-                        _yearController.text,
                         _yearController,
                       ),
                     ),
@@ -163,7 +160,6 @@ class _AdminCarCardState extends State<AdminCarCard> {
                     Expanded(
                       child: _buildTextField(
                         'Kilometre',
-                        widget.car.kilometer?.toString(),
                         _kilometerController,
                       ),
                     ),
@@ -171,7 +167,6 @@ class _AdminCarCardState extends State<AdminCarCard> {
                     Expanded(
                       child: _buildTextField(
                         'Günlük Fiyat',
-                        widget.car.kilometer?.toString(),
                         _dailyPriceController,
                       ),
                     ),
@@ -179,7 +174,8 @@ class _AdminCarCardState extends State<AdminCarCard> {
                     Expanded(
                       child: _buildDropdownField(
                         'Müsaitlik Durumu',
-                        availabilityStatus,
+                        // ignore: use_if_null_to_convert_nulls_to_bools
+                        availabilityStatus == true ? 'Müsait' : 'Kirada',
                         ['Müsait', 'Kirada'],
                       ),
                     ),
@@ -208,8 +204,8 @@ class _AdminCarCardState extends State<AdminCarCard> {
                 Row(
                   children: [
                     ElevatedButton(
-                      onPressed: () => saveOnPressed(
-                        UpdateCarRequest(
+                      onPressed: () {
+                        print(UpdateCarRequest(
                           availabilityStatus:
                               // ignore: lines_longer_than_80_chars, avoid_bool_literals_in_conditional_expressions
                               availabilityStatus == 'Müsait' ? true : false,
@@ -223,9 +219,28 @@ class _AdminCarCardState extends State<AdminCarCard> {
                               CarFormatter.fuelTypeFromString(_fuelType ?? ''),
                           gearType:
                               CarFormatter.gearTypeFromString(_gearType ?? ''),
-                        ),
-                        widget.car.vinNumber ?? '',
-                      ),
+                        ));
+                        saveOnPressed(
+                          UpdateCarRequest(
+                            availabilityStatus: availabilityStatus,
+                            brand: _brandController.text,
+                            model: _modelController.text,
+                            licensePlate: _licensePlateController.text,
+                            year: int.tryParse(_yearController.text),
+                            kilometer: int.tryParse(_kilometerController.text),
+                            pricePerDay:
+                                int.tryParse(_dailyPriceController.text),
+                            fuelType: CarFormatter.fuelTypeFromString(
+                                _fuelType ?? ''),
+                            gearType: CarFormatter.gearTypeFromString(
+                                _gearType ?? ''),
+                            seatCount: widget.car.seatCount,
+                            minAge: widget.car.minAge,
+                            dealershipId: widget.car.dealershipId,
+                          ),
+                          widget.car.vinNumber ?? '',
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         shape: RoundedRectangleBorder(
@@ -264,14 +279,12 @@ class _AdminCarCardState extends State<AdminCarCard> {
 
   Widget _buildTextField(
     String label,
-    String? initialValue,
     TextEditingController? controller,
   ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TextFormField(
         controller: controller,
-        initialValue: initialValue,
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(
