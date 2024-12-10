@@ -90,8 +90,7 @@ class _DealerCardState extends State<DealerCard> {
                 'Telefon',
                 widget.dealer.phone ?? 'Telefon Yok',
               ),
-              _buildDetailRow(
-                  'Araba Sayısı', widget.dealer.cars?.length.toString() ?? '0'),
+             
             ],
           ),
         ),

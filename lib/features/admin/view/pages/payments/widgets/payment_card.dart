@@ -33,7 +33,7 @@ class PaymentCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                 children: [
+                children: [
                   const Icon(Icons.payment),
                   const SizedBox(width: WidgetSizes.spacingXs),
                   Text(
@@ -42,11 +42,6 @@ class PaymentCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.blueAccent,
                         ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: onDelete,
                   ),
                 ],
               ),
@@ -97,33 +92,6 @@ class PaymentCard extends StatelessWidget {
                 'Ödeme Yöntemi:',
                 CarFormatter.paymentMethodFormat(payment.paymentMethod ?? 0),
               ),
-              const SizedBox(height: WidgetSizes.spacingM),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: onUpdate,
-                    child: Text(
-                      'Güncelle',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  ),
-                  const SizedBox(width: WidgetSizes.spacingM),
-                  TextButton(
-                    onPressed: onDelete,
-                    child: Text(
-                      'Sil',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
@@ -156,4 +124,3 @@ class PaymentCard extends StatelessWidget {
     );
   }
 }
- 
