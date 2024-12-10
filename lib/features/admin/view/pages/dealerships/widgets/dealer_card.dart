@@ -61,7 +61,7 @@ class DealerCard extends StatelessWidget {
             const Divider(),
             _buildDetailRow('Adres:', dealer.address ?? '-'),
             _buildDetailRow('Telefon:', dealer.phone ?? '-'),
-            // _buildDetailRow('Araç Sayısı:', '${dealer.cars?.length ?? 0}'),
+            _buildDetailRow('Araç Sayısı:', '${dealer.cars?.length ?? 0}'),
             const SizedBox(height: WidgetSizes.spacingXs),
           ],
         ),
