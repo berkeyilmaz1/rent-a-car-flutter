@@ -5,5 +5,6 @@ final class RoutePaths {
   static const String reservation = '/reservation';
   static const String selection = '/selection';
   static const String payment = '/payment';
-  static const String admin= '/admin';
+  static const String adminAuth = '/adminAuth';
+  static const String adminDashboard = '/adminDashboard';
 }

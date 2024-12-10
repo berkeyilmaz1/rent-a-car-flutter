@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 
 final class AdminDashboardDrawer extends StatelessWidget {
@@ -13,31 +14,37 @@ final class AdminDashboardDrawer extends StatelessWidget {
           // Drawer Menu Items
           _buildDrawerItem(
             icon: Icons.directions_car,
-            text: 'Cars',
+            text: 'Araçlar',
             index: 0,
           ),
           _buildDrawerItem(
             icon: Icons.people,
-            text: 'Users',
+            text: 'Kullanıcılar',
             index: 1,
           ),
           _buildDrawerItem(
             icon: Icons.book_online,
-            text: 'Reservations',
+            text: 'Reservasyonlar',
             index: 2,
           ),
           _buildDrawerItem(
             icon: Icons.payment,
-            text: 'Payments',
+            text: 'Ödemeler',
             index: 3,
+          ),
+          _buildDrawerItem(
+            icon: Icons.location_city,
+            text: 'Bayiler',
+            index: 4,
           ),
 
           const Spacer(),
           const Divider(),
 
           _buildDrawerItem(
+            onTap: () => const AuthViewRoute().go(context),
             icon: Icons.logout,
-            text: 'Logout',
+            text: 'Çıkış Yap',
             index: 5,
           ),
         ],
@@ -50,17 +57,20 @@ final class AdminDashboardDrawer extends StatelessWidget {
     required IconData icon,
     required String text,
     required int index,
+    VoidCallback? onTap,
   }) {
     return Padding(
       padding: const PagePadding.verticalLow12Symmetric(),
       child: ListTile(
         leading: Icon(icon),
         title: Text(text),
-        onTap: () {
-          // Close the drawer
-          // You might want to use Navigator.pop(context) if this is in a BuildContext
-          onItemSelected(index);
-        },
+        onTap: onTap ??
+            () {
+              // Ensure index is valid before calling onItemSelected
+              if (index >= 0) {
+                onItemSelected(index);
+              }
+            },
       ),
     );
   }

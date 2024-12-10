@@ -20,4 +20,24 @@ final class CarFormatter {
     }
     return '';
   }
+
+  static String paymentMethodFormat(int paymentMethod) {
+    switch (paymentMethod) {
+      case 1:
+        return 'Kredi Kartı';
+      case 2:
+        return 'Nakit';
+    }
+    return '';
+  }
+
+  static String paymentStatusFormat(int paymentStatus) {
+    switch (paymentStatus) {
+      case 1:
+        return 'Başarısız';
+      case 2:
+        return 'Başarılı';
+    }
+    return '';
+  }
 }

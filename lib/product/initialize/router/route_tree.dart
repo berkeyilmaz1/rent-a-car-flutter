@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_a_car/features/admin/view/admin_dashboard_view.dart';
+import 'package:rent_a_car/features/admin/view/admin_sign_in_view.dart';
 import 'package:rent_a_car/features/auth/view/auth_view.dart';
 import 'package:rent_a_car/features/home/view/home_view.dart';
 import 'package:rent_a_car/features/payment/view/payment_view.dart';
@@ -38,11 +39,9 @@ final class HomeViewRoute extends GoRouteData {
 
 @TypedGoRoute<ReservationViewRoute>(path: RoutePaths.reservation)
 final class ReservationViewRoute extends GoRouteData {
-  
   const ReservationViewRoute({
     required this.$extra,
   });
-  
 
   final Map<dynamic, dynamic> $extra;
   @override
@@ -63,7 +62,7 @@ final class SelectionViewRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<AdminDashboardViewRoute>(path: RoutePaths.admin)
+@TypedGoRoute<AdminDashboardViewRoute>(path: RoutePaths.adminDashboard)
 final class AdminDashboardViewRoute extends GoRouteData {
   const AdminDashboardViewRoute();
 
@@ -73,12 +72,24 @@ final class AdminDashboardViewRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<PaymentViewRoute>(path: RoutePaths.payment)
-final class PaymentViewRoute extends GoRouteData {
-  const PaymentViewRoute();
+@TypedGoRoute<AdminSignInViewRoute>(path: RoutePaths.adminAuth)
+final class AdminSignInViewRoute extends GoRouteData {
+  const AdminSignInViewRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const PaymentView();
+    return const AdminSignInView();
+  }
+}
+
+@TypedGoRoute<PaymentViewRoute>(path: RoutePaths.payment)
+final class PaymentViewRoute extends GoRouteData {
+  const PaymentViewRoute(this.$extra);
+  final Map<dynamic, dynamic> $extra;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return PaymentView(
+      parameters: $extra,
+    );
   }
 }

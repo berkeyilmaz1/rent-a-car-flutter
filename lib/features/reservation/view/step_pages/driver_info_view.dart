@@ -29,7 +29,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
     _rentACarService = RentACarService(networkManager: ProductNetworkManager());
   }
 
-  Future<void> createReservation(ReservationCreateResponse reservation) async {
+  Future<void> createReservation(ReservationCreateRequest reservation) async {
     await _rentACarService.createReservation(
       reservation,
     );
@@ -37,6 +37,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context, listen: false).user;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -65,7 +66,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                     children: [
                       Row(
                         children: [
-                          const Text(' Toplam Tutar'),
+                          const Text('Toplam Tutar'),
                           const Spacer(),
                           Text(
                             (widget.car.pricePerDay! * widget.dayCount)
@@ -108,14 +109,14 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                             onPressed: () => createReservation(
                               //todo: extract this and add user model for userId
                               //todo: in the payment page, check payment firstly if payment was successfull, update this reservation status to 1
-                              ReservationCreateResponse(
+                              ReservationCreateRequest(
                                 carId: widget.car.vinNumber,
                                 endDate: widget.endDateWithTime,
                                 startDate: widget.startDateWithTime,
-                                status: 0,
+                                status: 1,
                                 totalPrice:
                                     widget.car.pricePerDay! * widget.dayCount,
-                                userId: '31649853146',
+                                userId: user?.id,
                               ),
                             ),
                           ),

@@ -11,7 +11,9 @@ Payment _$PaymentFromJson(Map<String, dynamic> json) => Payment(
       reservationId: (json['reservationId'] as num?)?.toInt(),
       amount: (json['amount'] as num?)?.toInt(),
       paymentMethod: (json['paymentMethod'] as num?)?.toInt(),
-      paymentDate: json['paymentDate'] as String?,
+      paymentDate: json['paymentDate'] == null
+          ? null
+          : DateTime.parse(json['paymentDate'] as String),
       paymentStatus: (json['paymentStatus'] as num?)?.toInt(),
       createdAt: json['createdAt'] == null
           ? null
@@ -29,7 +31,7 @@ Map<String, dynamic> _$PaymentToJson(Payment instance) => <String, dynamic>{
       'reservationId': instance.reservationId,
       'amount': instance.amount,
       'paymentMethod': instance.paymentMethod,
-      'paymentDate': instance.paymentDate,
+      'paymentDate': instance.paymentDate?.toIso8601String(),
       'paymentStatus': instance.paymentStatus,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),

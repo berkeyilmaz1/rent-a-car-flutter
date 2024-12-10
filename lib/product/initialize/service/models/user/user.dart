@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rent_a_car/product/initialize/service/models/reservation/reservation.dart';
 import 'package:vexana/vexana.dart';
 
 part 'user.g.dart';
@@ -19,7 +18,6 @@ final class User extends INetworkModel<User> with EquatableMixin {
     this.address,
     this.createdAt,
     this.updatedAt,
-    this.reservations,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -34,7 +32,6 @@ final class User extends INetworkModel<User> with EquatableMixin {
   final String? address;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final Reservation? reservations;
 
   @override
   User fromJson(Map<String, dynamic> json) => User.fromJson(json);
@@ -55,7 +52,6 @@ final class User extends INetworkModel<User> with EquatableMixin {
         address,
         createdAt,
         updatedAt,
-        reservations,
       ];
 
   User copyWith({
@@ -70,7 +66,6 @@ final class User extends INetworkModel<User> with EquatableMixin {
     String? address,
     DateTime? createdAt,
     DateTime? updatedAt,
-    Reservation? reservations,
   }) {
     return User(
       id: id ?? this.id,
@@ -84,7 +79,6 @@ final class User extends INetworkModel<User> with EquatableMixin {
       address: address ?? this.address,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      reservations: reservations ?? this.reservations,
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 import 'package:vexana/vexana.dart';
@@ -6,8 +5,9 @@ import 'package:vexana/vexana.dart';
 part 'dealership.g.dart';
 
 @JsonSerializable()
-final class DealerShip extends INetworkModel<DealerShip> with EquatableMixin {
-  DealerShip({
+final class DealerShip extends INetworkModel<DealerShip> {
+
+  const DealerShip({
     this.id,
     this.name,
     this.address,
@@ -21,7 +21,7 @@ final class DealerShip extends INetworkModel<DealerShip> with EquatableMixin {
   final String? name;
   final String? address;
   final String? phone;
-  final Car? cars;
+  final List<Car>? cars;
 
   @override
   DealerShip fromJson(Map<String, dynamic> json) => DealerShip.fromJson(json);
@@ -29,15 +29,12 @@ final class DealerShip extends INetworkModel<DealerShip> with EquatableMixin {
   @override
   Map<String, dynamic>? toJson() => _$DealerShipToJson(this);
 
-  @override
-  List<Object?> get props => [id, name, address, phone, cars];
-
   DealerShip copyWith({
     int? id,
     String? name,
     String? address,
     String? phone,
-    Car? cars,
+    List<Car>? cars,
   }) {
     return DealerShip(
       id: id ?? this.id,

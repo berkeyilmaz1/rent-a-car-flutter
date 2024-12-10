@@ -12,6 +12,7 @@ List<RouteBase> get $appRoutes => [
       $reservationViewRoute,
       $selectionViewRoute,
       $adminDashboardViewRoute,
+      $adminSignInViewRoute,
       $paymentViewRoute,
     ];
 
@@ -114,7 +115,7 @@ extension $SelectionViewRouteExtension on SelectionViewRoute {
 }
 
 RouteBase get $adminDashboardViewRoute => GoRouteData.$route(
-      path: '/admin',
+      path: '/adminDashboard',
       factory: $AdminDashboardViewRouteExtension._fromState,
     );
 
@@ -123,7 +124,30 @@ extension $AdminDashboardViewRouteExtension on AdminDashboardViewRoute {
       const AdminDashboardViewRoute();
 
   String get location => GoRouteData.$location(
-        '/admin',
+        '/adminDashboard',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $adminSignInViewRoute => GoRouteData.$route(
+      path: '/adminAuth',
+      factory: $AdminSignInViewRouteExtension._fromState,
+    );
+
+extension $AdminSignInViewRouteExtension on AdminSignInViewRoute {
+  static AdminSignInViewRoute _fromState(GoRouterState state) =>
+      const AdminSignInViewRoute();
+
+  String get location => GoRouteData.$location(
+        '/adminAuth',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -142,19 +166,22 @@ RouteBase get $paymentViewRoute => GoRouteData.$route(
     );
 
 extension $PaymentViewRouteExtension on PaymentViewRoute {
-  static PaymentViewRoute _fromState(GoRouterState state) =>
-      const PaymentViewRoute();
+  static PaymentViewRoute _fromState(GoRouterState state) => PaymentViewRoute(
+        state.extra as Map<dynamic, dynamic>,
+      );
 
   String get location => GoRouteData.$location(
         '/payment',
       );
 
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: $extra);
 
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
 
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: $extra);
 
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }

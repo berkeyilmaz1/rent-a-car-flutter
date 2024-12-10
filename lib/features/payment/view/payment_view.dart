@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
 import 'package:rent_a_car/features/payment/view/mixin/payment_view_mixin.dart';
-import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
 final class PaymentView extends StatefulWidget {
-  const PaymentView({super.key});
-
+  const PaymentView({required this.parameters, super.key});
+  final Map<dynamic, dynamic> parameters;
   @override
   State<PaymentView> createState() => _PaymentViewState();
 }
