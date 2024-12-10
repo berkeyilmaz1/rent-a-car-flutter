@@ -62,7 +62,7 @@ class _CreateCarViewState extends State<CreateCarView> {
                 // VIN Numarası
                 TextFormField(
                   controller: _vinController,
-                  decoration: const InputDecoration(labelText: 'VIN Numarası'),
+                  decoration: const InputDecoration(labelText: 'Şasi Numarası'),
                   maxLength: 17,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
@@ -103,7 +103,7 @@ class _CreateCarViewState extends State<CreateCarView> {
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Lütfen yıl giriniz';
+                      return 'Lütfen aracın yılını giriniz';
                     }
                     return null;
                   },
