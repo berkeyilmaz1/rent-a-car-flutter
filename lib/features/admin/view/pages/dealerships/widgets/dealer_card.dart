@@ -1,20 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car/core/product_network_manager.dart';
+import 'package:rent_a_car/product/initialize/service/models/dealership/create_dealership_request.dart';
 import 'package:rent_a_car/product/initialize/service/models/dealership/dealership.dart';
-import 'package:rent_a_car/product/utils/border_radius_general.dart';
+import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
-class DealerCard extends StatelessWidget {
+final class DealerCard extends StatefulWidget {
   const DealerCard({
     required this.dealer,
     required this.onUpdate,
-    required this.onDelete,
     super.key,
   });
 
   final DealerShip dealer;
+
   final VoidCallback onUpdate;
-  final VoidCallback onDelete;
+
+  @override
+  State<DealerCard> createState() => _DealerCardState();
+}
+
+class _DealerCardState extends State<DealerCard> {
+  late final TextEditingController _nameController;
+  late final TextEditingController _addressController;
+  late final TextEditingController _phoneController;
+
+  late final RentACarService _rentACarService;
+
+  Future<void> saveOnPressed(
+    CreateDealerShipRequest car,
+    int id,
+  ) async {
+    await _rentACarService.updateDealerShip(car, id);
+    widget.onUpdate();
+  }
+
+  Future<void> deleteOnPressed(int id) async {
+    await _rentACarService.deleteDealerShip(id);
+    widget.onUpdate();
+  }
+
+  @override
+  initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.dealer.name);
+    _addressController = TextEditingController(text: widget.dealer.address);
+    _phoneController = TextEditingController(text: widget.dealer.phone);
+    _rentACarService = RentACarService(networkManager: ProductNetworkManager());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,31 +73,15 @@ class DealerCard extends StatelessWidget {
                   const Icon(Icons.location_city_rounded),
                   const SizedBox(width: WidgetSizes.spacingXs),
                   Text(
-                    dealer.name ?? 'Bayi Adı Yok',
+                    widget.dealer.name ?? 'Bayi Adı Yok',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Colors.blueAccent,
                         ),
                   ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit, color: Colors.blue),
-                        onPressed: onUpdate,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: onDelete,
-                      ),
-                    ],
-                  ),
                 ],
               ),
               const Divider(),
-              _buildDetailRow('Adres:', dealer.address ?? '-'),
-              _buildDetailRow('Telefon:', dealer.phone ?? '-'),
-              _buildDetailRow('Araç Sayısı:', '${dealer.cars?.length ?? 0}'),
             ],
           ),
         ),
@@ -73,13 +91,56 @@ class DealerCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildDetailRow('Adres:', dealer.address ?? '-'),
-                _buildDetailRow('Telefon:', dealer.phone ?? '-'),
-                _buildDetailRow('Araç Sayısı:', '${dealer.cars?.length ?? 0}'),
+                _buildDetailRow('Adres:', widget.dealer.address ?? '-'),
+                _buildDetailRow('Telefon:', widget.dealer.phone ?? '-'),
+                _buildDetailRow(
+                  'Araç Sayısı:',
+                  '${widget.dealer.cars?.length ?? 0}',
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.blue),
+                      onPressed: () => saveOnPressed(
+                        CreateDealerShipRequest(
+                          name: _nameController.text,
+                          address: _addressController.text,
+                          phone: _phoneController.text,
+                        ),
+                        widget.dealer.id ?? 0,
+                      ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () => deleteOnPressed(
+                        widget.dealer.id ?? 0,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTextField(
+    String label,
+    TextEditingController? controller,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
       ),
     );
   }

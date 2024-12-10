@@ -205,21 +205,6 @@ class _AdminCarCardState extends State<AdminCarCard> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        print(UpdateCarRequest(
-                          availabilityStatus:
-                              // ignore: lines_longer_than_80_chars, avoid_bool_literals_in_conditional_expressions
-                              availabilityStatus == 'Müsait' ? true : false,
-                          brand: _brandController.text,
-                          model: _modelController.text,
-                          licensePlate: _licensePlateController.text,
-                          year: int.tryParse(_yearController.text),
-                          kilometer: int.tryParse(_kilometerController.text),
-                          pricePerDay: int.tryParse(_dailyPriceController.text),
-                          fuelType:
-                              CarFormatter.fuelTypeFromString(_fuelType ?? ''),
-                          gearType:
-                              CarFormatter.gearTypeFromString(_gearType ?? ''),
-                        ));
                         saveOnPressed(
                           UpdateCarRequest(
                             availabilityStatus: availabilityStatus,
@@ -231,9 +216,11 @@ class _AdminCarCardState extends State<AdminCarCard> {
                             pricePerDay:
                                 int.tryParse(_dailyPriceController.text),
                             fuelType: CarFormatter.fuelTypeFromString(
-                                _fuelType ?? ''),
+                              _fuelType ?? '',
+                            ),
                             gearType: CarFormatter.gearTypeFromString(
-                                _gearType ?? ''),
+                              _gearType ?? '',
+                            ),
                             seatCount: widget.car.seatCount,
                             minAge: widget.car.minAge,
                             dealershipId: widget.car.dealershipId,
