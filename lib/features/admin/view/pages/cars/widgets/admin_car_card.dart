@@ -9,11 +9,13 @@ final class AdminCarCard extends StatefulWidget {
   const AdminCarCard({
     required this.imageUrl,
     required this.car,
+    required this.onUpdate,
     super.key,
   });
 
   final String imageUrl;
   final Car car;
+  final VoidCallback onUpdate;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -58,12 +60,12 @@ class _AdminCarCardState extends State<AdminCarCard> {
 
   Future<void> saveOnPressed(UpdateCarRequest car, String vinNumber) async {
     await _rentACarService.updateCar(car, vinNumber);
-    await _rentACarService.getAllCars();
+    widget.onUpdate();
   }
 
   Future<void> deleteOnPressed(String vinNumber) async {
     await _rentACarService.deleteCar(vinNumber);
-    await _rentACarService.getAllCars();
+    widget.onUpdate();
   }
 
   @override
