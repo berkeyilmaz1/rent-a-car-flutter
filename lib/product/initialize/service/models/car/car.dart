@@ -35,8 +35,8 @@ final class Car extends INetworkModel<Car> with EquatableMixin {
   final int? seatCount;
   final int? pricePerDay;
   final bool? availabilityStatus;
-  final String? createdAt;
-  final String? updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
   final int? minAge;
   final int? kilometer;
   final int? dealershipId;
@@ -77,8 +77,8 @@ final class Car extends INetworkModel<Car> with EquatableMixin {
     int? seatCount,
     int? pricePerDay,
     bool? availabilityStatus,
-    String? createdAt,
-    String? updatedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     int? minAge,
     int? kilometer,
     int? dealershipId,

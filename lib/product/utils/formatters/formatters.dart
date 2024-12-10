@@ -11,6 +11,18 @@ final class CarFormatter {
     return '';
   }
 
+  static int fuelTypeFromString(String fuelType) {
+    switch (fuelType) {
+      case 'Dizel':
+        return 1;
+      case 'Benzin':
+        return 2;
+      case 'Elektrik':
+        return 3;
+    }
+    return 0;
+  }
+
   static String gearTypeFormat(int gearType) {
     switch (gearType) {
       case 1:
@@ -19,6 +31,16 @@ final class CarFormatter {
         return 'Otomatik';
     }
     return '';
+  }
+
+  static int gearTypeFromString(String fuelType) {
+    switch (fuelType) {
+      case 'Manuel':
+        return 1;
+      case 'Otomatik':
+        return 2;
+    }
+    return 0;
   }
 
   static String paymentMethodFormat(int paymentMethod) {

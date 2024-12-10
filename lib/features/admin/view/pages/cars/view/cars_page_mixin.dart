@@ -19,13 +19,7 @@ mixin CarsPageMixin on State<CarsPageView> {
     fetchCars();
   }
 
-  Future<void> saveOnPressed(UpdateCarRequest car, String vinNumber) async {
-    await _rentACarService.updateCar(car, vinNumber);
-  }
-
-  Future<void> deleteOnPressed(String vinNumber) async {
-    await _rentACarService.deleteCar(vinNumber);
-  }
+  
 
   Future<void> fetchCars() async {
     final response = await _rentACarService.getAllCars();
