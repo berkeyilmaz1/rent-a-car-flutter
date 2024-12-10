@@ -82,6 +82,16 @@ class _DealerCardState extends State<DealerCard> {
                 ],
               ),
               const Divider(),
+              _buildDetailRow(
+                'Adres',
+                widget.dealer.address ?? 'Adres Yok',
+              ),
+              _buildDetailRow(
+                'Telefon',
+                widget.dealer.phone ?? 'Telefon Yok',
+              ),
+              _buildDetailRow(
+                  'Araba Sayısı', widget.dealer.cars?.length.toString() ?? '0'),
             ],
           ),
         ),
@@ -91,12 +101,9 @@ class _DealerCardState extends State<DealerCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildDetailRow('Adres:', widget.dealer.address ?? '-'),
-                _buildDetailRow('Telefon:', widget.dealer.phone ?? '-'),
-                _buildDetailRow(
-                  'Araç Sayısı:',
-                  '${widget.dealer.cars?.length ?? 0}',
-                ),
+                _buildTextField('Bayi İsmi', _nameController),
+                _buildTextField('Adres', _addressController),
+                _buildTextField('Telefon', _phoneController),
                 Row(
                   children: [
                     IconButton(
