@@ -27,44 +27,58 @@ class DealerCard extends StatelessWidget {
       ),
       elevation: 6,
       shadowColor: Colors.black.withOpacity(0.1),
-      child: Padding(
-        padding: const PagePadding.allLow(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.location_city_rounded),
-                const SizedBox(width: WidgetSizes.spacingXs),
-                Text(
-                  dealer.name ?? 'Bayi Adı Yok',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
+      child: ExpansionTile(
+        title: Padding(
+          padding: const PagePadding.allLow(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.location_city_rounded),
+                  const SizedBox(width: WidgetSizes.spacingXs),
+                  Text(
+                    dealer.name ?? 'Bayi Adı Yok',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueAccent,
+                        ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.blue),
+                        onPressed: onUpdate,
                       ),
-                ),
-                const Spacer(),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.blue),
-                      onPressed: onUpdate,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: onDelete,
-                    ),
-                  ],
-                ),
+                      IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        onPressed: onDelete,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Divider(),
+              _buildDetailRow('Adres:', dealer.address ?? '-'),
+              _buildDetailRow('Telefon:', dealer.phone ?? '-'),
+              _buildDetailRow('Araç Sayısı:', '${dealer.cars?.length ?? 0}'),
+            ],
+          ),
+        ),
+        children: [
+          Padding(
+            padding: const PagePadding.allLow(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDetailRow('Adres:', dealer.address ?? '-'),
+                _buildDetailRow('Telefon:', dealer.phone ?? '-'),
+                _buildDetailRow('Araç Sayısı:', '${dealer.cars?.length ?? 0}'),
               ],
             ),
-            const Divider(),
-            _buildDetailRow('Adres:', dealer.address ?? '-'),
-            _buildDetailRow('Telefon:', dealer.phone ?? '-'),
-            _buildDetailRow('Araç Sayısı:', '${dealer.cars?.length ?? 0}'),
-            const SizedBox(height: WidgetSizes.spacingXs),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
