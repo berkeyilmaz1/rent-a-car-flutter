@@ -32,6 +32,11 @@ final class AdminDashboardDrawer extends StatelessWidget {
             text: 'Ödemeler',
             index: 3,
           ),
+          _buildDrawerItem(
+            icon: Icons.location_city,
+            text: 'Bayiler',
+            index: 4,
+          ),
 
           const Spacer(),
           const Divider(),
