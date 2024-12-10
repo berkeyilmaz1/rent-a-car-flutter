@@ -64,7 +64,9 @@ class _CreateCarViewState extends State<CreateCarView> {
                   controller: _vinController,
                   decoration: const InputDecoration(labelText: 'VIN Numarası'),
                   maxLength: 17,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
+                  ],
                   validator: (value) {
                     if (value == null || value.isEmpty || value.length != 17) {
                       return 'Geçerli bir VIN numarası giriniz';
@@ -169,32 +171,29 @@ class _CreateCarViewState extends State<CreateCarView> {
                   ],
                 ),
                 // Satıcı Dropdown
-                if (_dealerships == null)
-                  const CircularProgressIndicator()
-                else if (_dealerships!.isEmpty)
-                  const CircularProgressIndicator()
-                else
-                  DropdownButtonFormField<int>(
-                    value: _dealershipId,
-                    decoration: const InputDecoration(labelText: 'Satıcı'),
-                    items: _dealerships!.map((dealership) {
-                      return DropdownMenuItem<int>(
-                        value: dealership.id,
-                        child: Text(dealership.name ?? ''),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _dealershipId = value;
-                      });
-                    },
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Lütfen bir satıcı seçiniz';
-                      }
-                      return null;
-                    },
-                  ),
+                if (_dealerships == null || _dealerships!.isEmpty)
+                  const CircularProgressIndicator(),
+                DropdownButtonFormField<int>(
+                  value: _dealershipId,
+                  decoration: const InputDecoration(labelText: 'Satıcı'),
+                  items: _dealerships!.map((dealership) {
+                    return DropdownMenuItem<int>(
+                      value: dealership.id,
+                      child: Text(dealership.name ?? ''),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _dealershipId = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Lütfen bir satıcı seçiniz';
+                    }
+                    return null;
+                  },
+                ),
                 // Günlük Fiyat
                 TextFormField(
                   controller: _pricePerDayController,
