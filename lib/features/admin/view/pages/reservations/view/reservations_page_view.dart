@@ -36,8 +36,9 @@ class _ReservationsPageViewState extends State<ReservationsPageView>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          const Icon(Icons.book_online_rounded),
+                          const SizedBox(width: WidgetSizes.spacingXs),
                           Text(
                             'Reservation #${reservation.id}',
                             style: Theme.of(context)
@@ -48,6 +49,7 @@ class _ReservationsPageViewState extends State<ReservationsPageView>
                                   color: Colors.blueAccent,
                                 ),
                           ),
+                          Spacer(),
                           IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {},

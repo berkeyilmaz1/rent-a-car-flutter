@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
 import 'package:rent_a_car/features/home/view/mixin/home_view_mixin.dart';
 import 'package:rent_a_car/features/home/widgets/car_card.dart';
 import 'package:rent_a_car/features/home/widgets/filter_button.dart';
+import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
@@ -102,6 +105,16 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                     buttonName: 'Filtrele',
                     onPressed: () {},
                   ),
+                  Spacer(),
+                  const Divider(),
+                  AuthButton(
+                    buttonName: 'Çıkış Yap',
+                    onPressed: () {
+                      Provider.of<UserProvider>(context, listen: false)
+                          .clearUser();
+                      const SelectionViewRoute().go(context);
+                    },
+                  )
                 ],
               ),
             ),

@@ -19,108 +19,113 @@ class PaymentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const PagePadding.verticalLowSymmetric(),
-      elevation: WidgetSizes.spacingXSs,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeneral.allLow(),
-      ),
-      child: Padding(
-        padding: const PagePadding.all(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Ödeme Id: ${payment.id}',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
-                      ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: onDelete,
-                ),
-              ],
-            ),
-            const Divider(),
-            const SizedBox(height: WidgetSizes.spacingXs),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildDetailRow(
-                    context,
-                    'Rezervasyon ID:',
-                    payment.reservationId.toString(),
+    return Padding(
+      padding: const PagePadding.all(),
+      child: Card(
+        margin: const PagePadding.verticalLowSymmetric(),
+        elevation: WidgetSizes.spacingXSs,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeneral.allLow(),
+        ),
+        child: Padding(
+          padding: const PagePadding.all(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                 children: [
+                  const Icon(Icons.payment),
+                  const SizedBox(width: WidgetSizes.spacingXs),
+                  Text(
+                    'Ödeme Id: ${payment.id}',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueAccent,
+                        ),
                   ),
-                ),
-                Expanded(
-                  child: _buildDetailRow(
-                    context,
-                    'Tutar:',
-                    payment.amount.toString(),
+                  Spacer(),
+                  IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: onDelete,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: WidgetSizes.spacingXs),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildDetailRow(
-                    context,
-                    'Tarih:',
-                    payment.createdAt.toString(),
-                  ),
-                ),
-                Expanded(
-                  child: _buildDetailRow(
-                    context,
-                    'Durum:',
-                    CarFormatter.paymentStatusFormat(
-                      payment.paymentStatus ?? 0,
+                ],
+              ),
+              const Divider(),
+              const SizedBox(height: WidgetSizes.spacingXs),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildDetailRow(
+                      context,
+                      'Rezervasyon ID:',
+                      payment.reservationId.toString(),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const Divider(),
-            _buildDetailRow(
-              context,
-              'Ödeme Yöntemi:',
-              CarFormatter.paymentMethodFormat(payment.paymentMethod ?? 0),
-            ),
-            const SizedBox(height: WidgetSizes.spacingM),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: onUpdate,
-                  child: Text(
-                    'Güncelle',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Expanded(
+                    child: _buildDetailRow(
+                      context,
+                      'Tutar:',
+                      payment.amount.toString(),
+                    ),
                   ),
-                ),
-                const SizedBox(width: WidgetSizes.spacingM),
-                TextButton(
-                  onPressed: onDelete,
-                  child: Text(
-                    'Sil',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
+                ],
+              ),
+              const SizedBox(height: WidgetSizes.spacingXs),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildDetailRow(
+                      context,
+                      'Tarih:',
+                      payment.createdAt.toString(),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  Expanded(
+                    child: _buildDetailRow(
+                      context,
+                      'Durum:',
+                      CarFormatter.paymentStatusFormat(
+                        payment.paymentStatus ?? 0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(),
+              _buildDetailRow(
+                context,
+                'Ödeme Yöntemi:',
+                CarFormatter.paymentMethodFormat(payment.paymentMethod ?? 0),
+              ),
+              const SizedBox(height: WidgetSizes.spacingM),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: onUpdate,
+                    child: Text(
+                      'Güncelle',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(width: WidgetSizes.spacingM),
+                  TextButton(
+                    onPressed: onDelete,
+                    child: Text(
+                      'Sil',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -151,31 +156,4 @@ class PaymentCard extends StatelessWidget {
     );
   }
 }
-
-final class CardRow extends StatelessWidget {
-  const CardRow({required this.label, required this.value, super.key});
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: WidgetSizes.spacingM,
-            ),
-          ),
-          Text(
-            value,
-            textAlign: TextAlign.right,
-          ),
-        ],
-      ),
-    );
-  }
-}
+ 

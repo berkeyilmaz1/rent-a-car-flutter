@@ -5,11 +5,12 @@ import 'package:rent_a_car/features/auth/view/sign_in_view.dart';
 import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/initialize/service/models/user/user.dart';
 import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
+import 'package:bcrypt/bcrypt.dart'; 
 
 mixin SignInMixin on State<SignInView> {
   // ignore: prefer_final_fields
   bool obscureText = true;
-  bool isLoading= false;
+  bool isLoading = false;
 
   late final RentACarService _rentACarService;
   late final TextEditingController _emailController;
@@ -26,11 +27,17 @@ mixin SignInMixin on State<SignInView> {
     _rentACarService = RentACarService(networkManager: ProductNetworkManager());
   }
 
-  Future<User> fetchAndFindUser(String userEmail) async {
+  Future<User?> fetchAndFindUser(String userEmail, String plainPassword) async {
     await fetchUsers();
     final user = findUser(userEmail);
     if (user == null) throw Exception('User not found');
     if (!mounted) throw Exception('State is not mounted');
+    
+    // Şifre doğrulama işlemi
+    if (!_verifyPassword(plainPassword, user.password ?? '')) {
+      throw Exception('Şifre Hatalı');
+    }
+
     Provider.of<UserProvider>(context, listen: false).setUser(user);
     return user;
   }
@@ -43,17 +50,23 @@ mixin SignInMixin on State<SignInView> {
   }
 
   User? findUser(String userEmail) {
-    print('4');
-    print(' users listesi $users');
-
     final user = users?.firstWhere(
       (element) =>
           element.email?.trim().toLowerCase() == userEmail.trim().toLowerCase(),
       orElse: () => throw Exception('Kullanıcı Bulunamadı'),
     );
-
-    print("5 ${user?.name ?? 'boş'}");
     return user;
+  }
+
+  bool _verifyPassword(String plainPassword, String hashedPassword) {
+    try {
+ 
+      return BCrypt.checkpw(plainPassword, hashedPassword);
+      
+    } catch (e) {
+      print('Şifre doğrulama hatası: $e');
+      return false;
+    }
   }
 
   @override

@@ -87,6 +87,7 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
               children: [
                 Expanded(
                   child: TextFormField(
+                    readOnly: true,
                     controller: _nameController,
                     decoration: const InputDecoration(
                       labelText: 'Ad',
@@ -97,6 +98,7 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
                 const SizedBox(width: WidgetSizes.spacingXs),
                 Expanded(
                   child: TextFormField(
+                    readOnly: true,
                     controller: _lastnameController,
                     decoration: const InputDecoration(
                       labelText: 'Soyad',
@@ -110,6 +112,7 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
 
             // Doğum Tarihi
             TextFormField(
+              readOnly: true,
               controller: _birthDateController,
               decoration: const InputDecoration(
                 labelText: 'Doğum Tarihi (GG/AA/YYYY)',
@@ -120,6 +123,7 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
 
             // E-posta
             TextFormField(
+              readOnly: true,
               controller: _emailController,
               decoration: const InputDecoration(
                 labelText: 'E-posta adresi',
@@ -130,6 +134,7 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
 
             // Telefon
             TextFormField(
+              readOnly: true,
               controller: _phoneNumberController,
               decoration: const InputDecoration(
                 labelText: 'Cep Telefonu',
@@ -140,6 +145,7 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
 
             // Sürücü Belgesi Numarası
             TextFormField(
+              readOnly: true,
               controller: _licenseNumberController,
               decoration: const InputDecoration(
                 labelText: 'Sürücü Belgesi Numarası',
@@ -150,6 +156,7 @@ class _DriverInfoFormState extends State<DriverInfoForm> {
 
             // Adres
             TextFormField(
+              readOnly: true,
               controller: _addressController,
               decoration: const InputDecoration(
                 labelText: 'Adres',
