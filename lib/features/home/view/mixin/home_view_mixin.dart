@@ -47,6 +47,9 @@ mixin HomeViewMixin on State<HomeView> {
     setState(() {
       cars = response;
       filteredCars = response ?? [];
+      if (selectedDealerId != -1) {
+        filteredCars = filterCarsByDealer(selectedDealerId);
+      }
     });
   }
 
@@ -57,18 +60,26 @@ mixin HomeViewMixin on State<HomeView> {
         .toList();
   }
 
+  List<Car> filterCarsByDealer(int dealerId) {
+    return cars!
+        .where((car) =>
+            car.dealershipId ==
+            dealerId) // 'dealerId' car modelinizdeki bayii ID alanı olmalı
+        .toList();
+  }
+
   List<Car> sortCarsByPrice(bool ascending) {
     cars?.sort(
       (a, b) => ascending
-          ? a.pricePerDay!.compareTo(b.pricePerDay ?? 0)  
-          : b.pricePerDay!.compareTo(a.pricePerDay ?? 0), 
+          ? a.pricePerDay!.compareTo(b.pricePerDay ?? 0)
+          : b.pricePerDay!.compareTo(a.pricePerDay ?? 0),
     );
     return cars ?? [];
   }
 
   List<Car> filterCarsByFuelType(String fuelType) {
     if (fuelType == 'Hepsi') {
-      return cars ?? [];  
+      return cars ?? [];
     }
     return cars
             ?.where((car) =>
@@ -86,15 +97,12 @@ mixin HomeViewMixin on State<HomeView> {
           if (selectedSortOrder == 'Fiyata Göre Azalan') {
             filteredCars = sortCarsByPrice(false);
           } else if (selectedSortOrder == 'Fiyata Göre Artan') {
-            filteredCars = sortCarsByPrice(true);  
+            filteredCars = sortCarsByPrice(true);
           }
         });
       },
-      items: <String>[
-        'Varsayılan',  
-        'Fiyata Göre Azalan',  
-        'Fiyata Göre Artan'  
-      ].map<DropdownMenuItem<String>>((String value) {
+      items: <String>['Varsayılan', 'Fiyata Göre Azalan', 'Fiyata Göre Artan']
+          .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -117,7 +125,7 @@ mixin HomeViewMixin on State<HomeView> {
         setState(() {
           minPrice = values.start;
           maxPrice = values.end;
-          filteredCars = filterCarsByPrice(minPrice, maxPrice);  
+          filteredCars = filterCarsByPrice(minPrice, maxPrice);
         });
       },
     );
