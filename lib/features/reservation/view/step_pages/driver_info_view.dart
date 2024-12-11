@@ -8,6 +8,7 @@ final class DriverInfoView extends StatefulWidget {
     required this.dayCount,
     required this.startDateWithTime,
     required this.endDateWithTime,
+    required this.onRentButtonPressed,
     super.key,
   });
   final Car car;
@@ -16,6 +17,7 @@ final class DriverInfoView extends StatefulWidget {
   final int dayCount;
   final DateTime startDateWithTime;
   final DateTime endDateWithTime;
+  final VoidCallback onRentButtonPressed;
 
   @override
   State<DriverInfoView> createState() => _DriverInfoViewState();
@@ -27,12 +29,6 @@ class _DriverInfoViewState extends State<DriverInfoView> {
   void initState() {
     super.initState();
     _rentACarService = RentACarService(networkManager: ProductNetworkManager());
-  }
-
-  Future<void> createReservation(ReservationCreateRequest reservation) async {
-    await _rentACarService.createReservation(
-      reservation,
-    );
   }
 
   @override
@@ -106,19 +102,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           RentButton(
-                            onPressed: () => createReservation(
-                              //todo: extract this and add user model for userId
-                              //todo: in the payment page, check payment firstly if payment was successfull, update this reservation status to 1
-                              ReservationCreateRequest(
-                                carId: widget.car.vinNumber,
-                                endDate: widget.endDateWithTime,
-                                startDate: widget.startDateWithTime,
-                                status: 1,
-                                totalPrice:
-                                    widget.car.pricePerDay! * widget.dayCount,
-                                userId: user?.id,
-                              ),
-                            ),
+                            onPressed: () => widget.onRentButtonPressed,
                           ),
                         ],
                       ),

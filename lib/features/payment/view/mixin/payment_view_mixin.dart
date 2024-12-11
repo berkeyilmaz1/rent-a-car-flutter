@@ -7,6 +7,7 @@ import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
 import 'package:rent_a_car/product/initialize/service/models/payment/create_payment_request.dart';
+import 'package:rent_a_car/product/initialize/service/models/reservation/reservation_create_request.dart';
 import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
@@ -18,12 +19,16 @@ mixin PaymentViewMixin on State<PaymentView> {
   late final Car car;
   late final int dayCount;
   late final RentACarService _rentACarService;
+  late final DateTime startDateWithTime;
+  late final DateTime endDateWithTime;
 
   @override
   void initState() {
     super.initState();
     car = widget.parameters['car'] as Car;
     dayCount = widget.parameters['dayCount'] as int;
+    startDateWithTime = widget.parameters['startDateWithTime'] as DateTime;
+    endDateWithTime = widget.parameters['endDateWithTime'] as DateTime;
     cardNumberController = TextEditingController();
     monthController = TextEditingController();
     yearController = TextEditingController();
@@ -75,10 +80,24 @@ mixin PaymentViewMixin on State<PaymentView> {
   Future<void> processPayment() async {
     if (validatePaymentDetails()) {
       final user = Provider.of<UserProvider>(context, listen: false).user;
-      final id = await fetchReservationIdByCarAndUser(
-          car.vinNumber ?? '0', user!.id ?? '0',);
-      if (id == null) return;
-      await _sendPaymentRequest(id);
+      if (user == null) return;
+      await createReservation(
+        ReservationCreateRequest(
+          carId: car.vinNumber,
+          endDate: endDateWithTime,
+          startDate: startDateWithTime,
+          status: 1,
+          totalPrice: car.pricePerDay! * dayCount,
+          userId: user.id,
+        ),
+      );
+      final reservationId = await fetchReservationIdByCarAndUser(
+        car.vinNumber ?? '0',
+        user.id ?? '0',
+      );
+      if (reservationId == null) return;
+
+      await _sendPaymentRequest(reservationId);
       _showSuccessDialog();
     } else {
       _showErrorDialog();
@@ -112,6 +131,12 @@ mixin PaymentViewMixin on State<PaymentView> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> createReservation(ReservationCreateRequest reservation) async {
+    await _rentACarService.createReservation(
+      reservation,
     );
   }
 
