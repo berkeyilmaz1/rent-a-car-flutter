@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rent_a_car/core/product_network_manager.dart';
 import 'package:rent_a_car/features/home/view/home_view.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
+import 'package:rent_a_car/product/initialize/service/models/dealership/dealership.dart';
 import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 import 'package:rent_a_car/product/utils/formatters/formatters.dart';
 
