@@ -17,8 +17,12 @@ Car _$CarFromJson(Map<String, dynamic> json) => Car(
       seatCount: (json['seatCount'] as num?)?.toInt(),
       pricePerDay: (json['pricePerDay'] as num?)?.toInt(),
       availabilityStatus: json['availabilityStatus'] as bool?,
-      createdAt: json['createdAt'] as String?,
-      updatedAt: json['updatedAt'] as String?,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
       minAge: (json['minAge'] as num?)?.toInt(),
       kilometer: (json['kilometer'] as num?)?.toInt(),
       dealershipId: (json['dealershipId'] as num?)?.toInt(),
@@ -35,8 +39,8 @@ Map<String, dynamic> _$CarToJson(Car instance) => <String, dynamic>{
       'seatCount': instance.seatCount,
       'pricePerDay': instance.pricePerDay,
       'availabilityStatus': instance.availabilityStatus,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
       'minAge': instance.minAge,
       'kilometer': instance.kilometer,
       'dealershipId': instance.dealershipId,

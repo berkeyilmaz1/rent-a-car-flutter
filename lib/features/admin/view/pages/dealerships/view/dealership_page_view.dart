@@ -26,8 +26,7 @@ class _DealerShipPageViewState extends State<DealerShipPageView>
               }
               return DealerCard(
                 dealer: dealers![index],
-                onDelete: () {},
-                onUpdate: () {},
+                onUpdate: fetchDealers,
               );
             },
           ),

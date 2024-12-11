@@ -8,6 +8,7 @@ part of 'user_create_request.dart';
 
 UserCreateRequest _$UserCreateRequestFromJson(Map<String, dynamic> json) =>
     UserCreateRequest(
+      id: json['id'] as String?,
       name: json['name'] as String?,
       lastname: json['lastname'] as String?,
       birthDate: json['birthDate'] == null
@@ -22,6 +23,7 @@ UserCreateRequest _$UserCreateRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserCreateRequestToJson(UserCreateRequest instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'lastname': instance.lastname,
       'birthDate': instance.birthDate?.toIso8601String(),

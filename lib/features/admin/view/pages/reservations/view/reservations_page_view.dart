@@ -49,11 +49,6 @@ class _ReservationsPageViewState extends State<ReservationsPageView>
                                   color: Colors.blueAccent,
                                 ),
                           ),
-                          Spacer(),
-                          IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: () {},
-                          ),
                         ],
                       ),
                       const Divider(),

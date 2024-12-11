@@ -1,30 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car/core/product_network_manager.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
+import 'package:rent_a_car/product/initialize/service/models/car/update_car_request.dart';
+import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 import 'package:rent_a_car/product/utils/formatters/formatters.dart';
 
 final class AdminCarCard extends StatefulWidget {
   const AdminCarCard({
     required this.imageUrl,
     required this.car,
+    required this.onUpdate,
     super.key,
   });
 
   final String imageUrl;
   final Car car;
+  final VoidCallback onUpdate;
 
   @override
+  // ignore: library_private_types_in_public_api
   _AdminCarCardState createState() => _AdminCarCardState();
 }
 
 class _AdminCarCardState extends State<AdminCarCard> {
   late String? _fuelType;
   late String? _gearType;
+  late bool? availabilityStatus;
+  late final RentACarService _rentACarService;
+
+  late TextEditingController _brandController;
+  late TextEditingController _modelController;
+  late TextEditingController _licensePlateController;
+  late TextEditingController _yearController;
+
+  late TextEditingController _kilometerController;
+  late TextEditingController _dailyPriceController;
 
   @override
   void initState() {
     super.initState();
+    _rentACarService = RentACarService(networkManager: ProductNetworkManager());
     _fuelType = CarFormatter.fuelTypeFormat(widget.car.fuelType ?? 0);
     _gearType = CarFormatter.gearTypeFormat(widget.car.gearType ?? 0);
+    initControllers();
+  }
+
+  void initControllers() {
+    availabilityStatus = widget.car.availabilityStatus;
+    _brandController = TextEditingController(text: widget.car.brand);
+    _modelController = TextEditingController(text: widget.car.model);
+    _licensePlateController =
+        TextEditingController(text: widget.car.licensePlate);
+
+    _yearController = TextEditingController(text: widget.car.year?.toString());
+    _kilometerController =
+        TextEditingController(text: widget.car.kilometer?.toString());
+    _dailyPriceController =
+        TextEditingController(text: widget.car.pricePerDay?.toString());
+  }
+
+  Future<void> saveOnPressed(UpdateCarRequest car, String vinNumber) async {
+    await _rentACarService.updateCar(car, vinNumber);
+    widget.onUpdate();
+  }
+
+  Future<void> deleteOnPressed(String vinNumber) async {
+    await _rentACarService.deleteCar(vinNumber);
+    widget.onUpdate();
   }
 
   @override
@@ -85,36 +127,56 @@ class _AdminCarCardState extends State<AdminCarCard> {
                 Row(
                   children: [
                     Expanded(
-                      child: _buildTextField('Marka', widget.car.brand),
+                      child: _buildTextField(
+                        'Marka',
+                        _brandController,
+                      ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: _buildTextField('Model', widget.car.model),
+                      child: _buildTextField(
+                        'Model',
+                        _modelController,
+                      ),
                     ),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: _buildTextField('Plaka', widget.car.licensePlate),
+                      child: _buildTextField(
+                        'Plaka',
+                        _licensePlateController,
+                      ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child:
-                          _buildTextField('Yıl', widget.car.year?.toString()),
+                      child: _buildTextField(
+                        'Yıl',
+                        _yearController,
+                      ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: _buildTextField(
                         'Kilometre',
-                        widget.car.kilometer?.toString(),
+                        _kilometerController,
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: _buildTextField(
                         'Günlük Fiyat',
-                        widget.car.kilometer?.toString(),
+                        _dailyPriceController,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _buildDropdownField(
+                        'Müsaitlik Durumu',
+                        // ignore: use_if_null_to_convert_nulls_to_bools
+                        availabilityStatus == true ? 'Müsait' : 'Kirada',
+                        ['Müsait', 'Kirada'],
                       ),
                     ),
                   ],
@@ -125,7 +187,7 @@ class _AdminCarCardState extends State<AdminCarCard> {
                       child: _buildDropdownField(
                         'Yakıt Tipi',
                         _fuelType,
-                        ['Benzin', 'Dizel','Elektrik'],
+                        ['Benzin', 'Dizel', 'Elektrik'],
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -142,7 +204,30 @@ class _AdminCarCardState extends State<AdminCarCard> {
                 Row(
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        saveOnPressed(
+                          UpdateCarRequest(
+                            availabilityStatus: availabilityStatus,
+                            brand: _brandController.text,
+                            model: _modelController.text,
+                            licensePlate: _licensePlateController.text,
+                            year: int.tryParse(_yearController.text),
+                            kilometer: int.tryParse(_kilometerController.text),
+                            pricePerDay:
+                                int.tryParse(_dailyPriceController.text),
+                            fuelType: CarFormatter.fuelTypeFromString(
+                              _fuelType ?? '',
+                            ),
+                            gearType: CarFormatter.gearTypeFromString(
+                              _gearType ?? '',
+                            ),
+                            seatCount: widget.car.seatCount,
+                            minAge: widget.car.minAge,
+                            dealershipId: widget.car.dealershipId,
+                          ),
+                          widget.car.vinNumber ?? '',
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         shape: RoundedRectangleBorder(
@@ -150,13 +235,14 @@ class _AdminCarCardState extends State<AdminCarCard> {
                         ),
                       ),
                       child: const Text(
-                        'Kaydet',
+                        'Güncelle',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
                     const Spacer(),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          deleteOnPressed(widget.car.vinNumber ?? ''),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.error,
                         shape: RoundedRectangleBorder(
@@ -178,11 +264,14 @@ class _AdminCarCardState extends State<AdminCarCard> {
     );
   }
 
-  Widget _buildTextField(String label, String? initialValue) {
+  Widget _buildTextField(
+    String label,
+    TextEditingController? controller,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TextFormField(
-        initialValue: initialValue,
+        controller: controller,
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(

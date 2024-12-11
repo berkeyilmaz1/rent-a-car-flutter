@@ -43,19 +43,6 @@ class UserCard extends StatelessWidget {
                           color: Colors.blueAccent,
                         ),
                   ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit, color: Colors.blue),
-                        onPressed: onUpdate,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: onDelete,
-                      ),
-                    ],
-                  ),
                 ],
               ),
               const Divider(),

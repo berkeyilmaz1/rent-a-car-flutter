@@ -51,20 +51,25 @@ class _SignInViewState extends State<SignInView> with SignInMixin {
               });
 
               try {
-                final user= await fetchAndFindUser(emailController.text,passwordController.text);
+                final user = await fetchAndFindUser(
+                  emailController.text,
+                  passwordController.text,
+                );
                 setState(() {
                   isLoading = false;
                 });
+
                 if (user == null) return;
                 const SelectionViewRoute().go(context);
               } catch (e) {
                 setState(() {
                   isLoading = false;
                 });
-                // Eğer admin bulunamazsa, kullanıcıya bilgi vermek
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Kullanıcı bulunamadı. Lütfen tekrar deneyin.'),
+                    content:
+                        Text('Kullanıcı bulunamadı. Lütfen tekrar deneyin.'),
                     duration: Duration(seconds: 2),
                   ),
                 );
