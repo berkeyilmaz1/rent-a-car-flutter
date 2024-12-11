@@ -1,13 +1,23 @@
+import 'package:vexana/vexana.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:vexana/vexana.dart';
-
 part 'user_create_request.g.dart';
 
 @JsonSerializable()
 final class UserCreateRequest extends INetworkModel<UserCreateRequest>
     with EquatableMixin {
+  final String? id;
+  final String? name;
+  final String? lastname;
+  final DateTime? birthDate;
+  final String? email;
+  final String? password;
+  final String? phoneNumber;
+  final String? licenseNumber;
+  final String? address;
+
   UserCreateRequest({
+    this.id,
     this.name,
     this.lastname,
     this.birthDate,
@@ -18,26 +28,19 @@ final class UserCreateRequest extends INetworkModel<UserCreateRequest>
     this.address,
   });
 
-  factory UserCreateRequest.fromJson(Map<String, dynamic> json) =>
-      _$UserCreateRequestFromJson(json);
-  final String? name;
-  final String? lastname;
-  final DateTime? birthDate;
-  final String? email;
-  final String? password;
-  final String? phoneNumber;
-  final String? licenseNumber;
-  final String? address;
-
   @override
   UserCreateRequest fromJson(Map<String, dynamic> json) =>
       UserCreateRequest.fromJson(json);
+
+  factory UserCreateRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserCreateRequestFromJson(json);
 
   @override
   Map<String, dynamic>? toJson() => _$UserCreateRequestToJson(this);
 
   @override
   List<Object?> get props => [
+        id,
         name,
         lastname,
         birthDate,
@@ -45,10 +48,11 @@ final class UserCreateRequest extends INetworkModel<UserCreateRequest>
         password,
         phoneNumber,
         licenseNumber,
-        address,
+        address
       ];
 
   UserCreateRequest copyWith({
+    String? id,
     String? name,
     String? lastname,
     DateTime? birthDate,
@@ -59,6 +63,7 @@ final class UserCreateRequest extends INetworkModel<UserCreateRequest>
     String? address,
   }) {
     return UserCreateRequest(
+      id: id ?? this.id,
       name: name ?? this.name,
       lastname: lastname ?? this.lastname,
       birthDate: birthDate ?? this.birthDate,

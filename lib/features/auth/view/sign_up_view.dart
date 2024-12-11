@@ -1,8 +1,11 @@
 import 'package:bcrypt/bcrypt.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_a_car/core/product_network_manager.dart';
 import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
+import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
+import 'package:rent_a_car/product/initialize/service/models/user/user.dart';
 import 'package:rent_a_car/product/initialize/service/models/user/user_create_request.dart';
 import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
@@ -28,6 +31,7 @@ class _SignUpViewState extends State<SignUpView> {
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController licenseNumberController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final TextEditingController tcController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   DateTime? selectedBirthDate;
@@ -52,6 +56,28 @@ class _SignUpViewState extends State<SignUpView> {
               // İsim ve Soyisim
               Row(
                 children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: tcController,
+                      decoration: const InputDecoration(
+                        labelText: 'TC',
+                        hintText: 'TC Kimlik Numaranızı giriniz.',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'TC Kimlik Numaranızı giriniz.';
+                        }
+                        if (value.length != 11) {
+                          return 'TC Kimlik Numarası 11 haneli olmalıdır.';
+                        }
+                        if (!RegExp(r'^\d{11}$').hasMatch(value)) {
+                          return 'TC Kimlik Numarası sadece rakamlardan oluşmalıdır.';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: WidgetSizes.spacingM),
                   Expanded(
                     child: TextFormField(
                       controller: nameController,
@@ -97,8 +123,6 @@ class _SignUpViewState extends State<SignUpView> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'E-posta adresinizi giriniz';
-                  } else if (!RegExp(r'^\S+@\S+\.\S+\$').hasMatch(value)) {
-                    return 'Geçerli bir e-posta giriniz';
                   }
                   return null;
                 },
@@ -173,8 +197,12 @@ class _SignUpViewState extends State<SignUpView> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Telefon numaranızı giriniz';
-                  } else if (!RegExp(r'^\d{10}\$').hasMatch(value)) {
-                    return 'Geçerli bir telefon numarası giriniz';
+                  }
+                  if (value.length != 11) {
+                    return 'Telefon Numarası 11 haneli olmalıdır.';
+                  }
+                  if (!RegExp(r'^\d{11}$').hasMatch(value)) {
+                    return 'Telefon Numarası sadece rakamlardan oluşmalıdır.';
                   }
                   return null;
                 },
@@ -219,8 +247,9 @@ class _SignUpViewState extends State<SignUpView> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Sürücü sicil numaranızı giriniz';
-                  } else if (value.length < 7) {
-                    return 'Sürücü sicil numarası en az 7 karakter olmalıdır';
+                  }
+                  if (value.length != 6) {
+                    return 'Sürücü sicil numarası 6 karakter olmalıdır';
                   }
                   return null;
                 },
@@ -247,22 +276,31 @@ class _SignUpViewState extends State<SignUpView> {
               AuthButton(
                 onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
-                    final hashedPassword = BCrypt.hashpw(
-                      passwordController.text,
-                      BCrypt.gensalt(),
-                    );
                     await _rentACarService.createUser(
                       UserCreateRequest(
-                        email: emailController.text,
-                        password: hashedPassword,
+                        id: tcController.text,
                         name: nameController.text,
                         lastname: lastnameController.text,
+                        birthDate: selectedBirthDate,
+                        email: emailController.text,
+                        password: passwordController.text,
                         phoneNumber: phoneNumberController.text,
                         licenseNumber: licenseNumberController.text,
                         address: addressController.text,
-                        birthDate: selectedBirthDate,
                       ),
                     );
+                    Provider.of<UserProvider>(context, listen: false)
+                        .setUser(User(
+                      id: tcController.text,
+                      name: nameController.text,
+                      lastname: lastnameController.text,
+                      birthDate: selectedBirthDate,
+                      email: emailController.text,
+                      password: passwordController.text,
+                      phoneNumber: phoneNumberController.text,
+                      licenseNumber: licenseNumberController.text,
+                      address: addressController.text,
+                    ));
                     const SelectionViewRoute().go(context);
                   }
                 },
