@@ -17,8 +17,11 @@ final class SelectionCard extends StatelessWidget {
   final int dayCount;
   final DateTime startDateWithTime;
   final DateTime endDateWithTime;
+
   @override
   Widget build(BuildContext context) {
+    //-1 for listing all cars
+    int dealershipId =-1;
     return Card(
       elevation: WidgetSizes.spacingXSs,
       shape: RoundedRectangleBorder(
@@ -27,7 +30,6 @@ final class SelectionCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
-         
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
@@ -36,9 +38,8 @@ final class SelectionCard extends StatelessWidget {
                     RentACarService(networkManager: ProductNetworkManager())
                         .getAllDealership,
                 onSelected: (selectedDealerShip) {
-                  if (selectedDealerShip != null) {
-                    print('Selected DealerShip: ${selectedDealerShip.name}');
-                  }
+                  // If a dealer is selected, update selectedDealer
+                  dealershipId = selectedDealerShip?.id ?? -1;
                 },
               ),
             ),
@@ -48,8 +49,7 @@ final class SelectionCard extends StatelessWidget {
                 onPressed: onPressed,
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(WidgetSizes.spacingXSs),
+                    borderRadius: BorderRadius.circular(WidgetSizes.spacingXSs),
                   ),
                 ),
                 child: Row(
@@ -73,13 +73,13 @@ final class SelectionCard extends StatelessWidget {
                       'dayCount': dayCount,
                       'startDateWithTime': startDateWithTime,
                       'endDateWithTime': endDateWithTime,
+                      'selectedDealership': dealershipId,
                     },
                   ).go(context);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(WidgetSizes.spacingXSs),
+                    borderRadius: BorderRadius.circular(WidgetSizes.spacingXSs),
                   ),
                 ),
                 child: const Text('Teklifleri Göster'),
