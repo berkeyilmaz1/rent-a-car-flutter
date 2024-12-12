@@ -15,9 +15,20 @@ class _DealerShipPageViewState extends State<DealerShipPageView>
   @override
   Widget build(BuildContext context) {
     return Column(
-   
       children: [
-           AuthButton(buttonName: 'Bayi Oluştur',onPressed: navigateToCreateDealer,),
+        ElevatedButton(
+          onPressed: navigateToCreateDealer,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          child: const Text(
+            'Bayi Oluştur',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
         Expanded(
           child: ListView.builder(
             itemCount: dealers?.length ?? 0,
