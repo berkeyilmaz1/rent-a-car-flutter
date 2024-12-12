@@ -54,6 +54,7 @@ class _CreateAdminViewState extends State<CreateAdminView> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        controller: tcController,
                         decoration: const InputDecoration(
                           labelText: 'TC',
                           hintText: 'TC Kimlik Numaranızı giriniz.',
@@ -107,7 +108,7 @@ class _CreateAdminViewState extends State<CreateAdminView> {
                   ],
                 ),
                 const SizedBox(height: WidgetSizes.spacingM),
-      
+
                 // E-posta
                 TextFormField(
                   controller: emailController,
@@ -123,7 +124,7 @@ class _CreateAdminViewState extends State<CreateAdminView> {
                   },
                 ),
                 const SizedBox(height: WidgetSizes.spacingM),
-      
+
                 // Şifre
                 TextFormField(
                   controller: passwordController,
@@ -145,14 +146,14 @@ class _CreateAdminViewState extends State<CreateAdminView> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Şifrenizi giriniz';
-                    } else if (value.length < 8) {
-                      return 'Şifreniz en az 8 karakter olmalıdır';
+                    } else if (value.length != 8) {
+                      return 'Şifreniz 8 karakter olmalıdır';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: WidgetSizes.spacingM),
-      
+
                 // Şifre Tekrar
                 TextFormField(
                   controller: confirmPasswordController,
@@ -181,18 +182,17 @@ class _CreateAdminViewState extends State<CreateAdminView> {
                   },
                 ),
                 const SizedBox(height: WidgetSizes.spacingM),
-      
+
                 // Kayıt Ol butonu
                 AuthButton(
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
                       await _rentACarService.createAdmin(AdminCreateRequest(
-                        email: emailController.text,
-                        id: tcController.text,
-                        lastname: lastnameController.text,
-                        name: nameController.text,
-                        password: passwordController.text
-                      ));
+                          email: emailController.text,
+                          id: tcController.text,
+                          lastname: lastnameController.text,
+                          name: nameController.text,
+                          password: passwordController.text));
                       const AdminDashboardViewRoute().go(context);
                     }
                   },
