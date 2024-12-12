@@ -26,7 +26,7 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => SelectionViewRoute().go(context),
+            onPressed: () => const SelectionViewRoute().go(context),
             icon: const Icon(Icons.arrow_back)),
       ),
       body: Row(
@@ -39,15 +39,15 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                 children: [
                   const HomeViewTitle(),
                   const Divider(),
-                  Text('Sıralama'),
-                  SizedBox(height: 5),
+                  const Text('Sıralama'),
+                  const SizedBox(height: 5),
                   buildSortDropdown(),
-                  SizedBox(height: 20),
-                  Text('Fiyat Aralığı'),
+                  const SizedBox(height: 20),
+                  const Text('Fiyat Aralığı'),
                   buildPriceRangeSlider(),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   buildFuelTypeDropdown(),
-                  Spacer(),
+                  const Spacer(),
                   const Divider(),
                   AuthButton(
                     buttonName: 'Çıkış Yap',
