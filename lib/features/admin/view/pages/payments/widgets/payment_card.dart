@@ -104,15 +104,7 @@ class PaymentCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                  )
-                      //  _buildDetailRow(
-                      //                   context,
-                      //                   'Durum:',
-                      //                   CarFormatter.paymentStatusFormat(
-                      //                     payment.paymentStatus ?? 0,
-                      //                   ),
-                      //                 ),
-                      ),
+                  ),),
                 ],
               ),
               const Divider(),
