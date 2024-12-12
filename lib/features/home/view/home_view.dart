@@ -24,6 +24,11 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => SelectionViewRoute().go(context),
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: Row(
         children: [
           Expanded(
