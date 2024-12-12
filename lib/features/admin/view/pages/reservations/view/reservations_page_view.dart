@@ -86,34 +86,6 @@ class _ReservationsPageViewState extends State<ReservationsPageView>
                           ),
                         ],
                       ),
-                      const Divider(),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: WidgetSizes.spacingXs,
-                        ),
-                        child: Text(
-                          'Car Details',
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ),
-                      _buildDetailRow(
-                        context,
-                        'Model:',
-                        '${reservation.car?.brand} ${reservation.car?.model}',
-                      ),
-                      _buildDetailRow(
-                        context,
-                        'License Plate:',
-                        reservation.car?.licensePlate ?? '-',
-                      ),
-                      _buildDetailRow(
-                        context,
-                        'VIN:',
-                        reservation.car?.vinNumber ?? '-',
-                      ),
                     ],
                   ),
                 ),
