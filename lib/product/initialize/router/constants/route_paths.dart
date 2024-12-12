@@ -8,4 +8,5 @@ final class RoutePaths {
   static const String adminAuth = '/adminAuth';
   static const String adminDashboard = '/adminDashboard';
   static const String createCar = '/create-car';
+  static const String createAdmin ='create-admin';
 }
