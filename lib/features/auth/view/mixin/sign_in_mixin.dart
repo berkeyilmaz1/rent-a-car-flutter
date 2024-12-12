@@ -5,7 +5,7 @@ import 'package:rent_a_car/features/auth/view/sign_in_view.dart';
 import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/initialize/service/models/user/user.dart';
 import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
-import 'package:bcrypt/bcrypt.dart'; 
+import 'package:bcrypt/bcrypt.dart';
 
 mixin SignInMixin on State<SignInView> {
   // ignore: prefer_final_fields
@@ -32,11 +32,12 @@ mixin SignInMixin on State<SignInView> {
     final user = findUser(userEmail);
     if (user == null) throw Exception('User not found');
     if (!mounted) throw Exception('State is not mounted');
-    
-    // Şifre doğrulama işlemi
-    // if (!_verifyPassword(plainPassword, user.password ?? '')) {
-    //   throw Exception('Şifre Hatalı');
-    // }
+
+
+    if (user.password?.trim().toLowerCase() !=
+        plainPassword.trim().toLowerCase()) {
+      throw Exception('Şifre Hatalı');
+    }
 
     Provider.of<UserProvider>(context, listen: false).setUser(user);
     return user;
@@ -56,17 +57,6 @@ mixin SignInMixin on State<SignInView> {
       orElse: () => throw Exception('Kullanıcı Bulunamadı'),
     );
     return user;
-  }
-
-  bool _verifyPassword(String plainPassword, String hashedPassword) {
-    try {
- 
-      return BCrypt.checkpw(plainPassword, hashedPassword);
-      
-    } catch (e) {
-      print('Şifre doğrulama hatası: $e');
-      return false;
-    }
   }
 
   @override

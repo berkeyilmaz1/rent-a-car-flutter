@@ -18,11 +18,13 @@ class _AdminDashboardViewState extends State<AdminDashboardView>
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rent a Car Admin Dashboard'),
-        actions: [AuthButton(buttonName: 'Admin Oluştur', onPressed: (){
-          const CreateAdminViewRoute().go(context);
-        })],
+        actions: [
+          AuthButton(
+            buttonName: 'Admin Oluştur',
+            onPressed: () => const CreateAdminRoute().go(context),
+          )
+        ],
       ),
-      
       drawer: AdminDashboardDrawer(onItemSelected: onItemSelected),
       body: pages[selectedIndex],
     );

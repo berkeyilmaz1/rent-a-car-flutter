@@ -49,7 +49,7 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                     onPressed: () {
                       Provider.of<UserProvider>(context, listen: false)
                           .clearUser();
-                      const SelectionViewRoute().go(context);
+                      const AuthViewRoute().go(context);
                     },
                   )
                 ],

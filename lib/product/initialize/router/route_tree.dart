@@ -107,9 +107,9 @@ final class CreateCarViewRoute extends GoRouteData {
 }
 
 
-@TypedGoRoute<CreateAdminViewRoute>(path: RoutePaths.createAdmin)
-final class CreateAdminViewRoute extends GoRouteData {
-  const CreateAdminViewRoute();
+@TypedGoRoute<CreateAdminRoute>(path: RoutePaths.createAdmin)
+final class CreateAdminRoute extends GoRouteData {
+  const CreateAdminRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
