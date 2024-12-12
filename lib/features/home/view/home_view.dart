@@ -21,8 +21,6 @@ final class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> with HomeViewMixin {
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,12 +66,15 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                     child: CircularProgressIndicator(),
                   );
                 }
+                if (filteredCars[index].availabilityStatus == false) {
+                  return const SizedBox.shrink();
+                }
                 return CarCard(
                   dayCount: dayCount,
                   onPressed: () {
                     ReservationViewRoute(
                       $extra: {
-                        'car': filteredCars![index],
+                        'car': filteredCars[index],
                         'startDate': startDate,
                         'endDate': endDate,
                         'dayCount': dayCount,
@@ -82,7 +83,7 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                       },
                     ).go(context);
                   },
-                  car: filteredCars![index],
+                  car: filteredCars[index],
                   imageUrl: 'assets/images/fiat-egea.png',
                 );
               },

@@ -6,6 +6,7 @@ import 'package:rent_a_car/features/payment/view/payment_view.dart';
 import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/initialize/service/models/car/car.dart';
+import 'package:rent_a_car/product/initialize/service/models/car/update_car_request.dart';
 import 'package:rent_a_car/product/initialize/service/models/payment/create_payment_request.dart';
 import 'package:rent_a_car/product/initialize/service/models/reservation/reservation_create_request.dart';
 import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
@@ -98,6 +99,21 @@ mixin PaymentViewMixin on State<PaymentView> {
       if (reservationId == null) return;
 
       await _sendPaymentRequest(reservationId);
+      await _rentACarService.updateCar(
+          UpdateCarRequest(
+              availabilityStatus: false,
+              brand: car.brand,
+              model: car.model,
+              year: car.year,
+              fuelType: car.fuelType,
+              gearType: car.gearType,
+              licensePlate: car.licensePlate,
+              seatCount: car.seatCount,
+              pricePerDay: car.pricePerDay,
+              minAge: car.minAge,
+              dealershipId: car.dealershipId,
+              kilometer: car.kilometer),
+          car.vinNumber ?? '');
       _showSuccessDialog();
     } else {
       _showErrorDialog();

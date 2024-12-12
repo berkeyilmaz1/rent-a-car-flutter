@@ -24,16 +24,8 @@ final class DriverInfoView extends StatefulWidget {
 }
 
 class _DriverInfoViewState extends State<DriverInfoView> {
-  late final RentACarService _rentACarService;
-  @override
-  void initState() {
-    super.initState();
-    _rentACarService = RentACarService(networkManager: ProductNetworkManager());
-  }
-
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context, listen: false).user;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -102,7 +94,7 @@ class _DriverInfoViewState extends State<DriverInfoView> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           RentButton(
-                            onPressed: () => widget.onRentButtonPressed,
+                            onPressed: widget.onRentButtonPressed,
                           ),
                         ],
                       ),

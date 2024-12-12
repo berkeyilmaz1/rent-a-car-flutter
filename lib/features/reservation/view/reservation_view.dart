@@ -41,10 +41,10 @@ class _ReservationViewState extends State<ReservationView>
                 return const SizedBox.shrink();
               },
               steps: [
-                Step(
-                  title: const Text('Araç Seçimi'),
-                  content: const SizedBox.shrink(),
-                  isActive: currentStep == 0,
+                const Step(
+                  title: Text('Araç Seçimi'),
+                  content: SizedBox.shrink(),
+                 
                 ),
                 Step(
                   title: const Text('Sürücü Bilgileri'),
@@ -72,7 +72,6 @@ class _ReservationViewState extends State<ReservationView>
                 ),
               ],
               onStepTapped: (value) {
-                //todo home olarak değiştir ve daycount ekle, provider kullanabilirsin burda ya da param pasla
                 if (value == 0) context.go('/selection');
                 setState(() {
                   currentStep = value;

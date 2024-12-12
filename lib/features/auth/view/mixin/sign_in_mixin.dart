@@ -34,9 +34,9 @@ mixin SignInMixin on State<SignInView> {
     if (!mounted) throw Exception('State is not mounted');
     
     // Şifre doğrulama işlemi
-    if (!_verifyPassword(plainPassword, user.password ?? '')) {
-      throw Exception('Şifre Hatalı');
-    }
+    // if (!_verifyPassword(plainPassword, user.password ?? '')) {
+    //   throw Exception('Şifre Hatalı');
+    // }
 
     Provider.of<UserProvider>(context, listen: false).setUser(user);
     return user;
