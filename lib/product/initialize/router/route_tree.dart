@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rent_a_car/features/admin/view/admin_dashboard_view.dart';
 import 'package:rent_a_car/features/admin/view/admin_sign_in_view.dart';
 import 'package:rent_a_car/features/admin/view/create_admin_view.dart';
+import 'package:rent_a_car/features/admin/view/create_dealer_view.dart';
 import 'package:rent_a_car/features/admin/view/pages/cars/view/create_car_view.dart';
 import 'package:rent_a_car/features/auth/view/auth_view.dart';
 import 'package:rent_a_car/features/home/view/home_view.dart';
@@ -106,12 +107,22 @@ final class CreateCarViewRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<CreateAdminViewRoute>(path: RoutePaths.createAdmin)
-final class CreateAdminViewRoute extends GoRouteData {
-  const CreateAdminViewRoute();
+@TypedGoRoute<CreateAdminRoute>(path: RoutePaths.createAdmin)
+final class CreateAdminRoute extends GoRouteData {
+  const CreateAdminRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const CreateAdminView();
+  }
+}
+
+@TypedGoRoute<CreateDealerRoute>(path: RoutePaths.createDealer)
+final class CreateDealerRoute extends GoRouteData {
+  const CreateDealerRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CreateDealerView();
   }
 }

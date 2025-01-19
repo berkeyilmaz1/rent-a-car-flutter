@@ -15,7 +15,8 @@ List<RouteBase> get $appRoutes => [
       $adminSignInViewRoute,
       $paymentViewRoute,
       $createCarViewRoute,
-      $createAdminViewRoute,
+      $createAdminRoute,
+      $createDealerRoute,
     ];
 
 RouteBase get $authViewRoute => GoRouteData.$route(
@@ -211,17 +212,40 @@ extension $CreateCarViewRouteExtension on CreateCarViewRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $createAdminViewRoute => GoRouteData.$route(
-      path: 'create-admin',
-      factory: $CreateAdminViewRouteExtension._fromState,
+RouteBase get $createAdminRoute => GoRouteData.$route(
+      path: '/create-admin',
+      factory: $CreateAdminRouteExtension._fromState,
     );
 
-extension $CreateAdminViewRouteExtension on CreateAdminViewRoute {
-  static CreateAdminViewRoute _fromState(GoRouterState state) =>
-      const CreateAdminViewRoute();
+extension $CreateAdminRouteExtension on CreateAdminRoute {
+  static CreateAdminRoute _fromState(GoRouterState state) =>
+      const CreateAdminRoute();
 
   String get location => GoRouteData.$location(
-        'create-admin',
+        '/create-admin',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $createDealerRoute => GoRouteData.$route(
+      path: '/create-dealer',
+      factory: $CreateDealerRouteExtension._fromState,
+    );
+
+extension $CreateDealerRouteExtension on CreateDealerRoute {
+  static CreateDealerRoute _fromState(GoRouterState state) =>
+      const CreateDealerRoute();
+
+  String get location => GoRouteData.$location(
+        '/create-dealer',
       );
 
   void go(BuildContext context) => context.go(location);

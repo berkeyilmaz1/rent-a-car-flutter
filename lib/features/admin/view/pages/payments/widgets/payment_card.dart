@@ -76,14 +76,35 @@ class PaymentCard extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: _buildDetailRow(
-                      context,
-                      'Durum:',
-                      CarFormatter.paymentStatusFormat(
-                        payment.paymentStatus ?? 0,
-                      ),
+                      child: Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: WidgetSizes.spacingXs),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Durum',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            CarFormatter.paymentStatusFormat(
+                              payment.paymentStatus ?? 0,
+                            ),
+                            style: payment.paymentStatus == 2
+                                ? const TextStyle(color: Colors.green)
+                                : const TextStyle(color: Colors.red) ??
+                                    TextStyle(),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                  ),),
                 ],
               ),
               const Divider(),

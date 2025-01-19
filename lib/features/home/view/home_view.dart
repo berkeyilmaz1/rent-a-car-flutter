@@ -24,6 +24,11 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => const SelectionViewRoute().go(context),
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: Row(
         children: [
           Expanded(
@@ -34,22 +39,22 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                 children: [
                   const HomeViewTitle(),
                   const Divider(),
-                  Text('Sıralama'),
-                  SizedBox(height: 5),
+                  const Text('Sıralama'),
+                  const SizedBox(height: 5),
                   buildSortDropdown(),
-                  SizedBox(height: 20),
-                  Text('Fiyat Aralığı'),
+                  const SizedBox(height: 20),
+                  const Text('Fiyat Aralığı'),
                   buildPriceRangeSlider(),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   buildFuelTypeDropdown(),
-                  Spacer(),
+                  const Spacer(),
                   const Divider(),
                   AuthButton(
                     buttonName: 'Çıkış Yap',
                     onPressed: () {
                       Provider.of<UserProvider>(context, listen: false)
                           .clearUser();
-                      const SelectionViewRoute().go(context);
+                      const AuthViewRoute().go(context);
                     },
                   )
                 ],
