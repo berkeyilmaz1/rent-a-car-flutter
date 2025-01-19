@@ -106,7 +106,6 @@ final class CreateCarViewRoute extends GoRouteData {
   }
 }
 
-
 @TypedGoRoute<CreateAdminViewRoute>(path: RoutePaths.createAdmin)
 final class CreateAdminViewRoute extends GoRouteData {
   const CreateAdminViewRoute();
