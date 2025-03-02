@@ -12,6 +12,15 @@ import 'package:rent_a_car/product/initialize/service/rent_a_car_service.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
 
+part 'widgets/address_field.dart';
+part 'widgets/birth_date_picker.dart';
+part 'widgets/confirm_password_field.dart';
+part 'widgets/email_field.dart';
+part 'widgets/license_number_field.dart';
+part 'widgets/name_surname_fields.dart';
+part 'widgets/password_field.dart';
+part 'widgets/phone_number_field.dart';
+
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
 
@@ -54,231 +63,50 @@ class _SignUpViewState extends State<SignUpView> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // İsim ve Soyisim
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: tcController,
-                      decoration: InputDecoration(
-                        labelText: LocaleKeys.auth_tc.tr(),
-                        hintText: LocaleKeys.auth_validations_tc,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'TC Giriniz';
-                        }
-                        if (value.length != 11) {
-                          return LocaleKeys.auth_validations_tc_length.tr();
-                        }
-                        if (!RegExp(r'^\d{11}$').hasMatch(value)) {
-                          return LocaleKeys.auth_validations_tc_format.tr();
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: WidgetSizes.spacingM),
-                  Expanded(
-                    child: TextFormField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        labelText: LocaleKeys.auth_name.tr(),
-                        hintText: LocaleKeys.auth_hints_name.tr(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return LocaleKeys.auth_validations_required_name.tr();
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: WidgetSizes.spacingM),
-                  Expanded(
-                    child: TextFormField(
-                      controller: lastNameController,
-                      decoration: InputDecoration(
-                        labelText: LocaleKeys.auth_surname.tr(),
-                        hintText: LocaleKeys.auth_hints_surname.tr(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return LocaleKeys.auth_validations_required_surname
-                              .tr();
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ],
+              NameSurnameFields(
+                nameController: nameController,
+                lastNameController: lastNameController,
+                tcController: tcController,
               ),
               const SizedBox(height: WidgetSizes.spacingM),
-
-              // E-posta
-              TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: LocaleKeys.auth_email.tr(),
-                  hintText: LocaleKeys.auth_hints_email.tr(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return LocaleKeys.auth_validations_required_email.tr();
-                  }
-                  return null;
-                },
-              ),
+              EmailField(controller: emailController),
               const SizedBox(height: WidgetSizes.spacingM),
-
-              // Şifre
-              TextFormField(
+              PasswordField(
                 controller: passwordController,
-                decoration: InputDecoration(
-                  labelText: LocaleKeys.auth_password.tr(),
-                  hintText: LocaleKeys.auth_hints_password.tr(),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      obscureText ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        obscureText = !obscureText;
-                      });
-                    },
-                  ),
-                ),
                 obscureText: obscureText,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return LocaleKeys.auth_validations_required_password.tr();
-                  } else if (value.length < 8) {
-                    return LocaleKeys.auth_validations_password_minLength.tr();
-                  }
-                  return null;
+                onToggleVisibility: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
                 },
               ),
               const SizedBox(height: WidgetSizes.spacingM),
-
-              // Şifre Tekrar
-              TextFormField(
+              ConfirmPasswordField(
                 controller: confirmPasswordController,
-                decoration: InputDecoration(
-                  labelText: LocaleKeys.auth_confirmPassword.tr(),
-                  hintText: LocaleKeys.auth_hints_confirmPassword.tr(),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      obscureText ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        obscureText = !obscureText;
-                      });
-                    },
-                  ),
-                ),
+                passwordController: passwordController,
                 obscureText: obscureText,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return LocaleKeys.auth_validations_required_confirmPassword
-                        .tr();
-                  } else if (value != passwordController.text) {
-                    return LocaleKeys.auth_validations_password_notMatch.tr();
-                  }
-                  return null;
+                onToggleVisibility: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
                 },
               ),
               const SizedBox(height: WidgetSizes.spacingM),
-
-              // Telefon Numarası
-              TextFormField(
-                controller: phoneNumberController,
-                decoration: InputDecoration(
-                  labelText: LocaleKeys.auth_phoneNumber.tr(),
-                  hintText: LocaleKeys.auth_hints_phoneNumber.tr(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return LocaleKeys.auth_validations_required_phoneNumber
-                        .tr();
-                  }
-                  if (value.length != 11) {
-                    return LocaleKeys.auth_validations_phoneNumber_length.tr();
-                  }
-                  if (!RegExp(r'^\d{11}$').hasMatch(value)) {
-                    return LocaleKeys.auth_validations_phoneNumber_format.tr();
-                  }
-                  return null;
+              PhoneNumberField(controller: phoneNumberController),
+              const SizedBox(height: WidgetSizes.spacingM),
+              BirthDatePicker(
+                selectedBirthDate: selectedBirthDate,
+                onDatePicked: (pickedDate) {
+                  setState(() {
+                    selectedBirthDate = pickedDate;
+                  });
                 },
               ),
               const SizedBox(height: WidgetSizes.spacingM),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      selectedBirthDate == null
-                          ? LocaleKeys.auth_hints_selectBirthDate.tr()
-                          : '${selectedBirthDate!.day}/${selectedBirthDate!.month}/${selectedBirthDate!.year}',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.calendar_today),
-                    onPressed: () async {
-                      final pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime.now(),
-                      );
-                      if (pickedDate != null) {
-                        setState(() {
-                          selectedBirthDate = pickedDate;
-                        });
-                      }
-                    },
-                  ),
-                ],
-              ),
+              LicenseNumberField(controller: licenseNumberController),
               const SizedBox(height: WidgetSizes.spacingM),
-              // Lisans Numarası
-              TextFormField(
-                controller: licenseNumberController,
-                decoration: InputDecoration(
-                  labelText: LocaleKeys.auth_licenseNumber.tr(),
-                  hintText: LocaleKeys.auth_hints_licenseNumber.tr(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return LocaleKeys.auth_validations_required_licenseNumber
-                        .tr();
-                  }
-                  if (value.length != 6) {
-                    return LocaleKeys.auth_validations_licenseNumber_length
-                        .tr();
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: WidgetSizes.spacingM),
-
-              // Adres
-              TextFormField(
-                controller: addressController,
-                decoration: InputDecoration(
-                  labelText: LocaleKeys.auth_address.tr(),
-                  hintText: LocaleKeys.auth_hints_address.tr(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return LocaleKeys.auth_validations_required_address.tr();
-                  }
-                  return null;
-                },
-              ),
+              AddressField(controller: addressController),
               const SizedBox(height: WidgetSizes.spacingXxl2),
-
-              // Kayıt Ol butonu
               AuthButton(
                 onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
