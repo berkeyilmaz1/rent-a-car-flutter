@@ -20,7 +20,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          const CreateAdminViewRoute().go(context);
+            CreateAdminRoute().go(context);
         },
       ),
       drawer: AdminDashboardDrawer(onItemSelected: onItemSelected),
