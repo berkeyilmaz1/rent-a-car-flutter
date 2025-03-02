@@ -1,9 +1,7 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class CustomTheme {
-  final TextTheme textTheme;
-
-  const CustomTheme(this.textTheme);
+  const CustomTheme();
 
   static ColorScheme lightScheme() {
     return const ColorScheme(
@@ -119,10 +117,6 @@ class CustomTheme {
         useMaterial3: true,
         brightness: colorScheme.brightness,
         colorScheme: colorScheme,
-        textTheme: textTheme.apply(
-          bodyColor: colorScheme.onSurface,
-          displayColor: colorScheme.onSurface,
-        ),
         scaffoldBackgroundColor: colorScheme.surface,
         canvasColor: colorScheme.surface,
       );

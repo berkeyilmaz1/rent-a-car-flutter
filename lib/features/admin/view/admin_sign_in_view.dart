@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:rent_a_car/features/admin/view/mixin/admin_sign_in_mixin.dart';
 import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
+import 'package:rent_a_car/product/initialize/localization/locale_keys.g.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
@@ -34,13 +36,15 @@ class _AdminSignInViewState extends State<AdminSignInView>
             children: [
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'E-Posta'),
+                decoration: InputDecoration(
+                  labelText: LocaleKeys.auth_email.tr(),
+                ),
               ),
               const SizedBox(height: WidgetSizes.spacingM),
               TextFormField(
                 controller: passwordController,
                 decoration: InputDecoration(
-                  labelText: 'Şifre',
+                  labelText: LocaleKeys.auth_password.tr(),
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscureText ? Icons.visibility : Icons.visibility_off,
@@ -74,14 +78,13 @@ class _AdminSignInViewState extends State<AdminSignInView>
                     // Eğer admin bulunamazsa, kullanıcıya bilgi vermek
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content:
-                            Text('Admin bulunamadı. Lütfen tekrar deneyin.'),
+                        content: Text(LocaleKeys.notification_adminNotFound),
                         duration: Duration(seconds: 2),
                       ),
                     );
                   }
                 },
-                buttonName: 'Giriş Yap',
+                buttonName: LocaleKeys.auth_login,
               ).ext.toDisabled(disable: isLoading),
             ],
           ),
