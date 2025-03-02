@@ -10,7 +10,6 @@ mixin AdminDashboardMixin on State<AdminDashboardView> {
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
 
-  // List of possible pages/views
   final List<Widget> _pages = [
     const CarsPageView(),
     const UsersPageView(),
@@ -25,7 +24,6 @@ mixin AdminDashboardMixin on State<AdminDashboardView> {
     setState(() {
       _selectedIndex = index;
     });
-    // Optional: Close the drawer
     Navigator.of(context).pop();
   }
 }

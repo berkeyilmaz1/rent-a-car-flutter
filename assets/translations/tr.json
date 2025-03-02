@@ -13,6 +13,7 @@
         "address": "Adres",
         "tc": "TC",
         "birthDate": "Doğum Tarihi",
+        "createAdmin": "Admin Oluştur",
         "hints": {
             "email": "E-posta adresinizi giriniz",
             "password": "Şifrenizi giriniz",
@@ -55,13 +56,32 @@
         }
     },
     "admin":{
-        "admin":"Admin"
+        "admin":"Admin",
+        "adminDashboard":"Admin Paneli",
+        "createAdmin": "Admin Oluştur"
+    },
+    "dealer":{
+        "name": "İsim",
+        "create": "Bayi Oluştur",
+        "hints": {
+            "name": "Bayi İsmi"
+        },
+        "validations": {
+            "required": {
+                "name": "Lütfen bayi ismi giriniz.",
+                "address": "Lütfen adres giriniz.",
+                "phone": "Lütfen telefon numarasını giriniz."
+            }
+        }
     },
     "notification":{
         "success":"Başarılı",
         "error":"Hata",
         "warning":"Uyarı",
         "info":"Bilgi",
-        "userNotFound":"Kullanıcı bulunamadı. Lütfen tekrar deneyin."
+        "userNotFound":"Kullanıcı bulunamadı. Lütfen tekrar deneyin.",
+        "adminNotFound":"Admin bulunamadı. Lütfen tekrar deneyin.",
+        "adminCreated": "Admin başarıyla oluşturuldu",
+        "dealerCreated": "Bayi başarıyla oluşturuldu"
     }
 }

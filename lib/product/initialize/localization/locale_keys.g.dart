@@ -16,6 +16,7 @@ abstract class  LocaleKeys {
   static const auth_address = 'auth.address';
   static const auth_tc = 'auth.tc';
   static const auth_birthDate = 'auth.birthDate';
+  static const auth_createAdmin = 'auth.createAdmin';
   static const auth_hints_email = 'auth.hints.email';
   static const auth_hints_password = 'auth.hints.password';
   static const auth_hints_confirmPassword = 'auth.hints.confirmPassword';
@@ -51,12 +52,27 @@ abstract class  LocaleKeys {
   static const auth_validations = 'auth.validations';
   static const auth = 'auth';
   static const admin_admin = 'admin.admin';
+  static const admin_adminDashboard = 'admin.adminDashboard';
+  static const admin_createAdmin = 'admin.createAdmin';
   static const admin = 'admin';
+  static const dealer_name = 'dealer.name';
+  static const dealer_create = 'dealer.create';
+  static const dealer_hints_name = 'dealer.hints.name';
+  static const dealer_hints = 'dealer.hints';
+  static const dealer_validations_required_name = 'dealer.validations.required.name';
+  static const dealer_validations_required_address = 'dealer.validations.required.address';
+  static const dealer_validations_required_phone = 'dealer.validations.required.phone';
+  static const dealer_validations_required = 'dealer.validations.required';
+  static const dealer_validations = 'dealer.validations';
+  static const dealer = 'dealer';
   static const notification_success = 'notification.success';
   static const notification_error = 'notification.error';
   static const notification_warning = 'notification.warning';
   static const notification_info = 'notification.info';
   static const notification_userNotFound = 'notification.userNotFound';
+  static const notification_adminNotFound = 'notification.adminNotFound';
+  static const notification_adminCreated = 'notification.adminCreated';
+  static const notification_dealerCreated = 'notification.dealerCreated';
   static const notification = 'notification';
 
 }

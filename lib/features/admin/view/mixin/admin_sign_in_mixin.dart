@@ -46,17 +46,12 @@ mixin AdminSignInMixin on State<AdminSignInView> {
   }
 
   Admin? findAdmin(String adminEmail) {
-    print('4');
-    print(' admins listesi $admins');
-
     final admin = admins?.firstWhere(
       (element) =>
           element.email?.trim().toLowerCase() ==
           adminEmail.trim().toLowerCase(),
       orElse: () => throw Exception('Admin Bulunamadı'),
     );
-
-    print("5 ${admin?.name ?? 'boş'}");
     return admin;
   }
 
