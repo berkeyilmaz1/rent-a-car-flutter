@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rent_a_car/product/utils/border_radius_general.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
@@ -21,9 +22,9 @@ final class AuthButton extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadiusGeneral.cardLow(),
         ),
-        elevation: WidgetSizes.spacingXSS, // Hafif gölge
+        elevation: WidgetSizes.spacingXSS,
       ),
-      child: Text(buttonName),
+      child: Text(buttonName).tr(),
     );
   }
 }

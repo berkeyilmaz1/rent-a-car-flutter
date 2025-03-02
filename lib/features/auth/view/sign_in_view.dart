@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:rent_a_car/features/auth/view/mixin/sign_in_mixin.dart';
 import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
+import 'package:rent_a_car/product/initialize/localization/locale_keys.g.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/widgets/page/page_padding.dart';
 import 'package:rent_a_car/product/widgets/widget_sizes.dart';
@@ -23,13 +25,13 @@ class _SignInViewState extends State<SignInView> with SignInMixin {
         children: [
           TextFormField(
             controller: emailController,
-            decoration: const InputDecoration(labelText: 'E-Posta'),
+            decoration: InputDecoration(labelText: LocaleKeys.auth_email.tr()),
           ),
           const SizedBox(height: WidgetSizes.spacingM),
           TextFormField(
             controller: passwordController,
             decoration: InputDecoration(
-              labelText: 'Şifre',
+              labelText: LocaleKeys.auth_password.tr(),
               suffixIcon: IconButton(
                 icon: Icon(
                   obscureText ? Icons.visibility : Icons.visibility_off,
@@ -67,15 +69,16 @@ class _SignInViewState extends State<SignInView> with SignInMixin {
                 });
 
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content:
-                        Text('Kullanıcı bulunamadı. Lütfen tekrar deneyin.'),
-                    duration: Duration(seconds: 2),
+                  SnackBar(
+                    content: const Text(LocaleKeys.notification_userNotFound,
+                            textAlign: TextAlign.center)
+                        .tr(),
+                    duration: const Duration(seconds: 2),
                   ),
                 );
               }
             },
-            buttonName: 'Giriş Yap',
+            buttonName: LocaleKeys.auth_login,
           ).ext.toDisabled(disable: isLoading == true),
         ],
       ),

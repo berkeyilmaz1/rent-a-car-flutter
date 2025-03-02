@@ -1,8 +1,9 @@
-import 'package:bcrypt/bcrypt.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_a_car/core/product_network_manager.dart';
 import 'package:rent_a_car/features/auth/widgets/auth_button.dart';
+import 'package:rent_a_car/product/initialize/localization/locale_keys.g.dart';
 import 'package:rent_a_car/product/initialize/providers/user_provider.dart';
 import 'package:rent_a_car/product/initialize/router/route_tree.dart';
 import 'package:rent_a_car/product/initialize/service/models/user/user.dart';
@@ -23,7 +24,7 @@ class _SignUpViewState extends State<SignUpView> {
 
   // TextEditingController'lar
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController lastnameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -59,19 +60,19 @@ class _SignUpViewState extends State<SignUpView> {
                   Expanded(
                     child: TextFormField(
                       controller: tcController,
-                      decoration: const InputDecoration(
-                        labelText: 'TC',
-                        hintText: 'TC Kimlik Numaranızı giriniz.',
+                      decoration: InputDecoration(
+                        labelText: LocaleKeys.auth_tc.tr(),
+                        hintText: LocaleKeys.auth_validations_tc,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'TC Kimlik Numaranızı giriniz.';
+                          return 'TC Giriniz';
                         }
                         if (value.length != 11) {
-                          return 'TC Kimlik Numarası 11 haneli olmalıdır.';
+                          return LocaleKeys.auth_validations_tc_length.tr();
                         }
                         if (!RegExp(r'^\d{11}$').hasMatch(value)) {
-                          return 'TC Kimlik Numarası sadece rakamlardan oluşmalıdır.';
+                          return LocaleKeys.auth_validations_tc_format.tr();
                         }
                         return null;
                       },
@@ -81,13 +82,13 @@ class _SignUpViewState extends State<SignUpView> {
                   Expanded(
                     child: TextFormField(
                       controller: nameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Adınız',
-                        hintText: 'Adınızı giriniz',
+                      decoration: InputDecoration(
+                        labelText: LocaleKeys.auth_name.tr(),
+                        hintText: LocaleKeys.auth_hints_name.tr(),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Adınızı giriniz';
+                          return LocaleKeys.auth_validations_required_name.tr();
                         }
                         return null;
                       },
@@ -96,14 +97,15 @@ class _SignUpViewState extends State<SignUpView> {
                   const SizedBox(width: WidgetSizes.spacingM),
                   Expanded(
                     child: TextFormField(
-                      controller: lastnameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Soyadınız',
-                        hintText: 'Soyadınızı giriniz',
+                      controller: lastNameController,
+                      decoration: InputDecoration(
+                        labelText: LocaleKeys.auth_surname.tr(),
+                        hintText: LocaleKeys.auth_hints_surname.tr(),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Soyadınızı giriniz';
+                          return LocaleKeys.auth_validations_required_surname
+                              .tr();
                         }
                         return null;
                       },
@@ -116,13 +118,13 @@ class _SignUpViewState extends State<SignUpView> {
               // E-posta
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(
-                  labelText: 'E-Posta',
-                  hintText: 'E-posta adresinizi giriniz',
+                decoration: InputDecoration(
+                  labelText: LocaleKeys.auth_email.tr(),
+                  hintText: LocaleKeys.auth_hints_email.tr(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'E-posta adresinizi giriniz';
+                    return LocaleKeys.auth_validations_required_email.tr();
                   }
                   return null;
                 },
@@ -133,8 +135,8 @@ class _SignUpViewState extends State<SignUpView> {
               TextFormField(
                 controller: passwordController,
                 decoration: InputDecoration(
-                  labelText: 'Şifre',
-                  hintText: 'Şifrenizi giriniz',
+                  labelText: LocaleKeys.auth_password.tr(),
+                  hintText: LocaleKeys.auth_hints_password.tr(),
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscureText ? Icons.visibility : Icons.visibility_off,
@@ -149,9 +151,9 @@ class _SignUpViewState extends State<SignUpView> {
                 obscureText: obscureText,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Şifrenizi giriniz';
+                    return LocaleKeys.auth_validations_required_password.tr();
                   } else if (value.length < 8) {
-                    return 'Şifreniz en az 8 karakter olmalıdır';
+                    return LocaleKeys.auth_validations_password_minLength.tr();
                   }
                   return null;
                 },
@@ -162,8 +164,8 @@ class _SignUpViewState extends State<SignUpView> {
               TextFormField(
                 controller: confirmPasswordController,
                 decoration: InputDecoration(
-                  labelText: 'Şifre Tekrar',
-                  hintText: 'Şifrenizi tekrar giriniz',
+                  labelText: LocaleKeys.auth_confirmPassword.tr(),
+                  hintText: LocaleKeys.auth_hints_confirmPassword.tr(),
                   suffixIcon: IconButton(
                     icon: Icon(
                       obscureText ? Icons.visibility : Icons.visibility_off,
@@ -178,9 +180,10 @@ class _SignUpViewState extends State<SignUpView> {
                 obscureText: obscureText,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Şifrenizi tekrar giriniz';
+                    return LocaleKeys.auth_validations_required_confirmPassword
+                        .tr();
                   } else if (value != passwordController.text) {
-                    return 'Şifreler eşleşmiyor';
+                    return LocaleKeys.auth_validations_password_notMatch.tr();
                   }
                   return null;
                 },
@@ -190,19 +193,20 @@ class _SignUpViewState extends State<SignUpView> {
               // Telefon Numarası
               TextFormField(
                 controller: phoneNumberController,
-                decoration: const InputDecoration(
-                  labelText: 'Telefon Numarası',
-                  hintText: 'Telefon numaranızı giriniz',
+                decoration: InputDecoration(
+                  labelText: LocaleKeys.auth_phoneNumber.tr(),
+                  hintText: LocaleKeys.auth_hints_phoneNumber.tr(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Telefon numaranızı giriniz';
+                    return LocaleKeys.auth_validations_required_phoneNumber
+                        .tr();
                   }
                   if (value.length != 11) {
-                    return 'Telefon Numarası 11 haneli olmalıdır.';
+                    return LocaleKeys.auth_validations_phoneNumber_length.tr();
                   }
                   if (!RegExp(r'^\d{11}$').hasMatch(value)) {
-                    return 'Telefon Numarası sadece rakamlardan oluşmalıdır.';
+                    return LocaleKeys.auth_validations_phoneNumber_format.tr();
                   }
                   return null;
                 },
@@ -213,7 +217,7 @@ class _SignUpViewState extends State<SignUpView> {
                   Expanded(
                     child: Text(
                       selectedBirthDate == null
-                          ? 'Doğum Tarihi Seçiniz'
+                          ? LocaleKeys.auth_hints_selectBirthDate.tr()
                           : '${selectedBirthDate!.day}/${selectedBirthDate!.month}/${selectedBirthDate!.year}',
                       style: const TextStyle(fontSize: 16),
                     ),
@@ -240,16 +244,18 @@ class _SignUpViewState extends State<SignUpView> {
               // Lisans Numarası
               TextFormField(
                 controller: licenseNumberController,
-                decoration: const InputDecoration(
-                  labelText: 'Sürücü Sicil Numarası',
-                  hintText: 'Sürücü Sicil Numaranızı giriniz',
+                decoration: InputDecoration(
+                  labelText: LocaleKeys.auth_licenseNumber.tr(),
+                  hintText: LocaleKeys.auth_hints_licenseNumber.tr(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Sürücü sicil numaranızı giriniz';
+                    return LocaleKeys.auth_validations_required_licenseNumber
+                        .tr();
                   }
                   if (value.length != 6) {
-                    return 'Sürücü sicil numarası 6 karakter olmalıdır';
+                    return LocaleKeys.auth_validations_licenseNumber_length
+                        .tr();
                   }
                   return null;
                 },
@@ -259,13 +265,13 @@ class _SignUpViewState extends State<SignUpView> {
               // Adres
               TextFormField(
                 controller: addressController,
-                decoration: const InputDecoration(
-                  labelText: 'Adres',
-                  hintText: 'Adresinizi giriniz',
+                decoration: InputDecoration(
+                  labelText: LocaleKeys.auth_address.tr(),
+                  hintText: LocaleKeys.auth_hints_address.tr(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Adresinizi giriniz';
+                    return LocaleKeys.auth_validations_required_address.tr();
                   }
                   return null;
                 },
@@ -280,7 +286,7 @@ class _SignUpViewState extends State<SignUpView> {
                       UserCreateRequest(
                         id: tcController.text,
                         name: nameController.text,
-                        lastname: lastnameController.text,
+                        lastname: lastNameController.text,
                         birthDate: selectedBirthDate,
                         email: emailController.text,
                         password: passwordController.text,
@@ -289,22 +295,23 @@ class _SignUpViewState extends State<SignUpView> {
                         address: addressController.text,
                       ),
                     );
-                    Provider.of<UserProvider>(context, listen: false)
-                        .setUser(User(
-                      id: tcController.text,
-                      name: nameController.text,
-                      lastname: lastnameController.text,
-                      birthDate: selectedBirthDate,
-                      email: emailController.text,
-                      password: passwordController.text,
-                      phoneNumber: phoneNumberController.text,
-                      licenseNumber: licenseNumberController.text,
-                      address: addressController.text,
-                    ));
+                    Provider.of<UserProvider>(context, listen: false).setUser(
+                      User(
+                        id: tcController.text,
+                        name: nameController.text,
+                        lastname: lastNameController.text,
+                        birthDate: selectedBirthDate,
+                        email: emailController.text,
+                        password: passwordController.text,
+                        phoneNumber: phoneNumberController.text,
+                        licenseNumber: licenseNumberController.text,
+                        address: addressController.text,
+                      ),
+                    );
                     const SelectionViewRoute().go(context);
                   }
                 },
-                buttonName: 'Kayıt Ol',
+                buttonName: LocaleKeys.auth_register.tr(),
               ),
             ],
           ),

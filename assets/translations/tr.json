@@ -1,0 +1,67 @@
+{
+    "auth":{
+        "login":"Giriş Yap",
+        "register":"Kayıt Ol",
+        "logout":"Çıkış Yap",
+        "email":"E-Posta",
+        "password":"Şifre",
+        "confirmPassword": "Şifre Tekrar",
+        "name": "Adınız",
+        "surname": "Soyadınız",
+        "phoneNumber": "Telefon Numarası",
+        "licenseNumber": "Sürücü Sicil Numarası",
+        "address": "Adres",
+        "tc": "TC",
+        "birthDate": "Doğum Tarihi",
+        "hints": {
+            "email": "E-posta adresinizi giriniz",
+            "password": "Şifrenizi giriniz",
+            "confirmPassword": "Şifrenizi tekrar giriniz",
+            "name": "Adınızı giriniz",
+            "surname": "Soyadınızı giriniz",
+            "phoneNumber": "Telefon numaranızı giriniz",
+            "licenseNumber": "Sürücü Sicil Numaranızı giriniz",
+            "address": "Adresinizi giriniz",
+            "tc": "TC Kimlik Numaranızı giriniz.",
+            "selectBirthDate": "Doğum Tarihi Seçiniz"
+        },
+        "validations": {
+            "required": {
+                "email": "E-posta adresinizi giriniz",
+                "password": "Şifrenizi giriniz",
+                "confirmPassword": "Şifrenizi tekrar giriniz",
+                "name": "Adınızı giriniz",
+                "surname": "Soyadınızı giriniz",
+                "phoneNumber": "Telefon numaranızı giriniz",
+                "licenseNumber": "Sürücü sicil numaranızı giriniz",
+                "address": "Adresinizi giriniz",
+                "tc": "TC Kimlik Numaranızı giriniz."
+            },
+            "password": {
+                "minLength": "Şifreniz en az 8 karakter olmalıdır",
+                "notMatch": "Şifreler eşleşmiyor"
+            },
+            "phoneNumber": {
+                "length": "Telefon Numarası 11 haneli olmalıdır.",
+                "format": "Telefon Numarası sadece rakamlardan oluşmalıdır."
+            },
+            "tc": {
+                "length": "TC Kimlik Numarası 11 haneli olmalıdır.",
+                "format": "TC Kimlik Numarası sadece rakamlardan oluşmalıdır."
+            },
+            "licenseNumber": {
+                "length": "Sürücü sicil numarası 6 karakter olmalıdır"
+            }
+        }
+    },
+    "admin":{
+        "admin":"Admin"
+    },
+    "notification":{
+        "success":"Başarılı",
+        "error":"Hata",
+        "warning":"Uyarı",
+        "info":"Bilgi",
+        "userNotFound":"Kullanıcı bulunamadı. Lütfen tekrar deneyin."
+    }
+}
